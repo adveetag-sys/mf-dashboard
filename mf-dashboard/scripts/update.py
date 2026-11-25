@@ -120,8 +120,47 @@ def main():
         if snap["holdings"] == [] and snap["source"] == "groww":
             log(f"Groww answered for {h.fund} but no holdings were found. Keys seen: {snap.get('raw_keys')}")
 
+    import_amc_files(pf, fmap, today, log)
     store.write_json(store.STATUS, status)
     print("done")
+
+
+def import_amc_files(pf, fmap, today, log):
+    """Official monthly portfolio files you dropped into data/amc_portfolios/<YYYY-MM>/ fill months
+    that Groww no longer shows (e.g. last month, for the month-on-month comparison)."""
+    from mfdash import amc_files
+    root = store.DATA / "amc_portfolios"
+    if not root.exists():
+        return
+    for month_dir in sorted(p for p in root.iterdir() if p.is_dir() and len(p.name) == 7 and p.name[4] == "-"):
+        month = month_dir.name
+        for h in pf.holdings:
+            m = fmap.get(h.fund, {})
+            code = m.get("code") or (f"isin-{m['isin']}" if m.get("nav_by_isin") and m.get("isin") else None)
+            if not code:
+                continue
+            path = store.SNAP_DIR / f"{code}.json"
+            snaps = store.read_json(path, {"months": {}})
+            if snaps["months"].get(month, {}).get("holdings"):
+                continue                                  # already have this month
+            names = [x for x in (h.fund, m.get("scheme_name")) if x]
+            hold, where = amc_files.find_fund(month_dir, names)
+            if not hold:
+                log(f"{month}: couldn't find '{h.fund}' in the files in amc_portfolios/{month}.")
+                continue
+            # use the sector names from the newest month so sectors line up month to month
+            later = [v for k, v in sorted(snaps["months"].items()) if k > month and v.get("holdings")]
+            if later:
+                from mfdash.analysis import match_names
+                pairs = match_names(hold, later[0]["holdings"])
+                for i, j in pairs.items():
+                    hold[i]["sector"] = later[0]["holdings"][j].get("sector") or hold[i]["sector"]
+            snaps["months"][month] = {"source": "amc file", "portfolio_date": amc_files.month_end(month),
+                                      "metrics": {}, "holdings": hold, "fetched_on": today.isoformat(),
+                                      "file": where}
+            snaps["months"] = dict(sorted(snaps["months"].items()))
+            store.write_json(path, snaps)
+            log(f"{month}: read {len(hold)} holdings for '{h.fund}' from {where}.")
 
 
 if __name__ == "__main__":

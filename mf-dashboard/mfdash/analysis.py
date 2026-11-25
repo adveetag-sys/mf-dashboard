@@ -140,12 +140,55 @@ def monthly_returns(nav: list, months: int = 12) -> dict:
 
 
 # ------------------------------------------------------------------ portfolio composition
+NAME_DROP = re.compile(r"\b(limited|ltd|the|inc|corporation|corp|company|co|india|plc|pvt|private)\b")
+
+
+def norm_name(n: str) -> str:
+    n = n.lower().replace("&", " and ")
+    n = re.sub(r"\(.*?\)", " ", n)
+    n = re.sub(r"[^a-z0-9 ]", " ", n)
+    n = NAME_DROP.sub(" ", n)
+    return re.sub(r"\s+", " ", n).strip()
+
+
 def key_of(x: dict) -> str:
     return _key(x)
 
 
 def _key(x: dict) -> str:
-    return (x.get("isin") or re.sub(r"[^a-z0-9]", "", x["name"].lower())[:40])
+    return norm_name(x["name"])[:60] or (x.get("isin") or "")
+
+
+def match_names(a: list[dict], b: list[dict]) -> dict:
+    """Pair holdings of two months (possibly from different sources): {index in a: index in b}.
+    Same ISIN, then same cleaned name, then a very close name."""
+    from rapidfuzz import fuzz
+    pairs, used = {}, set()
+    bi = {x.get("isin"): j for j, x in enumerate(b) if x.get("isin")}
+    bk = {}
+    for j, x in enumerate(b):
+        bk.setdefault(_key(x), j)
+    for i, x in enumerate(a):
+        j = bi.get(x.get("isin")) if x.get("isin") else None
+        if j is None:
+            j = bk.get(_key(x))
+        if j is not None and j not in used:
+            pairs[i] = j
+            used.add(j)
+    for i, x in enumerate(a):
+        if i in pairs:
+            continue
+        best, bs = None, 0
+        for j, y in enumerate(b):
+            if j in used:
+                continue
+            s = min(fuzz.token_set_ratio(_key(x), _key(y)), fuzz.ratio(_key(x), _key(y)) + 15)
+            if s > bs:
+                best, bs = j, s
+        if best is not None and bs >= 90:
+            pairs[i] = best
+            used.add(best)
+    return pairs
 
 
 def is_cash(x: dict) -> bool:
@@ -187,11 +230,12 @@ def sector_weights(holdings: list[dict]) -> dict:
 
 
 def diff_holdings(prev: list[dict], cur: list[dict]) -> pd.DataFrame:
-    p = {_key(x): x for x in prev}
-    c = {_key(x): x for x in cur}
+    pairs = match_names(prev, cur)
+    matched_cur = set(pairs.values())
+    items = [(prev[i], cur[pairs[i]] if i in pairs else None) for i in range(len(prev))]
+    items += [(None, cur[j]) for j in range(len(cur)) if j not in matched_cur]
     rows = []
-    for k in set(p) | set(c):
-        a, b = p.get(k), c.get(k)
+    for a, b in items:
         w0, w1 = (a["pct"] if a else 0.0), (b["pct"] if b else 0.0)
         ref = b or a
         if a is None:
@@ -270,7 +314,8 @@ def study(snaps: dict, fund_name: str) -> list[dict]:
             if abs(cs["cash"] - ps["cash"]) >= 1:
                 add("info", f"Cash moved from {ps['cash']:.1f}% to {cs['cash']:.1f}%"
                             f"{' (fund manager may be cautious)' if cs['cash'] > ps['cash'] + 2 else ''}.")
-        sw0, sw1 = sector_weights(prev["holdings"]), sector_weights(cur["holdings"])
+        same_src = (prev.get("source") == "amc file") == (cur.get("source") == "amc file")
+        sw0, sw1 = (sector_weights(prev["holdings"]), sector_weights(cur["holdings"])) if same_src else ({}, {})
         shifts = {s: sw1.get(s, 0) - sw0.get(s, 0) for s in set(sw0) | set(sw1)}
         big = sorted([kv for kv in shifts.items() if abs(kv[1]) >= 1.5], key=lambda kv: -abs(kv[1]))
         if big:

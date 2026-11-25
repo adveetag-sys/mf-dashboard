@@ -418,16 +418,18 @@ with tabs[1]:
     if not cur_h:
         st.info("Stock-level holdings aren't available for this fund yet.")
     else:
-        prev_w = {A.key_of(x): x["pct"] for x in (prev_h or [])}
         eq = sorted([x for x in cur_h if not A.is_cash(x)], key=lambda x: -x["pct"])
         top10 = eq[:10]
+        back = {}                                   # index in top10 -> last month's weight
+        if prev_h is not None:
+            pr = A.match_names(top10, prev_h)
+            back = {i: prev_h[j]["pct"] for i, j in pr.items()}
         rows = []
         for i, x in enumerate(top10, 1):
-            k = A.key_of(x)
-            was = prev_w.get(k) if prev_h is not None else None
+            was = back.get(i - 1) if prev_h is not None else None
             if prev_h is None:
                 move, chg = "–", None
-            elif k not in prev_w:
+            elif was is None:
                 move, chg = "New this month", None
             else:
                 chg = x["pct"] - was
@@ -446,11 +448,13 @@ with tabs[1]:
                         unsafe_allow_html=True)
         else:
             prev_top = sorted([x for x in prev_h if not A.is_cash(x)], key=lambda x: -x["pct"])[:10]
-            now_keys = {A.key_of(x) for x in top10}
-            cur_w = {A.key_of(x): x["pct"] for x in cur_h}
-            out = [f"{x['name']} ({x['pct']:.1f}% → {cur_w.get(A.key_of(x), 0):.1f}%)"
-                   for x in prev_top if A.key_of(x) not in now_keys]
-            st.markdown(f"<div class='muted'>Compared {months_h[-2]} → {months_h[-1]}."
+            in_top = A.match_names(prev_top, top10)
+            in_all = A.match_names(prev_top, cur_h)
+            out = [f"{x['name']} ({x['pct']:.1f}% → {cur_h[in_all[i]]['pct'] if i in in_all else 0:.1f}%)"
+                   for i, x in enumerate(prev_top) if i not in in_top]
+            src = f["snaps"][months_h[-2]].get("source")
+            st.markdown(f"<div class='muted'>Compared {months_h[-2]} → {months_h[-1]}"
+                        + (" (last month from the fund house's own portfolio file)" if src == "amc file" else "") + "."
                         + (f" Dropped out of the top 10: {html.escape(', '.join(out))}." if out else "") + "</div>",
                         unsafe_allow_html=True)
         if prev_h is not None:
