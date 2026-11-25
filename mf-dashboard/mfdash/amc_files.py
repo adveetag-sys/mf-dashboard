@@ -63,9 +63,15 @@ def _sheets(path: Path):
         yield f"{path.name}:{name}", df
 
 
+BOILER = re.compile(r"\b(portfolio|statement|monthly|of|the|as|on|at|for|month|ended|ending|period|scheme|name|"
+                    r"jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|"
+                    r"july|august|september|october|november|december|\d+)\b")
+
+
 def _title_score(row_text: str, names: list[str]) -> float:
     t = re.sub(r"\(.*?\)", " ", row_text)
-    tc = _core(t)
+    t = re.sub(r"\(.*$", " ", t)                  # unclosed "(An open ended ..." descriptions
+    tc = re.sub(r"\s+", " ", BOILER.sub(" ", _core(t))).strip()
     if not tc or len(tc) > 140:
         return 0
     best = 0
@@ -108,6 +114,13 @@ def _parse_block(rows: list[list[str]], start: int) -> list[dict]:
     for r in range(hdr + 1, len(rows)):
         cells = rows[r]
         name = cells[col["name"]] if col["name"] < len(cells) else ""
+        if not name:                       # merged header: the name sits a column or two away
+            lo, hi = sorted((col["name"], col["isin"]))
+            for c in list(range(lo, hi)) + list(range(max(0, lo - 2), lo)):
+                v = cells[c] if c < len(cells) else ""
+                if v and not ISIN_RE.match(v.upper()) and _num(v) is None and len(v) > 2:
+                    name = v
+                    break
         low = " ".join(cells).lower()
         if out and ("grand total" in low or _find_cols(cells)):
             break
@@ -141,7 +154,7 @@ def _parse_block(rows: list[list[str]], start: int) -> list[dict]:
 
 def find_fund(month_dir: Path, names: list[str]) -> tuple[list[dict], str | None]:
     """Search every file in month_dir for the block titled with one of `names`."""
-    best = (0, None, None, None)                 # score, label, rows, row index
+    cands = []                                   # (score, label, rows, row index)
     for path in sorted(month_dir.iterdir()):
         if path.name.startswith(".") or path.suffix.lower() not in (".xlsx", ".xls", ".xlsb", ".xlsm", ".zip"):
             continue
@@ -149,22 +162,23 @@ def find_fund(month_dir: Path, names: list[str]) -> tuple[list[dict], str | None
             rows = [[_txt(v) for v in r] for r in df.itertuples(index=False)]
             sheet_score = _title_score(label.split(":", 1)[-1], names)
             for i, cells in enumerate(rows):
-                joined = " ".join(c for c in cells if c)
+                joined = " ".join(dict.fromkeys(c for c in cells if c))   # merged cells repeat the title
                 if not joined or any(ISIN_RE.match(c.upper()) for c in cells):
                     continue
                 low = joined.lower()
                 if "fund" not in low and "scheme" not in low and i > 6:
                     continue
                 s = _title_score(joined, names)
-                if s > best[0]:
-                    best = (s, label, rows, i)
-            if sheet_score >= 95 and best[1] != label:      # sheet named after the fund, title not found inside
-                if sheet_score > best[0]:
-                    best = (sheet_score, label, rows, 0)
-    score, label, rows, idx = best
-    if score < 88 or rows is None:
-        return [], None
-    return _parse_block(rows, idx), label
+                if s >= 88:
+                    cands.append((s, label, rows, i))
+            if sheet_score >= 95:                           # sheet named after the fund
+                cands.append((sheet_score - 1, label, rows, 0))
+    cands.sort(key=lambda c: -c[0])
+    for score, label, rows, idx in cands[:8]:               # best match first; skip blocks that don't parse
+        hold = _parse_block(rows, idx)
+        if len([h for h in hold if h.get("isin")]) >= 3:
+            return hold, label
+    return [], None
 
 
 def month_end(month: str) -> str:
