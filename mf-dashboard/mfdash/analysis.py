@@ -140,6 +140,10 @@ def monthly_returns(nav: list, months: int = 12) -> dict:
 
 
 # ------------------------------------------------------------------ portfolio composition
+def key_of(x: dict) -> str:
+    return _key(x)
+
+
 def _key(x: dict) -> str:
     return (x.get("isin") or re.sub(r"[^a-z0-9]", "", x["name"].lower())[:40])
 

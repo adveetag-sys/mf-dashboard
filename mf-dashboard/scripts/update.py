@@ -90,8 +90,11 @@ def main():
                 stats = None if code.startswith("isin-") else sources.groww_portfolio_stats(code)
                 snap = sources.normalise_groww(j, stats)
                 time.sleep(1.0)
-        if m.get("isin"):
-            k = sources.kuvera(m["isin"])
+        k = None
+        for isin in dict.fromkeys([m.get("isin"), (snap or {}).get("metrics", {}).get("isin")]):
+            if isin and not k:
+                k = sources.kuvera(isin)      # Kuvera lists Direct plans; Groww gives the Direct ISIN
+        if True:
             if k:
                 kv = sources.normalise_kuvera(k)
                 if snap is None:

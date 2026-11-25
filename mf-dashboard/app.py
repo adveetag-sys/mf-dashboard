@@ -241,7 +241,7 @@ else:
     st.markdown("<div class='muted'>Add <b>Units</b> and <b>Invested</b> columns to holdings.xlsx to see your own ₹ value, gain and XIRR.</div>",
                 unsafe_allow_html=True)
 
-tabs = st.tabs(["Overview", "My funds", "Monthly changes", "Factsheet", "Across my funds", "Data status"])
+tabs = st.tabs(["Overview", "Factsheet", "Across my funds"])
 
 # ---------------------------------------------------------------- Overview
 with tabs[0]:
@@ -274,7 +274,7 @@ with tabs[0]:
                             unsafe_allow_html=True)
         missing = [f["short"] for f in funds if f["stale"]]
         if missing:
-            st.markdown(f"<div class='muted'>No current NAV for: {', '.join(missing)}. See Data status.</div>",
+            st.markdown(f"<div class='muted'>No current NAV for: {', '.join(missing)}.</div>",
                         unsafe_allow_html=True)
     with right:
         st.subheader("Compare funds")
@@ -339,104 +339,8 @@ with tabs[0]:
         fig.update_traces(marker_color=SERIES[0])
         show(fig)
 
-# ---------------------------------------------------------------- My funds
-with tabs[1]:
-    rows = []
-    for f in sorted(funds, key=lambda f: -(f["value"] or 0) if HAS_UNITS else -(f["tr"].get("1Y") or -999)):
-        m, tr = f["metrics"], f["tr"]
-        r = {"Fund": f["short"], "Category": f["category"], "NAV": f["nav"], "As of": f["nav_date"]}
-        if HAS_UNITS:
-            r.update({"Units": f["units"], "Value": f["value"], "Invested": f["invested"], "Gain": f["gain"],
-                      "Gain %": f["gain_pct"], "XIRR %": f["xirr"],
-                      "Weight %": (f["value"] / tot_val * 100) if (f["value"] and tot_val) else None})
-        r.update({"1D %": tr.get("1D"), "1M %": tr.get("1M"), "3M %": tr.get("3M"), "6M %": tr.get("6M"),
-                  "1Y %": tr.get("1Y"), "3Y % pa": tr.get("3Y"), "5Y % pa": tr.get("5Y"),
-                  "Category 1Y %": m.get("cat_return_1y"), "Expense % (Direct)": m.get("expense_ratio"),
-                  "AUM ₹Cr": m.get("aum_cr")})
-        rows.append(r)
-    nc = st.column_config.NumberColumn
-    st.dataframe(table(rows), hide_index=True, width="stretch", height=38 + 35 * len(rows), column_config={
-        "Units": nc(format="%.3f"), "NAV": nc(format="%.2f"), "Value": nc(format="₹%,.0f"),
-        "Invested": nc(format="₹%,.0f"), "Gain": nc(format="₹%,.0f"),
-        **{k: nc(format="%.1f") for k in ["Gain %", "XIRR %", "Weight %", "1M %", "3M %", "6M %", "1Y %",
-                                          "3Y % pa", "5Y % pa", "Category 1Y %"]},
-        "1D %": nc(format="%.2f"), "Expense % (Direct)": nc(format="%.2f"), "AUM ₹Cr": nc(format="%,.0f")})
-    st.markdown("<div class='muted'>Returns are from your own plan's NAV. Category return and expense ratio come from "
-                "Groww's Direct-plan page; a Regular plan's expense ratio is higher.</div>", unsafe_allow_html=True)
-    st.subheader("NAV history")
-    pick = st.selectbox("Fund", [f["short"] for f in funds], key="navpick", label_visibility="collapsed")
-    f = next(x for x in funds if x["short"] == pick)
-    if f["nav_hist"]:
-        nd = pd.DataFrame(f["nav_hist"], columns=["Date", "NAV"])
-        fig = go.Figure(go.Scatter(x=nd["Date"], y=nd["NAV"], mode="lines", line=dict(width=2, color=SERIES[0]),
-                                   hovertemplate="%{x}<br>NAV %{y:.2f}<extra></extra>"))
-        if f["since"]:
-            fig.add_vline(x=f["since"], line_dash="dot", line_color="rgba(128,128,128,.7)")
-        show(style(fig, 340).update_layout(hovermode="x unified"))
-
-# ---------------------------------------------------------------- Monthly changes
-with tabs[2]:
-    st.markdown("<div class='muted'>What each fund bought and sold, from its monthly portfolio disclosure "
-                "(published around the 10th of the next month).</div>", unsafe_allow_html=True)
-    summ = []
-    for f in funds:
-        ks = [k for k, v in f["snaps"].items() if v.get("holdings")]
-        if len(ks) >= 2:
-            d = A.diff_holdings(f["snaps"][ks[-2]]["holdings"], f["snaps"][ks[-1]]["holdings"])
-            d = d[~d["cash"]]
-            top = d[d["Action"].isin(["New entry", "Increased"])].sort_values("Change (pp)", ascending=False)
-            summ.append({"Fund": f["short"], "Compared": f"{ks[-2]} → {ks[-1]}",
-                         "New": int((d.Action == "New entry").sum()), "Exited": int((d.Action == "Exited").sum()),
-                         "Added": int((d.Action == "Increased").sum()), "Trimmed": int((d.Action == "Reduced").sum()),
-                         "Biggest buy": top.iloc[0]["Stock"] if len(top) else "–"})
-        else:
-            summ.append({"Fund": f["short"], "Compared": f"waiting for 2nd month ({len(ks)} on record)"})
-    st.dataframe(pd.DataFrame(summ), hide_index=True, width="stretch", height=38 + 35 * len(summ))
-
-    pick = st.selectbox("Fund", [f["short"] for f in funds], key="chgpick")
-    f = next(x for x in funds if x["short"] == pick)
-    months = [k for k, v in f["snaps"].items() if v.get("holdings")]
-    if len(months) < 2:
-        st.info(f"Holdings on record for: {', '.join(months) or 'none yet'}. "
-                "Changes appear once the next monthly portfolio is captured.")
-        if months:
-            h = pd.DataFrame(f["snaps"][months[-1]]["holdings"]).sort_values("pct", ascending=False)
-            st.dataframe(h[["name", "sector", "pct"]].rename(columns={"name": "Holding", "sector": "Sector",
-                                                                      "pct": "% of fund"}),
-                         hide_index=True, width="stretch",
-                         column_config={"% of fund": st.column_config.ProgressColumn(
-                             format="%.2f%%", min_value=0, max_value=float(h["pct"].max()))})
-    else:
-        c1, c2 = st.columns(2)
-        m1 = c2.selectbox("Month", months[::-1], key="m1")
-        older = [m for m in months if m < m1] or months[:1]
-        m0 = c1.selectbox("Compared with", older[::-1], key="m0")
-        d = A.diff_holdings(f["snaps"][m0]["holdings"], f["snaps"][m1]["holdings"])
-        d = d[~d["cash"]].drop(columns=["cash"])
-        kpis([(lab, str(int((d.Action == key).sum())), None, None) for lab, key in
-              [("New buys", "New entry"), ("Fully sold", "Exited"), ("Added to", "Increased"), ("Trimmed", "Reduced")]])
-        a, b = st.columns(2, gap="large")
-        for col, (lab, keys) in zip([a, b, a, b], [("New buys", ["New entry"]), ("Fully sold", ["Exited"]),
-                                                   ("Added to", ["Increased"]), ("Trimmed", ["Reduced"])]):
-            sub = d[d.Action.isin(keys)]
-            with col:
-                st.markdown(f"**{lab}**")
-                if len(sub):
-                    st.dataframe(sub[["Stock", "Sector", "Prev %", "Now %", "Change (pp)"]], hide_index=True,
-                                 width="stretch")
-                else:
-                    st.markdown("<div class='muted'>None</div>", unsafe_allow_html=True)
-        s0, s1 = A.sector_weights(f["snaps"][m0]["holdings"]), A.sector_weights(f["snaps"][m1]["holdings"])
-        sd = {s: s1.get(s, 0) - s0.get(s, 0) for s in set(s0) | set(s1)}
-        sd = {k: v for k, v in sd.items() if abs(v) >= 0.05}
-        if sd:
-            st.subheader(f"Sector weight change, {m0} → {m1}")
-            show(bars(list(sd), list(sd.values()), fmt="{:+.1f} pp", hover_name="Change (pp)").update_xaxes(ticksuffix=""))
-        with st.expander("Full portfolio with changes"):
-            st.dataframe(d, hide_index=True, width="stretch")
-
 # ---------------------------------------------------------------- Factsheet
-with tabs[3]:
+with tabs[1]:
     rows = []
     for f in funds:
         m = f["metrics"]
@@ -487,6 +391,56 @@ with tabs[3]:
           ("3Y return (pa)", pct(m.get("return_3y")), s3, d3),
           ("Your plan, 1Y", pct(f["tr"].get("1Y")), "from your NAV", None)])
 
+    # ---- top 10 holdings with month-on-month change
+    months_h = [k for k, v in f["snaps"].items() if v.get("holdings")]
+    cur_h = f["snaps"][months_h[-1]]["holdings"] if months_h else []
+    prev_h = f["snaps"][months_h[-2]]["holdings"] if len(months_h) > 1 else None
+    st.markdown("<div class='notes-h'>Top 10 holdings and how they changed from last month</div>",
+                unsafe_allow_html=True)
+    if not cur_h:
+        st.info("Stock-level holdings aren't available for this fund yet.")
+    else:
+        prev_w = {A.key_of(x): x["pct"] for x in (prev_h or [])}
+        eq = sorted([x for x in cur_h if not A.is_cash(x)], key=lambda x: -x["pct"])
+        top10 = eq[:10]
+        rows = []
+        for i, x in enumerate(top10, 1):
+            k = A.key_of(x)
+            was = prev_w.get(k) if prev_h is not None else None
+            if prev_h is None:
+                move, chg = "–", None
+            elif k not in prev_w:
+                move, chg = "New this month", None
+            else:
+                chg = x["pct"] - was
+                move = "▲ Added" if chg >= A.MOVE_PP else ("▼ Trimmed" if chg <= -A.MOVE_PP else "No real change")
+            rows.append({"Stock": x["name"], "Sector": x.get("sector"), "% of fund": x["pct"],
+                         "Last month %": f"{was:.2f}" if was is not None else "–",
+                         "Change (pp)": f"{chg:+.2f}" if chg is not None else "–", "Move": move})
+        st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch", height=38 + 35 * len(rows),
+                     column_config={
+            "% of fund": st.column_config.ProgressColumn(format="%.2f%%", min_value=0,
+                                                         max_value=max(10.0, float(top10[0]["pct"]))),
+            "Last month %": st.column_config.TextColumn(), "Change (pp)": st.column_config.TextColumn()})
+        if prev_h is None:
+            st.markdown(f"<div class='muted'>Only one month of holdings on record ({months_h[-1]}). The change columns "
+                        "fill in automatically once next month's portfolio is published, usually by the 10th–15th.</div>",
+                        unsafe_allow_html=True)
+        else:
+            prev_top = sorted([x for x in prev_h if not A.is_cash(x)], key=lambda x: -x["pct"])[:10]
+            now_keys = {A.key_of(x) for x in top10}
+            cur_w = {A.key_of(x): x["pct"] for x in cur_h}
+            out = [f"{x['name']} ({x['pct']:.1f}% → {cur_w.get(A.key_of(x), 0):.1f}%)"
+                   for x in prev_top if A.key_of(x) not in now_keys]
+            st.markdown(f"<div class='muted'>Compared {months_h[-2]} → {months_h[-1]}."
+                        + (f" Dropped out of the top 10: {html.escape(', '.join(out))}." if out else "") + "</div>",
+                        unsafe_allow_html=True)
+        if prev_h is not None:
+            with st.expander("All holdings with monthly change"):
+                d = A.diff_holdings(prev_h, cur_h)
+                d = d[~d["cash"]].drop(columns=["cash"])
+                st.dataframe(d, hide_index=True, width="stretch")
+
     left, right = st.columns([1.1, 1], gap="large")
     with left:
         groups = [("Worth a look", "watch"), ("What changed", "info"), ("Positives", "good")]
@@ -499,19 +453,12 @@ with tabs[3]:
             st.markdown("".join(f"<div class='note' style='--c:{STATUS[lvl]}'><span class='tag'>{tags[lvl]}</span>"
                                 f"<span>{html.escape(n['text'])}</span></div>" for n in g), unsafe_allow_html=True)
     with right:
-        hold = [x for x in f["holdings"] if not A.is_cash(x)]
-        if hold:
-            top = sorted(hold, key=lambda x: -x["pct"])[:10]
-            st.markdown("<div class='notes-h'>Top 10 holdings, % of fund</div>", unsafe_allow_html=True)
-            fig = bars([x["name"] for x in top], [x["pct"] for x in top], fmt="{:.1f}%", hover_name="% of fund")
-            show(fig.update_traces(marker_color=SERIES[0]))
-            sw = A.sector_weights(f["holdings"])
+        if cur_h:
+            sw = A.sector_weights(cur_h)
             top_s = dict(list(sw.items())[:8])
             st.markdown("<div class='notes-h'>Sectors, % of fund</div>", unsafe_allow_html=True)
             show(bars(list(top_s), list(top_s.values()), fmt="{:.1f}%", hover_name="% of fund")
                  .update_traces(marker_color=SERIES[0]))
-        else:
-            st.info("Stock-level holdings not available for this fund yet.")
 
     hist = []
     for mo, s in f["snaps"].items():
@@ -526,7 +473,7 @@ with tabs[3]:
                 "Top 10 %": nc(format="%.1f"), "Cash %": nc(format="%.1f")})
 
 # ---------------------------------------------------------------- Across my funds
-with tabs[4]:
+with tabs[2]:
     lt = A.look_through([{**f, "value": f["weight_value"]} for f in funds])
     denom = tot_val if HAS_UNITS else 100.0
     if not len(lt):
@@ -572,18 +519,3 @@ with tabs[4]:
                 st.markdown(f"<div class='note' style='--c:{STATUS['watch']}'><span class='tag'>Watch</span>"
                             f"<span>{html.escape(x)} and {html.escape(y)} share {v:.0f}% of their portfolios.</span></div>",
                             unsafe_allow_html=True)
-
-# ---------------------------------------------------------------- Data status
-with tabs[5]:
-    st.markdown("<div class='muted'>What the automatic run fetched. Nothing here needs you unless a row says "
-                "<b>failed</b> or a match looks wrong.</div>", unsafe_allow_html=True)
-    rows = []
-    for f in funds:
-        stt = status.get("funds", {}).get(f["fund"], {})
-        mp = f["map"]
-        rows.append({"Your name": f["fund"], "Matched to": mp.get("scheme_name"), "Code": f["code"],
-                     "How": mp.get("method"), "Groww page": mp.get("groww_slug"), "Latest NAV": f["nav_date"],
-                     "NAV": stt.get("nav"), "Factsheet": stt.get("factsheet")})
-    st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch", height=38 + 35 * len(rows))
-    for line in status.get("log", []):
-        st.markdown(f"- {line}")
