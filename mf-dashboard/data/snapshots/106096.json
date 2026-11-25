@@ -1,5 +1,336 @@
 {
  "months": {
+  "2026-09": {
+   "source": "amc file",
+   "portfolio_date": "2026-09-30",
+   "metrics": {},
+   "holdings": [
+    {
+     "name": "Reliance Industries Ltd.",
+     "isin": "INE002A01018",
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "pct": 10.98
+    },
+    {
+     "name": "Bharti Airtel Ltd.",
+     "isin": "INE397D01024",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 5.98
+    },
+    {
+     "name": "Larsen & Toubro Ltd.",
+     "isin": "INE018A01030",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 4.8
+    },
+    {
+     "name": "Shree Cement Ltd.",
+     "isin": "INE070A01015",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 4.75
+    },
+    {
+     "name": "Adani Ports and Special Economic Zone Ltd.",
+     "isin": "INE742F01042",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 4.59
+    },
+    {
+     "name": "NTPC Ltd.",
+     "isin": "INE733E01010",
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "pct": 4.46
+    },
+    {
+     "name": "Siemens Ltd.",
+     "isin": "INE003A01024",
+     "sector": "Diversified",
+     "instrument": "Equity",
+     "pct": 3.96
+    },
+    {
+     "name": "Bharat Heavy Electricals Ltd.",
+     "isin": "INE257A01026",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 3.54
+    },
+    {
+     "name": "Powerica Ltd.",
+     "isin": "INE921L01032",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 3.19
+    },
+    {
+     "name": "Torrent Power Ltd.",
+     "isin": "INE813H01021",
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "pct": 3.18
+    },
+    {
+     "name": "Grindwell Norton Ltd.",
+     "isin": "INE536A01023",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 2.97
+    },
+    {
+     "name": "Adani Energy Solutions Ltd.",
+     "isin": "INE931S01010",
+     "sector": "Power",
+     "instrument": "Equity",
+     "pct": 2.8
+    },
+    {
+     "name": "Oil & Natural Gas Corporation Ltd.",
+     "isin": "INE213A01029",
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "pct": 2.4
+    },
+    {
+     "name": "DLF Ltd.",
+     "isin": "INE271C01023",
+     "sector": "Realty",
+     "instrument": "Equity",
+     "pct": 2.15
+    },
+    {
+     "name": "JSW Steel Ltd.",
+     "isin": "INE019A01038",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 2.13
+    },
+    {
+     "name": "Solar Industries India Ltd.",
+     "isin": "INE343H01029",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 2.1
+    },
+    {
+     "name": "Hindustan Aeronautics Ltd.",
+     "isin": "INE066F01020",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 2.01
+    },
+    {
+     "name": "Indus Towers Ltd.",
+     "isin": "INE121J01017",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 1.98
+    },
+    {
+     "name": "Pitti Engineering Ltd.",
+     "isin": "INE450D01021",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.94
+    },
+    {
+     "name": "Coal India Ltd.",
+     "isin": "INE522F01014",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 1.9
+    },
+    {
+     "name": "Carborundum Universal Ltd.",
+     "isin": "INE120A01034",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 1.67
+    },
+    {
+     "name": "Samhi Hotels Ltd.",
+     "isin": "INE08U801020",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.63
+    },
+    {
+     "name": "Kalpataru Ltd.",
+     "isin": "INE227J01012",
+     "sector": "Unspecified",
+     "instrument": "Equity",
+     "pct": 1.48
+    },
+    {
+     "name": "GAIL (India) Ltd.",
+     "isin": "INE129A01019",
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "pct": 1.45
+    },
+    {
+     "name": "Ahluwalia Contracts (India) Ltd.",
+     "isin": "INE758C01029",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.4
+    },
+    {
+     "name": "Power Finance Corporation Ltd.",
+     "isin": "INE134E01011",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 1.38
+    },
+    {
+     "name": "JSW Energy Ltd.",
+     "isin": "INE121E01018",
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "pct": 1.3
+    },
+    {
+     "name": "Elgi Equipments Ltd.",
+     "isin": "INE285A01027",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.3
+    },
+    {
+     "name": "Triveni Turbine Ltd.",
+     "isin": "INE152M01016",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.15
+    },
+    {
+     "name": "Ashoka Buildcon Ltd.",
+     "isin": "INE442H01029",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.98
+    },
+    {
+     "name": "Ultratech Cement Ltd.",
+     "isin": "INE481G01011",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 0.93
+    },
+    {
+     "name": "Fortis Healthcare Ltd.",
+     "isin": "INE061F01013",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 0.89
+    },
+    {
+     "name": "Juniper Green Energy Ltd.",
+     "isin": "INE05C901015",
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "pct": 0.87
+    },
+    {
+     "name": "G R Infra projects Ltd.",
+     "isin": "INE201P01022",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.85
+    },
+    {
+     "name": "The India Cements Ltd.",
+     "isin": "INE383A01012",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 0.8
+    },
+    {
+     "name": "JSW Cement Ltd.",
+     "isin": "INE718I01012",
+     "sector": "Cement & Cement Products",
+     "instrument": "Equity",
+     "pct": 0.69
+    },
+    {
+     "name": "Elevate Campuses Ltd.",
+     "isin": "INE147X01013",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.68
+    },
+    {
+     "name": "Mahindra Lifespace Developers Ltd.",
+     "isin": "INE813A01018",
+     "sector": "Real Estate",
+     "instrument": "Equity",
+     "pct": 0.55
+    },
+    {
+     "name": "INDO-MIM Ltd.",
+     "isin": "INE084101034",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.53
+    },
+    {
+     "name": "Foseco India Ltd.",
+     "isin": "INE519A01011",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 0.47
+    },
+    {
+     "name": "PNC Infratech Ltd.",
+     "isin": "INE195J01029",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.42
+    },
+    {
+     "name": "Marine Electrical (I) Ltd.",
+     "isin": "INE01JE01028",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.04
+    },
+    {
+     "name": "91 DAY T-BILL 12.11.26",
+     "isin": "IN002026X198",
+     "sector": "Sovereign",
+     "instrument": "",
+     "pct": 1.06
+    },
+    {
+     "name": "364 DAY T-BILL 19.11.26",
+     "isin": "IN002025Z344",
+     "sector": "Sovereign",
+     "instrument": "",
+     "pct": 0.11
+    },
+    {
+     "name": "TREPS",
+     "isin": null,
+     "sector": "Others",
+     "instrument": "Cash",
+     "pct": 5.58
+    },
+    {
+     "name": "Net Receivable / Payable",
+     "isin": null,
+     "sector": "Others",
+     "instrument": "Cash",
+     "pct": -0.02
+    }
+   ],
+   "fetched_on": "2026-11-25",
+   "file": "All-Schemes-Monthly-Portfolio---as-on-30th-September-2026.xlsx:SIF"
+  },
   "2026-10": {
    "source": "groww",
    "portfolio_date": "2026-10-30",

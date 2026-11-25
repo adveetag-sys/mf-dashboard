@@ -1,5 +1,357 @@
 {
  "months": {
+  "2026-09": {
+   "source": "amc file",
+   "portfolio_date": "2026-09-30",
+   "metrics": {},
+   "holdings": [
+    {
+     "name": "ICICI Bank Limited",
+     "isin": "INE090A01021",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 4.97
+    },
+    {
+     "name": "HDFC Bank Limited",
+     "isin": "INE040A01034",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 4.52
+    },
+    {
+     "name": "State Bank of India",
+     "isin": "INE062A01020",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 3.67
+    },
+    {
+     "name": "NTPC Limited",
+     "isin": "INE733E01010",
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "pct": 3.23
+    },
+    {
+     "name": "Reliance Industries Limited",
+     "isin": "INE002A01018",
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "pct": 2.91
+    },
+    {
+     "name": "Larsen & Toubro Limited",
+     "isin": "INE018A01030",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 2.88
+    },
+    {
+     "name": "Indus Towers Limited",
+     "isin": "INE121J01017",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 2.74
+    },
+    {
+     "name": "ZF Commercial Vehicle Control Systems India Limited",
+     "isin": "INE342J01019",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 2.72
+    },
+    {
+     "name": "The Federal Bank Limited",
+     "isin": "INE171A01029",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 2.63
+    },
+    {
+     "name": "Leela Palaces Hotels & Resorts Limited",
+     "isin": "INE0AQ201015",
+     "sector": "Leisure Services",
+     "instrument": "Equity",
+     "pct": 2.61
+    },
+    {
+     "name": "ICICI Prudential Asset Management Company Limited",
+     "isin": "INE346A01027",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 2.58
+    },
+    {
+     "name": "Aether Industries Limited",
+     "isin": "INE0BWX01014",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 2.57
+    },
+    {
+     "name": "Dixon Technologies (India) Limited",
+     "isin": "INE935N01020",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 2.51
+    },
+    {
+     "name": "Inox India Limited",
+     "isin": "INE616N01034",
+     "sector": "Industrial Products",
+     "instrument": "Equity",
+     "pct": 2.49
+    },
+    {
+     "name": "360 One WAM Limited",
+     "isin": "INE466L01038",
+     "sector": "Capital Markets",
+     "instrument": "Equity",
+     "pct": 2.46
+    },
+    {
+     "name": "Vedanta Aluminium Metal Limited",
+     "isin": "INE1CDF01017",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 2.45
+    },
+    {
+     "name": "Lupin Limited",
+     "isin": "INE326A01037",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 2.33
+    },
+    {
+     "name": "Billionbrains Garage Ventures Ltd",
+     "isin": "INE0HOQ01053",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 2.11
+    },
+    {
+     "name": "Mahindra & Mahindra Limited",
+     "isin": "INE101A01026",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 2.07
+    },
+    {
+     "name": "Ajanta Pharma Limited",
+     "isin": "INE031B01049",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 2.07
+    },
+    {
+     "name": "Divi's Laboratories Limited",
+     "isin": "INE361B01024",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 2.01
+    },
+    {
+     "name": "Tata Steel Limited",
+     "isin": "INE081A01020",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 2.0
+    },
+    {
+     "name": "Tata Motors Ltd",
+     "isin": "INE1TAE01010",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.99
+    },
+    {
+     "name": "DLF Limited",
+     "isin": "INE271C01023",
+     "sector": "Real Estate",
+     "instrument": "Equity",
+     "pct": 1.98
+    },
+    {
+     "name": "United Spirits Limited",
+     "isin": "INE854D01024",
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "pct": 1.9
+    },
+    {
+     "name": "CG Power and Industrial Solutions Limited",
+     "isin": "INE067A01029",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.88
+    },
+    {
+     "name": "Emmvee Photovoltaic Power Limited",
+     "isin": "INE1C6T01020",
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "pct": 1.88
+    },
+    {
+     "name": "IIFL Finance Limited",
+     "isin": "INE530B01024",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 1.84
+    },
+    {
+     "name": "ICICI Prudential Life Insurance Company Limited",
+     "isin": "INE726G01019",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 1.64
+    },
+    {
+     "name": "Edelweiss Financial Services Limited",
+     "isin": "INE532F01054",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 1.64
+    },
+    {
+     "name": "Oracle Financial Services Software Limited",
+     "isin": "INE881D01027",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 1.62
+    },
+    {
+     "name": "PNB Housing Finance Limited",
+     "isin": "INE572E01012",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 1.61
+    },
+    {
+     "name": "BEML Limited",
+     "isin": "INE258A01024",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.6
+    },
+    {
+     "name": "Arvind Fashions Limited",
+     "isin": "INE955V01021",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.58
+    },
+    {
+     "name": "Urban Company Ltd",
+     "isin": "INE0CAZ01013",
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "pct": 1.46
+    },
+    {
+     "name": "Kirloskar Pneumatic Company Limited",
+     "isin": "INE811A01038",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.26
+    },
+    {
+     "name": "Kajaria Ceramics Limited",
+     "isin": "INE217B01036",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.25
+    },
+    {
+     "name": "Bajaj Auto Limited",
+     "isin": "INE917I01010",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.2
+    },
+    {
+     "name": "Zydus Lifesciences Limited",
+     "isin": "INE010B01027",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 1.04
+    },
+    {
+     "name": "International Gemological Institute Limited",
+     "isin": "INE0Q9301021",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.02
+    },
+    {
+     "name": "PB Fintech Limited",
+     "isin": "INE417T01026",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 1.01
+    },
+    {
+     "name": "Vedanta Power Ltd",
+     "isin": "INE694L01019",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.94
+    },
+    {
+     "name": "Heritage Foods Limited",
+     "isin": "INE978A01027",
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "pct": 0.91
+    },
+    {
+     "name": "Deepak Fertilizers and Petrochemicals Corporation Limited",
+     "isin": "INE501A01019",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 0.84
+    },
+    {
+     "name": "Jubilant Pharmova Limited",
+     "isin": "INE700A01033",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 0.81
+    },
+    {
+     "name": "Supriya Lifescience Limited",
+     "isin": "INE07RO01027",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 0.65
+    },
+    {
+     "name": "Small Industries Dev Bank of India (06/11/2026) ** #",
+     "isin": "INE556F16BQ4",
+     "sector": "CRISIL A1+",
+     "instrument": "Equity",
+     "pct": 0.06
+    },
+    {
+     "name": "NTPC Limited (06/11/2026) **",
+     "isin": "INE733E14CH4",
+     "sector": "CRISIL A1+",
+     "instrument": "Equity",
+     "pct": 0.13
+    },
+    {
+     "name": "Net Receivables / (Payables)",
+     "isin": null,
+     "sector": "Unspecified",
+     "instrument": "Cash",
+     "pct": -0.37
+    }
+   ],
+   "fetched_on": "2026-11-25",
+   "file": "Final_Monthly_Portolio_Sep30_2026_fd59e57829.xlsx:ABAFC"
+  },
   "2026-10": {
    "source": "groww",
    "portfolio_date": "2026-10-30",

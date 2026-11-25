@@ -1,5 +1,217 @@
 {
  "months": {
+  "2026-09": {
+   "source": "amc file",
+   "portfolio_date": "2026-09-30",
+   "metrics": {},
+   "holdings": [
+    {
+     "name": "ICICI Prudential AMC Ltd",
+     "isin": "INE346A01027",
+     "sector": "Capital Markets",
+     "instrument": "Equity",
+     "pct": 9.9011
+    },
+    {
+     "name": "Adani Green Energy Limited",
+     "isin": "INE364U01010",
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "pct": 8.4773
+    },
+    {
+     "name": "Adani Enterprises Limited",
+     "isin": "INE423A01024",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 8.1654
+    },
+    {
+     "name": "Divi's Laboratories Limited",
+     "isin": "INE361B01024",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 9.4382
+    },
+    {
+     "name": "LG Electronics India Limited",
+     "isin": "INE324D01010",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 7.3942
+    },
+    {
+     "name": "Samvardhana Motherson International Ltd",
+     "isin": "INE775A01035",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 4.5276
+    },
+    {
+     "name": "Capri Global Capital Limited",
+     "isin": "INE180C01042",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 3.9632
+    },
+    {
+     "name": "Adani Energy Solutions Limited",
+     "isin": "INE931S01010",
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "pct": 7.3715
+    },
+    {
+     "name": "Bharti Airtel Limited",
+     "isin": "INE397D01024",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 8.0462
+    },
+    {
+     "name": "Infosys Limited",
+     "isin": "INE009A01021",
+     "sector": "IT - Software",
+     "instrument": "Equity",
+     "pct": 3.1229
+    },
+    {
+     "name": "Reliance Industries Limited",
+     "isin": "INE002A01018",
+     "sector": "Petroleum Products",
+     "instrument": "Equity",
+     "pct": 8.5197
+    },
+    {
+     "name": "Coal India Ltd",
+     "isin": "INE522F01014",
+     "sector": "Consumable Fuels",
+     "instrument": "Equity",
+     "pct": 5.8396
+    },
+    {
+     "name": "Zydus Lifesciences Limited",
+     "isin": "INE010B01027",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 2.7737
+    },
+    {
+     "name": "Life Insurance Corporation Of India",
+     "isin": "INE0J1Y01017",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 1.1395
+    },
+    {
+     "name": "HCL Technologies Ltd.",
+     "isin": "INE860A01027",
+     "sector": "IT - Software",
+     "instrument": "Equity",
+     "pct": 6.0165
+    },
+    {
+     "name": "91 Days Treasury Bill 05-Nov-2026",
+     "isin": "IN002026X180",
+     "sector": "N.A.",
+     "instrument": "",
+     "pct": 0.7458
+    },
+    {
+     "name": "91 Days Treasury Bill 19-Nov-2026",
+     "isin": "IN002026X206",
+     "sector": "N.A.",
+     "instrument": "",
+     "pct": 0.6766
+    },
+    {
+     "name": "91 Days Treasury Bill 03-Dec-2026",
+     "isin": "IN002026X222",
+     "sector": "Financial",
+     "instrument": "",
+     "pct": 0.6752
+    },
+    {
+     "name": "91 Days Treasury Bill 17-Dec-2026",
+     "isin": "IN002026X248",
+     "sector": "N.A.",
+     "instrument": "",
+     "pct": 0.6736
+    },
+    {
+     "name": "91 Days Treasury Bill 24-Dec-2026",
+     "isin": "IN002026X255",
+     "sector": "N.A.",
+     "instrument": "",
+     "pct": 0.6729
+    },
+    {
+     "name": "91 Days Treasury Bill 29-Oct-2026",
+     "isin": "IN002026X172",
+     "sector": "N.A.",
+     "instrument": "",
+     "pct": 0.6516
+    },
+    {
+     "name": "91 Days Treasury Bill 22-Oct-2026",
+     "isin": "IN002026X164",
+     "sector": "N.A.",
+     "instrument": "",
+     "pct": 0.5435
+    },
+    {
+     "name": "91 Days Treasury Bill 10-Dec-2026",
+     "isin": "IN002026X230",
+     "sector": "N.A.",
+     "instrument": "",
+     "pct": 0.5396
+    },
+    {
+     "name": "91 Days Treasury Bill 01-Oct-2026",
+     "isin": "IN002026X131",
+     "sector": "N.A.",
+     "instrument": "",
+     "pct": 0.4089
+    },
+    {
+     "name": "91 Days Treasury Bill 15-Oct-2026",
+     "isin": "IN002026X156",
+     "sector": "N.A.",
+     "instrument": "",
+     "pct": 0.4081
+    },
+    {
+     "name": "91 Days Treasury Bill 27-Nov-2026",
+     "isin": "IN002026X214",
+     "sector": "N.A.",
+     "instrument": "",
+     "pct": 0.4055
+    },
+    {
+     "name": "91 Days Treasury Bill 08-Oct-2026",
+     "isin": "IN002026X149",
+     "sector": "N.A.",
+     "instrument": "",
+     "pct": 0.1362
+    },
+    {
+     "name": "TREPS 01-Oct-2026 DEPO 10",
+     "isin": "INCBLO011026",
+     "sector": "N.A.",
+     "instrument": "Cash",
+     "pct": 24.1944
+    },
+    {
+     "name": "NCA-NET CURRENT ASSETS",
+     "isin": null,
+     "sector": "N.A.",
+     "instrument": "Cash",
+     "pct": -25.4286
+    }
+   ],
+   "fetched_on": "2026-11-25",
+   "file": "quant_Large_Cap_Fund_30_Sep_2026.xlsx:quant_Large_Cap_Fund"
+  },
   "2026-10": {
    "source": "groww",
    "portfolio_date": "2026-10-30",

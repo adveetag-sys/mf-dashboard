@@ -1,16 +1,16 @@
 {
- "updated_at": "2026-11-25T09:32:13.821335+00:00",
+ "updated_at": "2026-11-25T09:51:12.963834+00:00",
  "holdings_file": "holdings.xlsx",
  "funds": {
   "Kotak Emerging Equity Scheme Growth": {
-   "code": "isin-INF174K01DS9",
-   "nav": "failed: GET https://mf.captnemo.in/nav/INF174K01DS9 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF174K01DS9",
-   "factsheet": "failed: no source answered"
+   "code": "104908",
+   "nav": "ok, latest 2026-11-23",
+   "factsheet": "ok (groww), portfolio as of 2026-10-30, 78 holdings"
   },
   "ICICI Prudential Focused Equity Fund": {
-   "code": "isin-INF109K01BZ4",
-   "nav": "failed: GET https://mf.captnemo.in/nav/INF109K01BZ4 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF109K01BZ4",
-   "factsheet": "failed: no source answered"
+   "code": "111957",
+   "nav": "ok, latest 2026-11-23",
+   "factsheet": "fresh (fetched 2026-11-25)"
   },
   "HDFC Flexi Cap Fund Growth": {
    "code": "101762",
@@ -18,9 +18,9 @@
    "factsheet": "fresh (fetched 2026-11-25)"
   },
   "DSP Equity Opportunities Fund": {
-   "code": "isin-INF740K01094",
-   "nav": "failed: GET https://mf.captnemo.in/nav/INF740K01094 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF740K01094",
-   "factsheet": "failed: no source answered"
+   "code": "103819",
+   "nav": "ok, latest 2026-11-23",
+   "factsheet": "ok (groww), portfolio as of 2026-10-30, 75 holdings"
   },
   "HDFC Small Cap Fund - Growth Option": {
    "code": "130502",
@@ -38,9 +38,9 @@
    "factsheet": "fresh (fetched 2026-11-25)"
   },
   "ICICI Prudential Dividend Yield Equity Fund Growth Option": {
-   "code": "isin-INF109KA1TX4",
-   "nav": "failed: GET https://mf.captnemo.in/nav/INF109KA1TX4 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF109KA1TX4",
-   "factsheet": "failed: no source answered"
+   "code": "129310",
+   "nav": "ok, latest 2026-11-23",
+   "factsheet": "ok (groww), portfolio as of 2026-10-30, 77 holdings"
   },
   "SBI Large & Midcap Fund- Regular Plan -Growth": {
    "code": "103024",
@@ -85,21 +85,21 @@
  },
  "log": [
   "Read 16 funds from holdings.xlsx",
-  "'Kotak Emerging Equity Scheme Growth': ISIN INF174K01DS9 not found in AMFI's list; NAV taken from the ISIN backup source.",
-  "No Groww page found for 'Kotak Emerging Equity Scheme Growth'. Holdings for it will come from Kuvera/AMC only; paste its Groww link into your Excel to fix.",
-  "'ICICI Prudential Focused Equity Fund': ISIN INF109K01BZ4 not found in AMFI's list; NAV taken from the ISIN backup source.",
-  "No Groww page found for 'ICICI Prudential Focused Equity Fund'. Holdings for it will come from Kuvera/AMC only; paste its Groww link into your Excel to fix.",
-  "'DSP Equity Opportunities Fund': ISIN INF740K01094 not found in AMFI's list; NAV taken from the ISIN backup source.",
-  "No Groww page found for 'DSP Equity Opportunities Fund'. Holdings for it will come from Kuvera/AMC only; paste its Groww link into your Excel to fix.",
-  "'ICICI Prudential Dividend Yield Equity Fund Growth Option': ISIN INF109KA1TX4 not found in AMFI's list; NAV taken from the ISIN backup source.",
-  "No Groww page found for 'ICICI Prudential Dividend Yield Equity Fund Growth Option'. Holdings for it will come from Kuvera/AMC only; paste its Groww link into your Excel to fix.",
-  "NAV failed for Kotak Emerging Equity Scheme Growth: GET https://mf.captnemo.in/nav/INF174K01DS9 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF174K01DS9",
-  "Factsheet failed for Kotak Emerging Equity Scheme Growth",
-  "NAV failed for ICICI Prudential Focused Equity Fund: GET https://mf.captnemo.in/nav/INF109K01BZ4 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF109K01BZ4",
-  "Factsheet failed for ICICI Prudential Focused Equity Fund",
-  "NAV failed for DSP Equity Opportunities Fund: GET https://mf.captnemo.in/nav/INF740K01094 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF740K01094",
-  "Factsheet failed for DSP Equity Opportunities Fund",
-  "NAV failed for ICICI Prudential Dividend Yield Equity Fund Growth Option: GET https://mf.captnemo.in/nav/INF109KA1TX4 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF109KA1TX4",
-  "Factsheet failed for ICICI Prudential Dividend Yield Equity Fund Growth Option"
+  "2026-09: couldn't find 'Kotak Emerging Equity Scheme Growth' in the files in amc_portfolios/2026-09.",
+  "2026-09: couldn't find 'ICICI Prudential Focused Equity Fund' in the files in amc_portfolios/2026-09.",
+  "2026-09: couldn't find 'HDFC Flexi Cap Fund Growth' in the files in amc_portfolios/2026-09.",
+  "2026-09: couldn't find 'DSP Equity Opportunities Fund' in the files in amc_portfolios/2026-09.",
+  "2026-09: couldn't find 'HDFC Small Cap Fund - Growth Option' in the files in amc_portfolios/2026-09.",
+  "2026-09: couldn't find 'Invesco India Smallcap Fund - Regular Plan - Growth' in the files in amc_portfolios/2026-09.",
+  "2026-09: couldn't find 'Kotak Multicap Fund-Regular Plan-Growth' in the files in amc_portfolios/2026-09.",
+  "2026-09: couldn't find 'ICICI Prudential Dividend Yield Equity Fund Growth Option' in the files in amc_portfolios/2026-09.",
+  "2026-09: read 88 holdings for 'SBI Large & Midcap Fund- Regular Plan -Growth' from All-Schemes-Monthly-Portfolio---as-on-30th-September-2026.xlsx:SLMF.",
+  "2026-09: read 29 holdings for 'Quant Large Cap Fund - Regular Plan - Growth' from quant_Large_Cap_Fund_30_Sep_2026.xlsx:quant_Large_Cap_Fund.",
+  "2026-09: read 118 holdings for 'Canara Robeco Multicap Fund Regular Growth' from MF-\u2013-Canara-Robeco-Multi-Cap-Fund-\u2013-September-2026.xlsx:MF.",
+  "2026-09: read 46 holdings for 'SBI Infratructure Fund - Regular Plan - Growth' from All-Schemes-Monthly-Portfolio---as-on-30th-September-2026.xlsx:SIF.",
+  "2026-09: couldn't find 'Bandhan Large & Mid Cap Fund - Regular Plan - Growth' in the files in amc_portfolios/2026-09.",
+  "2026-09: couldn't find 'Invesco India Focused Fund - Growth' in the files in amc_portfolios/2026-09.",
+  "2026-09: read 49 holdings for 'SBI Quality Fund - Regular Growth' from All-Schemes-Monthly-Portfolio---as-on-30th-September-2026.xlsx:SQLF.",
+  "2026-09: read 49 holdings for 'Abakkus Flexi Cap Fund - Regular - Growth' from Final_Monthly_Portolio_Sep30_2026_fd59e57829.xlsx:ABAFC."
  ]
 }

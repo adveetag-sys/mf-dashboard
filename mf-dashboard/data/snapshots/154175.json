@@ -1,5 +1,357 @@
 {
  "months": {
+  "2026-09": {
+   "source": "amc file",
+   "portfolio_date": "2026-09-30",
+   "metrics": {},
+   "holdings": [
+    {
+     "name": "Bajaj Auto Ltd.",
+     "isin": "INE917I01010",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 5.59
+    },
+    {
+     "name": "Nestle India Ltd.",
+     "isin": "INE239A01024",
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "pct": 5.16
+    },
+    {
+     "name": "Solar Industries India Ltd.",
+     "isin": "INE343H01029",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 4.13
+    },
+    {
+     "name": "Marico Ltd.",
+     "isin": "INE196A01026",
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "pct": 3.93
+    },
+    {
+     "name": "Hindustan Aeronautics Ltd.",
+     "isin": "INE066F01020",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 3.75
+    },
+    {
+     "name": "Dixon Technologies (India) Ltd.",
+     "isin": "INE935N01020",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 3.34
+    },
+    {
+     "name": "Hindustan Zinc Ltd.",
+     "isin": "INE267A01025",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 2.99
+    },
+    {
+     "name": "Pearl Global Industries Ltd.",
+     "isin": "INE940H01022",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 2.93
+    },
+    {
+     "name": "TVS Motor Company Ltd.",
+     "isin": "INE494B01023",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 2.78
+    },
+    {
+     "name": "Powerica Ltd.",
+     "isin": "INE921L01032",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 2.25
+    },
+    {
+     "name": "City Union Bank Ltd.",
+     "isin": "INE491A01021",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 2.18
+    },
+    {
+     "name": "Persistent Systems Ltd.",
+     "isin": "INE262H01021",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 2.15
+    },
+    {
+     "name": "Ajanta Pharma Ltd.",
+     "isin": "INE031B01049",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 2.15
+    },
+    {
+     "name": "Grindwell Norton Ltd.",
+     "isin": "INE536A01023",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 2.1
+    },
+    {
+     "name": "Divi's Laboratories Ltd.",
+     "isin": "INE361B01024",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 2.07
+    },
+    {
+     "name": "HDFC Bank Ltd.",
+     "isin": "INE040A01034",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 2.06
+    },
+    {
+     "name": "ICICI Bank Ltd.",
+     "isin": "INE090A01021",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 2.05
+    },
+    {
+     "name": "Sedemac Mechatronics Ltd.",
+     "isin": "INE00XB01019",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 2.02
+    },
+    {
+     "name": "Sun Pharmaceutical Industries Ltd.",
+     "isin": "INE044A01036",
+     "sector": "Pharmaceuticals & Biotechnology",
+     "instrument": "Equity",
+     "pct": 1.94
+    },
+    {
+     "name": "Life Insurance Corporation of India",
+     "isin": "INE0J1Y01017",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 1.93
+    },
+    {
+     "name": "Bajaj Finance Ltd.",
+     "isin": "INE296A01032",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 1.93
+    },
+    {
+     "name": "INDO-MIM Ltd.",
+     "isin": "INE084101034",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.92
+    },
+    {
+     "name": "Eicher Motors Ltd.",
+     "isin": "INE066A01021",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.92
+    },
+    {
+     "name": "Jubilant Foodworks Ltd.",
+     "isin": "INE797F01020",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.9
+    },
+    {
+     "name": "Siemens Ltd.",
+     "isin": "INE003A01024",
+     "sector": "Diversified",
+     "instrument": "Equity",
+     "pct": 1.89
+    },
+    {
+     "name": "Titan Company Ltd.",
+     "isin": "INE280A01028",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.89
+    },
+    {
+     "name": "Tata Motors Ltd.",
+     "isin": "INE1TAE01010",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.88
+    },
+    {
+     "name": "ABB India Ltd.",
+     "isin": "INE117A01022",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.85
+    },
+    {
+     "name": "Apollo Hospitals Enterprise Ltd.",
+     "isin": "INE437A01024",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 1.84
+    },
+    {
+     "name": "State Bank of India",
+     "isin": "INE062A01020",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 1.8
+    },
+    {
+     "name": "CCL Products (India) Ltd.",
+     "isin": "INE421D01022",
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "pct": 1.8
+    },
+    {
+     "name": "AIA Engineering Ltd.",
+     "isin": "INE212H01026",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.7
+    },
+    {
+     "name": "Varun Beverages Ltd.",
+     "isin": "INE200M01039",
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "pct": 1.45
+    },
+    {
+     "name": "Coforge Ltd.",
+     "isin": "INE591G01025",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 1.36
+    },
+    {
+     "name": "Oracle Financial Services Software Ltd.",
+     "isin": "INE881D01027",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 1.33
+    },
+    {
+     "name": "Multi Commodity Exchange of India Ltd.",
+     "isin": "INE745G01043",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 1.13
+    },
+    {
+     "name": "Anthem Biosciences Ltd.",
+     "isin": "INE0CZ201020",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 1.08
+    },
+    {
+     "name": "Vintage Coffee And Beverages Ltd.",
+     "isin": "INE498Q01014",
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "pct": 1.05
+    },
+    {
+     "name": "Acutaas Chemicals Ltd.",
+     "isin": "INE00FF01025",
+     "sector": "Pharmaceuticals & Biotechnology",
+     "instrument": "Equity",
+     "pct": 1.02
+    },
+    {
+     "name": "Sona Blw Precision Forgings Ltd.",
+     "isin": "INE073K01018",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.01
+    },
+    {
+     "name": "Tenneco Clean Air India Ltd.",
+     "isin": "INE19RI01016",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.93
+    },
+    {
+     "name": "Cummins India Ltd.",
+     "isin": "INE298A01020",
+     "sector": "Industrial Products",
+     "instrument": "Equity",
+     "pct": 0.7
+    },
+    {
+     "name": "Eternal Ltd.",
+     "isin": "INE758T01015",
+     "sector": "Retailing",
+     "instrument": "Equity",
+     "pct": 0.59
+    },
+    {
+     "name": "FSN E-Commerce Ventures Ltd.",
+     "isin": "INE388Y01029",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.5
+    },
+    {
+     "name": "Dhoot Transmission Ltd.",
+     "isin": "INE01NH01023",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.04
+    },
+    {
+     "name": "Tempsens Instruments (India) Ltd.",
+     "isin": "INE1KZI01025",
+     "sector": "Industrial Manufacturing",
+     "instrument": "Equity",
+     "pct": 0.04
+    },
+    {
+     "name": "91 DAY T-BILL 03.12.26",
+     "isin": "IN002026X222",
+     "sector": "Sovereign",
+     "instrument": "",
+     "pct": 0.38
+    },
+    {
+     "name": "TREPS",
+     "isin": null,
+     "sector": "Others",
+     "instrument": "Cash",
+     "pct": 4.68
+    },
+    {
+     "name": "Net Receivable / Payable",
+     "isin": null,
+     "sector": "Others",
+     "instrument": "Cash",
+     "pct": -0.8
+    }
+   ],
+   "fetched_on": "2026-11-25",
+   "file": "All-Schemes-Monthly-Portfolio---as-on-30th-September-2026.xlsx:SQLF"
+  },
   "2026-10": {
    "source": "groww",
    "portfolio_date": "2026-10-30",
