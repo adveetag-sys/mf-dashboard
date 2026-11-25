@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-25T07:06:54.089059+00:00",
+ "updated_at": "2026-11-25T08:48:55.184576+00:00",
  "holdings_file": "holdings.xlsx",
  "funds": {
   "Kotak Emerging Equity Scheme Growth": {
@@ -10,12 +10,12 @@
   "ICICI Prudential Focused Equity Fund": {
    "code": "111957",
    "nav": "ok, latest 2026-11-23",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 45 holdings"
+   "factsheet": "fresh (fetched 2026-11-25)"
   },
   "HDFC Flexi Cap Fund Growth": {
    "code": "101762",
    "nav": "ok, latest 2026-11-23",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 90 holdings"
+   "factsheet": "fresh (fetched 2026-11-25)"
   },
   "DSP Equity Opportunities Fund": {
    "code": "isin-INF740K01094",
@@ -25,7 +25,7 @@
   "HDFC Small Cap Fund - Growth Option": {
    "code": "130502",
    "nav": "ok, latest 2026-11-23",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 90 holdings"
+   "factsheet": "fresh (fetched 2026-11-25)"
   },
   "Invesco India Smallcap Fund - Regular Plan - Growth": {
    "code": "isin-INF205K011T7",
@@ -60,7 +60,7 @@
   "SBI Infratructure Fund - Regular Plan - Growth": {
    "code": "isin-INF200K01CT2",
    "nav": "failed: GET https://mf.captnemo.in/nav/INF200K01CT2 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF200K01CT2",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 52 holdings"
+   "factsheet": "fresh (fetched 2026-11-25)"
   },
   "Bandhan Large & Mid Cap Fund - Regular Plan - Growth": {
    "code": "108596",
@@ -70,7 +70,7 @@
   "Invesco India Focused Fund - Growth": {
    "code": "148483",
    "nav": "ok, latest 2026-11-23",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 29 holdings"
+   "factsheet": "fresh (fetched 2026-11-25)"
   },
   "SBI Quality Fund - Regular Growth": {
    "code": "154175",
