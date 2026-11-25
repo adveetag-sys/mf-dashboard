@@ -7,8 +7,27 @@ from datetime import date
 
 import pandas as pd
 
-CASH_PAT = re.compile(r"treps|cash|net receivable|net current asset|reverse repo|tri-party|tri party|"
-                      r"clearing corporation|call money|margin money", re.I)
+# not a stock: cash, money market, government bonds and T-bills, derivatives
+CASH_PAT = re.compile(r"treps|cash|net receivable|net payable|net current asset|\brepo\b|reverse repo|tri-party|"
+                      r"tri party|clearing corporation|call money|margin money|t-?bill|treasury bill|\bdtb\b|"
+                      r"\bgoi\b|government of india|state development loan|\bsdl\b|commercial paper|"
+                      r"certificate of deposit|\bfutures?\b|\boptions?\b|-(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|"
+                      r"nov|dec)20\d\d\b|index \d{2}-\d{2}-\d{4}|\(\d{2}/\d{2}/\d{4}\)|\bcblo\b", re.I)
+
+# Groww often still uses a company's old name; fund-house files use the current one
+RENAMES = {
+    "zomato": "eternal", "ge t and d": "ge vernova t and d", "kalpataru power transmission":
+    "kalpataru projects international", "westlife development": "westlife foodworld",
+    "adani transmission": "adani energy solutions", "dewan housing finance": "piramal finance",
+    "century textiles and industries": "aditya birla real estate", "iifl wealth management": "360 one wam",
+    "pvr": "pvr inox", "bharti infratel": "indus towers", "ltimindtree": "ltm", "minda industries": "uno minda",
+    "aster dm healthcare": "aster dm quality care", "bombay stock exchange bse": "bse",
+    "bombay stock exchange": "bse", "jindal steel and power": "jindal steel", "kpr mills": "kpr mill",
+    "k p r mill": "kpr mill", "amara raja batteries": "amara raja energy mob",
+    "amara raja energy and mobility": "amara raja energy mob", "interglobe aviation": "inter globe aviation",
+    "dhfl vysya housing finance": "aadhar housing finance", "akzo nobel": "jsw dulux",
+    "schloss bangalore": "leela palaces hotels and resorts", "gujarat gas": "gujarat energy",
+}
 MOVE_PP = 0.25  # weight change (percentage points) that counts as a real add/trim
 
 
@@ -146,9 +165,12 @@ NAME_DROP = re.compile(r"\b(limited|ltd|the|inc|corporation|corp|company|co|indi
 def norm_name(n: str) -> str:
     n = n.lower().replace("&", " and ")
     n = re.sub(r"\(.*?\)", " ", n)
+    n = n.replace("asset management company", "amc").replace("asset management", "amc")
+    n = re.sub(r"\beq\b.*$", " ", n)                      # "... LIMITED EQ NEW FV RS.2/-"
     n = re.sub(r"[^a-z0-9 ]", " ", n)
     n = NAME_DROP.sub(" ", n)
-    return re.sub(r"\s+", " ", n).strip()
+    n = re.sub(r"\s+", " ", n).strip()
+    return RENAMES.get(n, n)
 
 
 def key_of(x: dict) -> str:
@@ -168,10 +190,13 @@ def match_names(a: list[dict], b: list[dict]) -> dict:
     bk = {}
     for j, x in enumerate(b):
         bk.setdefault(_key(x), j)
+        bk.setdefault(_key(x).replace(" ", ""), j)
     for i, x in enumerate(a):
         j = bi.get(x.get("isin")) if x.get("isin") else None
         if j is None:
             j = bk.get(_key(x))
+        if j is None:
+            j = bk.get(_key(x).replace(" ", ""))
         if j is not None and j not in used:
             pairs[i] = j
             used.add(j)
