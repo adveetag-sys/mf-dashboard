@@ -1,5 +1,623 @@
 {
  "months": {
+  "2026-09": {
+   "source": "amc file",
+   "portfolio_date": "2026-09-30",
+   "metrics": {},
+   "holdings": [
+    {
+     "name": "Firstsource Solutions Ltd.",
+     "isin": "INE684F01012",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 3.68
+    },
+    {
+     "name": "Aster DM Quality Care Limited",
+     "isin": "INE914M01019",
+     "sector": "Healthcare Services",
+     "instrument": "Equity",
+     "pct": 3.37
+    },
+    {
+     "name": "Gabriel India Ltd.",
+     "isin": "INE524A01029",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 3.09
+    },
+    {
+     "name": "eClerx Services Limited",
+     "isin": "INE738I01010",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 2.92
+    },
+    {
+     "name": "Bank of Baroda",
+     "isin": "INE028A01039",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 2.65
+    },
+    {
+     "name": "Krishna Institute Of Medical Sciences Limited",
+     "isin": "INE967H01025",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 2.04
+    },
+    {
+     "name": "Apar Industries Limited",
+     "isin": "INE372A01015",
+     "sector": "Diversified",
+     "instrument": "Equity",
+     "pct": 1.92
+    },
+    {
+     "name": "Indian Bank",
+     "isin": "INE562A01011",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 1.91
+    },
+    {
+     "name": "PEARL GLOBAL INDUSTRIES LIMITED",
+     "isin": "INE940H01022",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.9
+    },
+    {
+     "name": "Eris Lifesciences Ltd",
+     "isin": "INE406M01024",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 1.89
+    },
+    {
+     "name": "Home First Finance Company India Ltd",
+     "isin": "INE481N01025",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 1.76
+    },
+    {
+     "name": "PVR LIMITED",
+     "isin": "INE191H01014",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.75
+    },
+    {
+     "name": "Great Eastern Shipping Company Ltd.",
+     "isin": "INE017A01032",
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "pct": 1.73
+    },
+    {
+     "name": "Sudarshan Chemical Industries Limited",
+     "isin": "INE659A01023",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 1.71
+    },
+    {
+     "name": "Vijaya Diagnostic Centre Limited",
+     "isin": "INE043W01024",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 1.63
+    },
+    {
+     "name": "Chalet Hotels Ltd.",
+     "isin": "INE427F01016",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.62
+    },
+    {
+     "name": "The Federal Bank Ltd.",
+     "isin": "INE171A01029",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 1.61
+    },
+    {
+     "name": "Kalpataru Projects International Ltd",
+     "isin": "INE220B01022",
+     "sector": "Construction",
+     "instrument": "Equity",
+     "pct": 1.57
+    },
+    {
+     "name": "City Union Bank Ltd.",
+     "isin": "INE491A01021",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 1.48
+    },
+    {
+     "name": "Suprajit Engineering Ltd.",
+     "isin": "INE399C01030",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.4
+    },
+    {
+     "name": "Redington Ltd.",
+     "isin": "INE891D01026",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 1.35
+    },
+    {
+     "name": "Power Mech Projects Ltd.",
+     "isin": "INE211R01019",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.34
+    },
+    {
+     "name": "Timken India Ltd.",
+     "isin": "INE325A01013",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.34
+    },
+    {
+     "name": "JSW Dulux Limited",
+     "isin": "INE133A01011",
+     "sector": "Consumer Durables",
+     "instrument": "Equity",
+     "pct": 1.32
+    },
+    {
+     "name": "Aditya Vision Limited",
+     "isin": "INE679V01027",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.28
+    },
+    {
+     "name": "Sonata Software Ltd.",
+     "isin": "INE269A01021",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 1.28
+    },
+    {
+     "name": "Dodla Dairy Limited",
+     "isin": "INE021O01019",
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "pct": 1.24
+    },
+    {
+     "name": "Godrej Consumer Products Ltd.",
+     "isin": "INE102D01028",
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "pct": 1.23
+    },
+    {
+     "name": "Vardhman Textiles Ltd.",
+     "isin": "INE825A01020",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.22
+    },
+    {
+     "name": "TEGA INDUSTRIES LIMITED",
+     "isin": "INE011K01018",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.2
+    },
+    {
+     "name": "Blue Dart Express Ltd.",
+     "isin": "INE233B01017",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.18
+    },
+    {
+     "name": "LG Balakrishnan & Bros Ltd.",
+     "isin": "INE337A01034",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.18
+    },
+    {
+     "name": "Equitas Small Finance Bank Ltd",
+     "isin": "INE063P01018",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 1.15
+    },
+    {
+     "name": "NRB Bearing Ltd.",
+     "isin": "INE349A01021",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.12
+    },
+    {
+     "name": "FIEM INDUSTRIES LIMITED",
+     "isin": "INE737H01014",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.04
+    },
+    {
+     "name": "CIE Automotive India Ltd",
+     "isin": "INE536H01010",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.03
+    },
+    {
+     "name": "Indigo Paints Limited",
+     "isin": "INE09VQ01012",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 1.03
+    },
+    {
+     "name": "JK Tyre & Industries Limited",
+     "isin": "INE573A01042",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.03
+    },
+    {
+     "name": "Voltamp Transformers Ltd.",
+     "isin": "INE540H01012",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.03
+    },
+    {
+     "name": "Shoppers Stop Ltd.",
+     "isin": "INE498B01024",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.02
+    },
+    {
+     "name": "Transport Corporation of India Ltd.",
+     "isin": "INE688A01022",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.02
+    },
+    {
+     "name": "Vishal Mega Mart Limited",
+     "isin": "INE01EA01019",
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "pct": 1.02
+    },
+    {
+     "name": "UTI Asset Management Company Ltd",
+     "isin": "INE094J01016",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 1.01
+    },
+    {
+     "name": "VRL Logistics Ltd.",
+     "isin": "INE366I01010",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.01
+    },
+    {
+     "name": "Sharda Cropchem Ltd.",
+     "isin": "INE221J01015",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 0.97
+    },
+    {
+     "name": "Fortis Healthcare Limited",
+     "isin": "INE061F01013",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 0.94
+    },
+    {
+     "name": "Kirloskar Ferrous Industries Ltd.",
+     "isin": "INE884B01025",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 0.91
+    },
+    {
+     "name": "Zensar Technologies Ltd.",
+     "isin": "INE520A01027",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 0.9
+    },
+    {
+     "name": "Chambal Fertilizers & Chemicals Ltd.",
+     "isin": "INE085A01013",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 0.86
+    },
+    {
+     "name": "Lumax Industries Ltd",
+     "isin": "INE162B01018",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.83
+    },
+    {
+     "name": "GMM Pfaudler Limited",
+     "isin": "INE541A01023",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.76
+    },
+    {
+     "name": "SKF India (Industrial) Limited",
+     "isin": "INE2J8701016",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.75
+    },
+    {
+     "name": "Aadhar Housing Finance Limited",
+     "isin": "INE883F01010",
+     "sector": "Finance",
+     "instrument": "Equity",
+     "pct": 0.72
+    },
+    {
+     "name": "Tata Steel Ltd.",
+     "isin": "INE081A01020",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 0.7
+    },
+    {
+     "name": "Unichem Laboratories Ltd.",
+     "isin": "INE351A01035",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 0.66
+    },
+    {
+     "name": "Redtape Limited",
+     "isin": "INE0LXT01019",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.65
+    },
+    {
+     "name": "Bajaj Consumer Care Ltd.",
+     "isin": "INE933K01021",
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "pct": 0.62
+    },
+    {
+     "name": "Mastek Ltd.",
+     "isin": "INE759A01021",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 0.61
+    },
+    {
+     "name": "The Anup Engineering Limited",
+     "isin": "INE294Z01018",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.58
+    },
+    {
+     "name": "Usha Martin Ltd",
+     "isin": "INE228A01035",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 0.57
+    },
+    {
+     "name": "Wakefit Innovations Limited",
+     "isin": "INE0E7301029",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.57
+    },
+    {
+     "name": "Vedant Fashions Ltd",
+     "isin": "INE825V01034",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.54
+    },
+    {
+     "name": "GNA Axles Ltd.",
+     "isin": "INE934S01014",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.48
+    },
+    {
+     "name": "ION EXCHANGE (INDIA) LIMITED",
+     "isin": "INE570A01022",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.48
+    },
+    {
+     "name": "Bajaj Electricals Ltd.",
+     "isin": "INE193E01025",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.47
+    },
+    {
+     "name": "KEC International Ltd.",
+     "isin": "INE389H01022",
+     "sector": "Diversified",
+     "instrument": "Equity",
+     "pct": 0.46
+    },
+    {
+     "name": "Gateway Distriparks Limited",
+     "isin": "INE079J01017",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.43
+    },
+    {
+     "name": "PNC Infratech Ltd.",
+     "isin": "INE195J01029",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.43
+    },
+    {
+     "name": "SKF India Ltd.",
+     "isin": "INE640A01023",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.41
+    },
+    {
+     "name": "Vesuvius India Ltd.",
+     "isin": "INE386A01023",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.41
+    },
+    {
+     "name": "AWFIS SPACE SOLUTIONS LIMITED",
+     "isin": "INE108V01019",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.4
+    },
+    {
+     "name": "Insecticides (India) Ltd.",
+     "isin": "INE070I01018",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 0.37
+    },
+    {
+     "name": "Gujarat Pipavav Port Ltd.",
+     "isin": "INE517F01014",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.36
+    },
+    {
+     "name": "La Opala RG Limited",
+     "isin": "INE059D01020",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.35
+    },
+    {
+     "name": "KEI Industries Ltd.",
+     "isin": "INE878B01027",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.33
+    },
+    {
+     "name": "Emami Ltd.",
+     "isin": "INE548C01032",
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "pct": 0.31
+    },
+    {
+     "name": "Ifgl Refractories Limited (Erst Ifgl Exports Limited)",
+     "isin": "INE133Y01011",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.31
+    },
+    {
+     "name": "G R Infraprojects Limited",
+     "isin": "INE201P01022",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.29
+    },
+    {
+     "name": "Jupiter Life Line Hospitals Limited",
+     "isin": "INE682M01020",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 0.26
+    },
+    {
+     "name": "Goodyear India Ltd.",
+     "isin": "INE533A01012",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.22
+    },
+    {
+     "name": "BEML Limited",
+     "isin": "INE258A01024",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.2
+    },
+    {
+     "name": "Carborundum Universal Ltd.",
+     "isin": "INE120A01034",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 0.2
+    },
+    {
+     "name": "D B Corp Limited",
+     "isin": "INE950I01011",
+     "sector": "Media",
+     "instrument": "Equity",
+     "pct": 0.2
+    },
+    {
+     "name": "SULA VINEYARDS LIMITED",
+     "isin": "INE142Q01026",
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "pct": 0.2
+    },
+    {
+     "name": "TCI Express Ltd.",
+     "isin": "INE586V01016",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.06
+    },
+    {
+     "name": "TREPS - Tri-party Repo",
+     "isin": null,
+     "sector": "Others",
+     "instrument": "Cash",
+     "pct": 10.03
+    },
+    {
+     "name": "Net Current Assets",
+     "isin": null,
+     "sector": "Others",
+     "instrument": "Cash",
+     "pct": -0.1
+    }
+   ],
+   "fetched_on": "2026-11-25",
+   "file": "Monthly HDFC Small Cap Fund - 30 September 2026_0.xlsx:HDFCSMALLF"
+  },
   "2026-10": {
    "source": "groww",
    "portfolio_date": "2026-10-30",

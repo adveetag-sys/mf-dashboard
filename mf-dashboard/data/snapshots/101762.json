@@ -1,5 +1,616 @@
 {
  "months": {
+  "2026-09": {
+   "source": "amc file",
+   "portfolio_date": "2026-09-30",
+   "metrics": {},
+   "holdings": [
+    {
+     "name": "ICICI Bank Ltd.",
+     "isin": "INE090A01021",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 8.8
+    },
+    {
+     "name": "Axis Bank Ltd.",
+     "isin": "INE238A01034",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 6.11
+    },
+    {
+     "name": "HDFC Bank Ltd.\u00a3",
+     "isin": "INE040A01034",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 6.03
+    },
+    {
+     "name": "State Bank of India",
+     "isin": "INE062A01020",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 3.94
+    },
+    {
+     "name": "Eternal Limited",
+     "isin": "INE758T01015",
+     "sector": "Retailing",
+     "instrument": "Equity",
+     "pct": 3.46
+    },
+    {
+     "name": "Kotak Mahindra Bank Limited",
+     "isin": "INE237A01036",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 3.4
+    },
+    {
+     "name": "SBI Life Insurance Company Ltd.",
+     "isin": "INE123W01016",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 3.25
+    },
+    {
+     "name": "Larsen and Toubro Ltd.",
+     "isin": "INE018A01030",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 3.08
+    },
+    {
+     "name": "InterGlobe Aviation Ltd.",
+     "isin": "INE646L01027",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 2.99
+    },
+    {
+     "name": "Bharti Airtel Ltd.",
+     "isin": "INE397D01024",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 2.62
+    },
+    {
+     "name": "Maruti Suzuki India Limited",
+     "isin": "INE585B01010",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 2.57
+    },
+    {
+     "name": "Cipla Ltd.",
+     "isin": "INE059A01026",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 2.47
+    },
+    {
+     "name": "HCL Technologies Ltd.",
+     "isin": "INE860A01027",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 2.44
+    },
+    {
+     "name": "Eicher Motors Ltd.",
+     "isin": "INE066A01021",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 2.3
+    },
+    {
+     "name": "Power Grid Corporation of India Ltd.",
+     "isin": "INE752E01010",
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "pct": 2.11
+    },
+    {
+     "name": "Hyundai Motor India Limited",
+     "isin": "INE0V6F01027",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.68
+    },
+    {
+     "name": "Divis Laboratories Ltd.",
+     "isin": "INE361B01024",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 1.62
+    },
+    {
+     "name": "Max Healthcare Institute Limited",
+     "isin": "INE027H01010",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 1.46
+    },
+    {
+     "name": "JSW Steel Ltd.",
+     "isin": "INE019A01038",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 1.45
+    },
+    {
+     "name": "Reliance Industries Ltd.",
+     "isin": "INE002A01018",
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "pct": 1.4
+    },
+    {
+     "name": "Piramal Pharma Limited",
+     "isin": "INE0DK501011",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 1.37
+    },
+    {
+     "name": "Persistent Systems Limited",
+     "isin": "INE262H01021",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 1.32
+    },
+    {
+     "name": "Bosch Limited",
+     "isin": "INE323A01026",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 1.3
+    },
+    {
+     "name": "PB Fintech Limited",
+     "isin": "INE417T01026",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 1.12
+    },
+    {
+     "name": "TVS Motor Company Ltd.",
+     "isin": "INE494B01023",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.96
+    },
+    {
+     "name": "Varroc Engineering Limited",
+     "isin": "INE665L01035",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.92
+    },
+    {
+     "name": "Lupin Ltd.",
+     "isin": "INE326A01037",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 0.91
+    },
+    {
+     "name": "Tata Steel Ltd.",
+     "isin": "INE081A01020",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 0.88
+    },
+    {
+     "name": "UltraTech Cement Limited",
+     "isin": "INE481G01011",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 0.87
+    },
+    {
+     "name": "LENSKART SOLUTIONS LIMITED",
+     "isin": "INE956O01016",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.85
+    },
+    {
+     "name": "Apollo Hospitals Enterprise Ltd.",
+     "isin": "INE437A01024",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 0.79
+    },
+    {
+     "name": "Aster DM Quality Care Limited",
+     "isin": "INE914M01019",
+     "sector": "Healthcare Services",
+     "instrument": "Equity",
+     "pct": 0.79
+    },
+    {
+     "name": "Dr. Lal Path Labs Ltd",
+     "isin": "INE600L01024",
+     "sector": "Healthcare Services",
+     "instrument": "Equity",
+     "pct": 0.76
+    },
+    {
+     "name": "Fsn Ecommerce Ventures Limited (Nykaa)",
+     "isin": "INE388Y01029",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.72
+    },
+    {
+     "name": "United Spirits Limited",
+     "isin": "INE854D01024",
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "pct": 0.72
+    },
+    {
+     "name": "Britannia Industries Ltd.",
+     "isin": "INE216A01030",
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "pct": 0.67
+    },
+    {
+     "name": "Bombay Stock Exchange Limited (BSE)",
+     "isin": "INE118H01025",
+     "sector": "Capital Markets",
+     "instrument": "Equity",
+     "pct": 0.65
+    },
+    {
+     "name": "ACME Solar Holdings Limited",
+     "isin": "INE622W01025",
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "pct": 0.64
+    },
+    {
+     "name": "Bharat Electronics Ltd.",
+     "isin": "INE263A01024",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.62
+    },
+    {
+     "name": "JSW Infrastructure Limited",
+     "isin": "INE880J01026",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.61
+    },
+    {
+     "name": "Anthem Biosciences Limited",
+     "isin": "INE0CZ201020",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 0.59
+    },
+    {
+     "name": "Kalpataru Projects International Ltd",
+     "isin": "INE220B01022",
+     "sector": "Construction",
+     "instrument": "Equity",
+     "pct": 0.58
+    },
+    {
+     "name": "Neuland Laboratories Limited",
+     "isin": "INE794A01010",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 0.55
+    },
+    {
+     "name": "Nuvoco Vistas Corporation Ltd.",
+     "isin": "INE118D01016",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 0.55
+    },
+    {
+     "name": "ADANI ENTERPRISES LIMTIED",
+     "isin": "INE423A01024",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 0.54
+    },
+    {
+     "name": "Craftsman Automation Ltd",
+     "isin": "INE00LO01017",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.54
+    },
+    {
+     "name": "Hexaware Technologies Ltd.",
+     "isin": "INE093A01041",
+     "sector": "IT - Software",
+     "instrument": "Equity",
+     "pct": 0.54
+    },
+    {
+     "name": "Vishal Mega Mart Limited",
+     "isin": "INE01EA01019",
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "pct": 0.54
+    },
+    {
+     "name": "ICICI PRUDENTIAL ASSET MANAGEMENT COMPANY LIMITED",
+     "isin": "INE346A01027",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 0.5
+    },
+    {
+     "name": "Bajaj Auto Limited",
+     "isin": "INE917I01010",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.48
+    },
+    {
+     "name": "Havells India Ltd.",
+     "isin": "INE176B01034",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.46
+    },
+    {
+     "name": "Infosys Limited",
+     "isin": "INE009A01021",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 0.46
+    },
+    {
+     "name": "Nippon Life India Asset Management Limited",
+     "isin": "INE298J01013",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 0.46
+    },
+    {
+     "name": "Prestige Estates Projects Ltd.",
+     "isin": "INE811K01011",
+     "sector": "Real Estate",
+     "instrument": "Equity",
+     "pct": 0.46
+    },
+    {
+     "name": "CORONA REMEDIES LIMITED",
+     "isin": "INE02ZQ01018",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 0.45
+    },
+    {
+     "name": "Ashok Leyland Ltd",
+     "isin": "INE208A01029",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.42
+    },
+    {
+     "name": "SAPPHIRE FOODS INDIA LIMITED",
+     "isin": "INE806T01020",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.39
+    },
+    {
+     "name": "SBI Funds Management Limited",
+     "isin": "INE640G01020",
+     "sector": "Financial",
+     "instrument": "Equity",
+     "pct": 0.39
+    },
+    {
+     "name": "CIE Automotive India Ltd",
+     "isin": "INE536H01010",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.36
+    },
+    {
+     "name": "Dixon Technologies (India) Ltd.",
+     "isin": "INE935N01020",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.32
+    },
+    {
+     "name": "Metropolis Healthcare Ltd.",
+     "isin": "INE112L01020",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 0.32
+    },
+    {
+     "name": "The Ramco Cements Ltd.",
+     "isin": "INE331A01037",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 0.31
+    },
+    {
+     "name": "ESCORTS KUBOTA LIMITED",
+     "isin": "INE042A01014",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.3
+    },
+    {
+     "name": "Crompton Greaves Consumer Elec. Ltd.",
+     "isin": "INE299U01018",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.28
+    },
+    {
+     "name": "Life Insurance Corporation of India",
+     "isin": "INE0J1Y01017",
+     "sector": "Insurance",
+     "instrument": "Equity",
+     "pct": 0.28
+    },
+    {
+     "name": "Molbio Diagnostics Limited",
+     "isin": "INE869T01028",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 0.28
+    },
+    {
+     "name": "Restaurant Brands Asia Limited",
+     "isin": "INE07T201019",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.28
+    },
+    {
+     "name": "Apar Industries Limited",
+     "isin": "INE372A01015",
+     "sector": "Diversified",
+     "instrument": "Equity",
+     "pct": 0.27
+    },
+    {
+     "name": "Oil & Natural Gas Corporation Ltd.",
+     "isin": "INE213A01029",
+     "sector": "Oil",
+     "instrument": "Equity",
+     "pct": 0.27
+    },
+    {
+     "name": "Ather Energy Limited",
+     "isin": "INE0LEZ01016",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.25
+    },
+    {
+     "name": "Biocon Ltd.",
+     "isin": "INE376G01013",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 0.25
+    },
+    {
+     "name": "Swiggy Limited",
+     "isin": "INE00H001014",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 0.25
+    },
+    {
+     "name": "ABB India Ltd.",
+     "isin": "INE117A01022",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.24
+    },
+    {
+     "name": "Diamond Power Infrastructure Limited",
+     "isin": "INE989C01038",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 0.23
+    },
+    {
+     "name": "Hindustan Petroleum Corp. Ltd.",
+     "isin": "INE094A01015",
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "pct": 0.23
+    },
+    {
+     "name": "JK Lakshmi Cement Ltd",
+     "isin": "INE786A01032",
+     "sector": "Materials",
+     "instrument": "Equity",
+     "pct": 0.23
+    },
+    {
+     "name": "Rubicon Research Limited",
+     "isin": "INE506V01022",
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "pct": 0.2
+    },
+    {
+     "name": "MphasiS Limited.",
+     "isin": "INE356A01018",
+     "sector": "Technology",
+     "instrument": "Equity",
+     "pct": 0.17
+    },
+    {
+     "name": "TENNECO CLEAN AIR INDIA LIMITED",
+     "isin": "INE19RI01016",
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "pct": 0.1
+    },
+    {
+     "name": "Nexus Select Trust REIT",
+     "isin": "INE0NDH25011",
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "pct": 1.7
+    },
+    {
+     "name": "Embassy Office Parks REIT",
+     "isin": "INE041025011",
+     "sector": "Real Estate",
+     "instrument": "Equity",
+     "pct": 0.59
+    },
+    {
+     "name": "7.38% GOI MAT 200627",
+     "isin": "IN0020220037",
+     "sector": "Sovereign",
+     "instrument": "",
+     "pct": 0.27
+    },
+    {
+     "name": "7.32% GOI MAT 131130^",
+     "isin": "IN0020230135",
+     "sector": "Sovereign",
+     "instrument": "",
+     "pct": 0.1
+    },
+    {
+     "name": "7.37% GOI MAT 231028",
+     "isin": "IN0020230101",
+     "sector": "Sovereign",
+     "instrument": "",
+     "pct": 0.09
+    },
+    {
+     "name": "TREPS - Tri-party Repo",
+     "isin": null,
+     "sector": "Others",
+     "instrument": "Cash",
+     "pct": 2.81
+    },
+    {
+     "name": "Net Current Assets",
+     "isin": null,
+     "sector": "Others",
+     "instrument": "Cash",
+     "pct": -0.53
+    }
+   ],
+   "fetched_on": "2026-11-25",
+   "file": "Monthly HDFC Flexi Cap Fund - 30 September 2026_0.xlsx:HDFCEQ"
+  },
   "2026-10": {
    "source": "groww",
    "portfolio_date": "2026-10-30",

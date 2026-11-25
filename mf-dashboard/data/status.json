@@ -1,11 +1,11 @@
 {
- "updated_at": "2026-11-25T09:51:12.963834+00:00",
+ "updated_at": "2026-11-25T10:14:25.219431+00:00",
  "holdings_file": "holdings.xlsx",
  "funds": {
   "Kotak Emerging Equity Scheme Growth": {
    "code": "104908",
    "nav": "ok, latest 2026-11-23",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 78 holdings"
+   "factsheet": "fresh (fetched 2026-11-25)"
   },
   "ICICI Prudential Focused Equity Fund": {
    "code": "111957",
@@ -20,7 +20,7 @@
   "DSP Equity Opportunities Fund": {
    "code": "103819",
    "nav": "ok, latest 2026-11-23",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 75 holdings"
+   "factsheet": "fresh (fetched 2026-11-25)"
   },
   "HDFC Small Cap Fund - Growth Option": {
    "code": "130502",
@@ -40,7 +40,7 @@
   "ICICI Prudential Dividend Yield Equity Fund Growth Option": {
    "code": "129310",
    "nav": "ok, latest 2026-11-23",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 77 holdings"
+   "factsheet": "fresh (fetched 2026-11-25)"
   },
   "SBI Large & Midcap Fund- Regular Plan -Growth": {
    "code": "103024",
@@ -85,21 +85,15 @@
  },
  "log": [
   "Read 16 funds from holdings.xlsx",
-  "2026-09: couldn't find 'Kotak Emerging Equity Scheme Growth' in the files in amc_portfolios/2026-09.",
+  "2026-09: read 73 holdings for 'Kotak Emerging Equity Scheme Growth' from ConsolidatedSEBIPortfolioSeptember2026.xlsx:EME.",
   "2026-09: couldn't find 'ICICI Prudential Focused Equity Fund' in the files in amc_portfolios/2026-09.",
-  "2026-09: couldn't find 'HDFC Flexi Cap Fund Growth' in the files in amc_portfolios/2026-09.",
+  "2026-09: read 86 holdings for 'HDFC Flexi Cap Fund Growth' from Monthly HDFC Flexi Cap Fund - 30 September 2026_0.xlsx:HDFCEQ.",
   "2026-09: couldn't find 'DSP Equity Opportunities Fund' in the files in amc_portfolios/2026-09.",
-  "2026-09: couldn't find 'HDFC Small Cap Fund - Growth Option' in the files in amc_portfolios/2026-09.",
+  "2026-09: read 87 holdings for 'HDFC Small Cap Fund - Growth Option' from Monthly HDFC Small Cap Fund - 30 September 2026_0.xlsx:HDFCSMALLF.",
   "2026-09: couldn't find 'Invesco India Smallcap Fund - Regular Plan - Growth' in the files in amc_portfolios/2026-09.",
-  "2026-09: couldn't find 'Kotak Multicap Fund-Regular Plan-Growth' in the files in amc_portfolios/2026-09.",
+  "2026-09: read 75 holdings for 'Kotak Multicap Fund-Regular Plan-Growth' from ConsolidatedSEBIPortfolioSeptember2026.xlsx:MUC.",
   "2026-09: couldn't find 'ICICI Prudential Dividend Yield Equity Fund Growth Option' in the files in amc_portfolios/2026-09.",
-  "2026-09: read 88 holdings for 'SBI Large & Midcap Fund- Regular Plan -Growth' from All-Schemes-Monthly-Portfolio---as-on-30th-September-2026.xlsx:SLMF.",
-  "2026-09: read 29 holdings for 'Quant Large Cap Fund - Regular Plan - Growth' from quant_Large_Cap_Fund_30_Sep_2026.xlsx:quant_Large_Cap_Fund.",
-  "2026-09: read 118 holdings for 'Canara Robeco Multicap Fund Regular Growth' from MF-\u2013-Canara-Robeco-Multi-Cap-Fund-\u2013-September-2026.xlsx:MF.",
-  "2026-09: read 46 holdings for 'SBI Infratructure Fund - Regular Plan - Growth' from All-Schemes-Monthly-Portfolio---as-on-30th-September-2026.xlsx:SIF.",
   "2026-09: couldn't find 'Bandhan Large & Mid Cap Fund - Regular Plan - Growth' in the files in amc_portfolios/2026-09.",
-  "2026-09: couldn't find 'Invesco India Focused Fund - Growth' in the files in amc_portfolios/2026-09.",
-  "2026-09: read 49 holdings for 'SBI Quality Fund - Regular Growth' from All-Schemes-Monthly-Portfolio---as-on-30th-September-2026.xlsx:SQLF.",
-  "2026-09: read 49 holdings for 'Abakkus Flexi Cap Fund - Regular - Growth' from Final_Monthly_Portolio_Sep30_2026_fd59e57829.xlsx:ABAFC."
+  "2026-09: couldn't find 'Invesco India Focused Fund - Growth' in the files in amc_portfolios/2026-09."
  ]
 }
