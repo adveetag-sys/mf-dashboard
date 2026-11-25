@@ -1,10 +1,11 @@
 """Mutual fund dashboard (Streamlit). Data is refreshed daily by GitHub Actions."""
 from __future__ import annotations
 
-from datetime import datetime, timezone
+import html
+import re
+from datetime import date, datetime, timedelta, timezone
 
 import pandas as pd
-import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
@@ -14,14 +15,56 @@ from mfdash.holdings import load_portfolio
 
 st.set_page_config(page_title="My Mutual Funds", page_icon="📈", layout="wide")
 
+# ---------------------------------------------------------------- theme & palette
+try:
+    DARK = st.context.theme.type != "light"     # None on first load -> dark steps (they also read on light)
+except Exception:
+    DARK = True
 
+if DARK:
+    SERIES = ["#338ced", "#e76624", "#00a888", "#d28e05", "#e24d8b", "#0aac23", "#9887ef", "#eb6263"]
+    POS, NEG = "#338ced", "#eb6263"
+    GRID = "rgba(255,255,255,0.08)"
+else:
+    SERIES = ["#257de0", "#f47230", "#00b894", "#f2a600", "#ee7fac", "#008a17", "#6a4ce2", "#ec4647"]
+    POS, NEG = "#257de0", "#dc3c3d"
+    GRID = "rgba(0,0,0,0.07)"
+STATUS = {"good": "#0aac23", "watch": "#f18a59", "info": "#8c8c8c"}
+MID = "#8f8f8f"   # neutral gray midpoint that reads on both light and dark pages
+DIVERGING = [[0, "#b8292a"], [0.25, "#e0716f"], [0.5, MID], [0.75, "#519ced"], [1, "#1757ac"]]
+
+st.markdown("""
+<style>
+.block-container {padding-top: 2.2rem; max-width: 1400px;}
+h1 {font-size: 1.9rem !important; margin-bottom: 0 !important;}
+.kpis {display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 14px 0 6px;}
+.kpi {border: 1px solid rgba(128,128,128,.22); border-radius: 10px; padding: 12px 14px;
+      background: rgba(128,128,128,.05);}
+.kpi .l {font-size: .78rem; opacity: .7; margin-bottom: 4px;}
+.kpi .v {font-size: 1.35rem; font-weight: 600; line-height: 1.2;}
+.kpi .s {font-size: .78rem; margin-top: 3px; opacity: .85;}
+.up {color: %(pos)s;} .down {color: %(neg)s;}
+.chips {display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 12px;}
+.chip {font-size: .76rem; padding: 2px 9px; border-radius: 999px; border: 1px solid rgba(128,128,128,.3);
+       opacity: .9;}
+.fund-h {font-size: 1.25rem; font-weight: 600; margin: 4px 0 2px;}
+.notes-h {font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; opacity: .65;
+          margin: 14px 0 6px;}
+.note {display: flex; gap: 10px; align-items: flex-start; padding: 8px 10px; margin-bottom: 6px;
+       border-radius: 8px; background: rgba(128,128,128,.06); border-left: 3px solid var(--c); font-size: .9rem;}
+.note .tag {font-size: .68rem; font-weight: 700; color: var(--c); min-width: 44px; padding-top: 2px;
+            text-transform: uppercase;}
+.muted {opacity: .65; font-size: .82rem;}
+</style>
+""".replace("%(pos)s", POS).replace("%(neg)s", NEG), unsafe_allow_html=True)
+
+
+# ---------------------------------------------------------------- helpers
 def inr(x, dec=0):
     if x is None or pd.isna(x):
         return "–"
     neg, x = x < 0, abs(x)
-    s = f"{x:,.{dec}f}"
-    # Indian grouping: 12,34,567
-    whole, _, frac = s.partition(".")
+    whole, _, frac = f"{x:,.{dec}f}".partition(".")
     whole = whole.replace(",", "")
     if len(whole) > 3:
         head, tail = whole[:-3], whole[-3:]
@@ -36,6 +79,74 @@ def pct(x, dec=1, sign=False):
     return f"{x:+.{dec}f}%" if sign else f"{x:.{dec}f}%"
 
 
+def short(name: str) -> str:
+    s = re.sub(r"\(.*?\)", "", name)
+    s = re.sub(r"[-–]\s*(regular|direct)(\s*plan)?\s*", " ", s, flags=re.I)
+    s = re.sub(r"\b(regular plan|direct plan|regular|direct|growth option|growth|option|plan|scheme)\b", " ", s, flags=re.I)
+    s = re.sub(r"\bfund\b", " ", s, flags=re.I)
+    s = re.sub(r"[-–]+", " ", s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def kpis(items):
+    """items: [(label, value, sub, direction)] direction in {None, 'up', 'down'}"""
+    cells = []
+    for lab, val, sub, d in items:
+        cls = {"up": "up", "down": "down"}.get(d, "")
+        arrow = {"up": "▲ ", "down": "▼ "}.get(d, "")
+        cells.append(f"<div class='kpi'><div class='l'>{html.escape(lab)}</div><div class='v'>{html.escape(val)}</div>"
+                     + (f"<div class='s {cls}'>{arrow}{html.escape(sub)}</div>" if sub else "") + "</div>")
+    st.markdown(f"<div class='kpis'>{''.join(cells)}</div>", unsafe_allow_html=True)
+
+
+def direction(x):
+    if x is None or pd.isna(x) or abs(x) < 1e-9:
+        return None
+    return "up" if x > 0 else "down"
+
+
+def style(fig, h=380, legend=False):
+    fig.update_layout(height=h, margin=dict(l=0, r=10, t=10, b=0), showlegend=legend,
+                      font=dict(size=12), hoverlabel=dict(font_size=12),
+                      legend=dict(orientation="h", y=1.08, x=0, title=None))
+    fig.update_xaxes(showgrid=False, zeroline=False)
+    fig.update_yaxes(gridcolor=GRID, zeroline=False)
+    return fig
+
+
+def bars(labels, values, fmt="{:+.1f}%", h=None, hover_name="Return"):
+    """Horizontal ranked bar, blue for positive and red for negative, value labels at the end."""
+    d = pd.DataFrame({"l": labels, "v": values}).dropna().sort_values("v")
+    fig = go.Figure(go.Bar(
+        x=d["v"], y=d["l"], orientation="h", marker=dict(color=[POS if v >= 0 else NEG for v in d["v"]],
+                                                         cornerradius=4),
+        text=[fmt.format(v) for v in d["v"]], textposition="outside", cliponaxis=False,
+        hovertemplate="%{y}<br>" + hover_name + ": %{x:.2f}<extra></extra>"))
+    style(fig, h or max(160, 30 * len(d) + 40))
+    lo, hi = min(0.0, float(d["v"].min())), max(0.0, float(d["v"].max()))
+    pad = (hi - lo) * 0.16 or 1
+    fig.update_xaxes(range=[lo - (pad if lo < 0 else 0), hi + pad])
+    fig.update_xaxes(showgrid=True, gridcolor=GRID, zeroline=True, zerolinecolor="rgba(128,128,128,.5)",
+                     ticksuffix="%" if "%" in fmt else "")
+    fig.update_yaxes(showgrid=False)
+    fig.update_traces(width=0.62 if len(d) > 2 else 0.35)
+    return fig
+
+
+def table(rows):
+    """DataFrame with missing numbers shown blank instead of 'None'."""
+    df = pd.DataFrame(rows)
+    for c in df.columns:
+        if df[c].map(lambda v: v is None or isinstance(v, (int, float))).all() and df[c].notna().any():
+            df[c] = pd.to_numeric(df[c], errors="coerce")
+    return df
+
+
+def show(fig):
+    st.plotly_chart(fig, width="stretch", config={"displayModeBar": False})
+
+
+# ---------------------------------------------------------------- data
 @st.cache_data(ttl=600)
 def load_all(stamp):
     hf = store.find_holdings_file()
@@ -46,17 +157,18 @@ def load_all(stamp):
     funds = []
     for h in pf.holdings:
         m = fmap.get(h.fund, {})
-        code = m.get("code")
+        code = m.get("code") or (f"isin-{m['isin']}" if m.get("nav_by_isin") and m.get("isin") else None)
         nav = store.load_nav(code) if code else []
         snaps = store.load_snapshots(code) if code else {}
         pos = A.position(h, nav, pf.transactions)
         latest = snaps[list(snaps)[-1]] if snaps else {}
+        met = latest.get("metrics", {})
         funds.append({**pos, "h": h, "code": code, "map": m, "nav_hist": nav, "snaps": snaps,
+                      "short": short(h.fund),
                       "tr": A.trailing_returns(nav), "mret": A.monthly_returns(nav, 12),
-                      "metrics": latest.get("metrics", {}), "holdings": latest.get("holdings", []),
+                      "metrics": met, "holdings": latest.get("holdings", []),
                       "portfolio_date": latest.get("portfolio_date"),
-                      "category": (latest.get("metrics", {}).get("sub_category")
-                                   or latest.get("metrics", {}).get("category") or "Unknown")})
+                      "category": met.get("sub_category") or met.get("category") or "Not fetched yet"})
     return pf, funds, store.read_json(store.STATUS, {})
 
 
@@ -69,180 +181,231 @@ if loaded is None:
     st.stop()
 pf, funds, status = loaded
 
-# ---------------------------------------------------------------- header
-st.title("My Mutual Funds")
-upd = status.get("updated_at")
-if upd:
-    t = datetime.fromisoformat(upd)
-    hrs = (datetime.now(timezone.utc) - t).total_seconds() / 3600
-    st.caption(f"Data refreshed automatically · last run {t.astimezone().strftime('%d %b %Y, %H:%M')} "
-               f"({hrs:.0f} h ago) · NAV from AMFI via mfapi.in · holdings and factsheet numbers from Groww / Kuvera")
-else:
-    st.caption("Waiting for the first automatic data run (GitHub Actions).")
-
-tot_val = sum(f["value"] or 0 for f in funds)
-tot_inv = sum(f["invested"] or 0 for f in funds if f["value"])
-tot_day = sum(f["day_change"] or 0 for f in funds)
-all_flows = [fl for f in funds for fl in f["flows"]]
-tot_x = A.xirr(all_flows)
-
-HAS_UNITS = tot_val > 0
-# with no units in the Excel, cross-fund views treat every fund equally
+# funds whose NAV stopped updating are shown but kept out of comparisons
+last_dates = [f["nav_date"] for f in funds if f["nav_date"]]
+latest_day = max(last_dates) if last_dates else None
 for f in funds:
-    f["weight_value"] = f["value"] if HAS_UNITS else (100 / len(funds))
+    f["stale"] = (not f["nav_date"]) or (latest_day and f["nav_date"] <
+                                         (date.fromisoformat(latest_day) - timedelta(days=10)).isoformat())
+live = [f for f in funds if not f["stale"]]
+
+tot_val = sum(f["value"] or 0 for f in live)
+tot_inv = sum(f["invested"] or 0 for f in live if f["value"])
+tot_day = sum(f["day_change"] or 0 for f in live)
+HAS_UNITS = tot_val > 0
+for f in funds:
+    f["weight_value"] = (f["value"] or 0) if HAS_UNITS else (100 / max(len(live), 1) if not f["stale"] else 0)
 
 
 def avg(xs):
-    xs = [x for x in xs if x is not None]
+    xs = [x for x in xs if x is not None and not pd.isna(x)]
     return sum(xs) / len(xs) if xs else None
 
 
-c = st.columns(5)
-if HAS_UNITS:
-    c[0].metric("Current value", inr(tot_val))
-    c[1].metric("Invested", inr(tot_inv))
-    c[2].metric("Gain", inr(tot_val - tot_inv), pct((tot_val / tot_inv - 1) * 100 if tot_inv else None, sign=True))
-    c[3].metric("XIRR", pct(tot_x * 100 if tot_x is not None else None))
-    c[4].metric("Last day", inr(tot_day), pct(tot_day / (tot_val - tot_day) * 100 if tot_val else None, 2, True))
-else:
-    cur_m = max([m for f in funds for m in f["mret"]], default=None)
-    c[0].metric("Funds", len(funds))
-    c[1].metric("Avg last day", pct(avg([f["tr"].get("1D") for f in funds]), 2, True))
-    c[2].metric(f"Avg this month ({cur_m or '–'})", pct(avg([f["mret"].get(cur_m) for f in funds]), 2, True))
-    c[3].metric("Avg 1Y return", pct(avg([f["tr"].get("1Y") for f in funds])))
-    beat = [f for f in funds if f["metrics"].get("return_1y") is not None and f["metrics"].get("cat_return_1y") is not None]
-    c[4].metric("Beating category (1Y)",
-                f"{sum(f['metrics']['return_1y'] > f['metrics']['cat_return_1y'] for f in beat)} of {len(beat)}" if beat else "–")
-    st.caption("Add **Units** and **Invested** columns to holdings.xlsx to see your own ₹ value, gain and XIRR here.")
+# ---------------------------------------------------------------- header
+st.title("My Mutual Funds")
+upd = status.get("updated_at")
+cap = "Refreshes automatically every morning"
+if upd:
+    t = datetime.fromisoformat(upd)
+    cap += f" · last run {t.astimezone(timezone(timedelta(hours=5, minutes=30))).strftime('%d %b %Y, %I:%M %p')} IST"
+if latest_day:
+    cap += f" · NAVs as of {date.fromisoformat(latest_day).strftime('%d %b %Y')}"
+st.markdown(f"<div class='muted'>{cap}</div>", unsafe_allow_html=True)
 
-tabs = st.tabs(["Overview", "My funds", "Monthly changes", "Factsheet study", "Across my funds", "Data status"])
+if HAS_UNITS:
+    tot_x = A.xirr([fl for f in live for fl in f["flows"]])
+    g = tot_val - tot_inv
+    kpis([("Current value", inr(tot_val), None, None),
+          ("Invested", inr(tot_inv), None, None),
+          ("Gain", inr(g), pct(g / tot_inv * 100 if tot_inv else None, 1, True), direction(g)),
+          ("XIRR", pct(tot_x * 100 if tot_x is not None else None), None, None),
+          ("Last day", inr(tot_day), pct(tot_day / (tot_val - tot_day) * 100 if tot_val else None, 2, True),
+           direction(tot_day))])
+else:
+    cur_m = max([m for f in live for m in f["mret"]], default=None)
+    d1 = avg([f["tr"].get("1D") for f in live])
+    dm = avg([f["mret"].get(cur_m) for f in live])
+    y1 = avg([f["tr"].get("1Y") for f in live])
+    beat = [f for f in live if f["metrics"].get("return_1y") is not None and f["metrics"].get("cat_return_1y") is not None]
+    nb = sum(f["metrics"]["return_1y"] > f["metrics"]["cat_return_1y"] for f in beat)
+    best = max(live, key=lambda f: f["tr"].get("1Y", -999), default=None)
+    kpis([("Funds tracked", str(len(funds)), f"{len(funds) - len(live)} with old NAV" if len(live) < len(funds) else None, None),
+          ("Average, last day", pct(d1, 2, True), None, direction(d1)),
+          (f"Average, {datetime.strptime(cur_m, '%Y-%m').strftime('%b') if cur_m else 'this month'} so far",
+           pct(dm, 2, True), None, direction(dm)),
+          ("Average 1-year return", pct(y1), None, None),
+          ("Beating category (1Y)", f"{nb} of {len(beat)}" if beat else "–", None, None),
+          ("Best 1Y", best["short"] if best else "–", pct(best["tr"].get("1Y"), 1, True) if best else None,
+           direction(best["tr"].get("1Y")) if best else None)])
+    st.markdown("<div class='muted'>Add <b>Units</b> and <b>Invested</b> columns to holdings.xlsx to see your own ₹ value, gain and XIRR.</div>",
+                unsafe_allow_html=True)
+
+tabs = st.tabs(["Overview", "My funds", "Monthly changes", "Factsheet", "Across my funds", "Data status"])
 
 # ---------------------------------------------------------------- Overview
 with tabs[0]:
-    grid = pd.DataFrame({f["fund"]: f["mret"] for f in funds}).T
-    if len(grid.columns):
-        grid = grid[sorted(grid.columns)[-12:]]
-        st.subheader("Monthly NAV change, % (latest month is month-to-date)")
-        fig = px.imshow(grid.values, x=list(grid.columns), y=[n[:40] for n in grid.index], text_auto=".1f",
-                        color_continuous_scale="RdYlGn", color_continuous_midpoint=0, aspect="auto")
-        st.plotly_chart(fig.update_layout(height=140 + 28 * len(grid), margin=dict(l=0, r=0, t=10, b=0),
-                                          coloraxis_showscale=False), width="stretch")
-        rb = []
-        for f in funds:
-            if f["nav_hist"]:
+    if HAS_UNITS:
+        mv = []
+        for f in live:
+            d = A.monthly_values(f["h"], f["nav_hist"], pf.transactions)
+            if len(d):
+                mv.append(d)
+        if mv:
+            tot = pd.concat(mv).groupby("month")[["value", "invested"]].sum().reset_index()
+            tot = tot[tot["value"] > 0]
+            st.subheader("Portfolio value, month-end")
+            fig = go.Figure()
+            fig.add_scatter(x=tot["month"], y=tot["value"], name="Value", mode="lines", line=dict(width=2, color=SERIES[0]))
+            fig.add_scatter(x=tot["month"], y=tot["invested"], name="Invested", mode="lines",
+                            line=dict(width=2, color=SERIES[1], dash="dot"))
+            show(style(fig, 320, legend=True).update_yaxes(tickprefix="₹"))
+
+    left, right = st.columns([1, 1], gap="large")
+    with left:
+        st.subheader("Returns")
+        per = st.segmented_control("Period", ["1M", "3M", "6M", "1Y", "3Y", "5Y"], default="1Y",
+                                   key="perrank", label_visibility="collapsed") or "1Y"
+        vals = [(f["short"], f["tr"].get(per)) for f in live if f["tr"].get(per) is not None]
+        if vals:
+            show(bars([v[0] for v in vals], [v[1] for v in vals]))
+            if per in ("3Y", "5Y"):
+                st.markdown("<div class='muted'>Annualised. Funds younger than the period are left out.</div>",
+                            unsafe_allow_html=True)
+        missing = [f["short"] for f in funds if f["stale"]]
+        if missing:
+            st.markdown(f"<div class='muted'>No current NAV for: {', '.join(missing)}. See Data status.</div>",
+                        unsafe_allow_html=True)
+    with right:
+        st.subheader("Compare funds")
+        names = [f["short"] for f in live]
+        ranked = sorted(live, key=lambda f: f["tr"].get("1Y", -999), reverse=True)
+        default = [ranked[0]["short"], ranked[-1]["short"]] if len(ranked) > 1 else names[:1]
+        c1, c2 = st.columns([3, 1])
+        pick = c1.multiselect("Funds (up to 4)", names, default=default, max_selections=4, key="cmp")
+        span = c2.selectbox("Since", ["6M", "1Y", "3Y", "5Y"], index=1, key="cmpspan")
+        if pick and latest_day:
+            days = {"6M": 182, "1Y": 365, "3Y": 1095, "5Y": 1826}[span]
+            start = (date.fromisoformat(latest_day) - timedelta(days=days)).isoformat()
+            fig = go.Figure()
+            for i, n in enumerate(pick):
+                f = next(x for x in live if x["short"] == n)
                 d = pd.DataFrame(f["nav_hist"], columns=["Date", "NAV"])
-                d = d[d["Date"] >= (pd.Timestamp(d["Date"].iloc[-1]) - pd.DateOffset(years=1)).strftime("%Y-%m-%d")]
-                d["Growth of 100"] = d["NAV"] / d["NAV"].iloc[0] * 100
-                d["Fund"] = f["fund"][:40]
-                rb.append(d)
-        if rb:
-            st.plotly_chart(px.line(pd.concat(rb), x="Date", y="Growth of 100", color="Fund",
-                                    title="₹100 invested a year ago in each fund")
-                            .update_layout(height=460, margin=dict(l=0, r=0, t=40, b=0),
-                                           legend=dict(font=dict(size=10))), width="stretch")
-    mv = []
-    for f in funds:
-        d = A.monthly_values(f["h"], f["nav_hist"], pf.transactions)
-        if len(d):
-            d["fund"] = f["fund"]
-            mv.append(d)
-    if mv and HAS_UNITS:
-        mv = pd.concat(mv)
-        tot = mv.groupby("month")[["value", "invested"]].sum().reset_index()
-        tot = tot[tot["value"] > 0]
-        fig = go.Figure()
-        fig.add_scatter(x=tot["month"], y=tot["value"], name="Value", mode="lines+markers", line=dict(width=3))
-        fig.add_scatter(x=tot["month"], y=tot["invested"], name="Invested", mode="lines", line=dict(dash="dot"))
-        fig.update_layout(title="Portfolio value at each month-end", height=360, margin=dict(l=0, r=0, t=40, b=0),
-                          yaxis_tickprefix="₹", legend=dict(orientation="h", y=1.1))
-        st.plotly_chart(fig, width="stretch")
-        tot["Change ₹"] = tot["value"].diff()
-        tot["Change %"] = tot["value"].pct_change() * 100
-        tot["Gain ₹"] = tot["value"] - tot["invested"]
-        show = tot.iloc[::-1].head(24)
-        st.subheader("Month on month")
-        st.dataframe(pd.DataFrame({
-            "Month": show["month"], "Value": show["value"].map(inr), "Invested": show["invested"].map(inr),
-            "Change ₹": show["Change ₹"].map(inr), "Change %": show["Change %"].map(lambda x: pct(x, 2, True)),
-            "Gain ₹": show["Gain ₹"].map(inr)}), hide_index=True, width="stretch")
-        if not len(pf.transactions):
-            st.caption("Without a Transactions sheet, past months assume you held today's units from your start date.")
-    a, b = st.columns(2)
-    alloc = pd.DataFrame([{"Fund": f["fund"], "Category": f["category"], "Value": f["weight_value"]} for f in funds])
-    if not HAS_UNITS:
-        a.caption("Shares are equal per fund until units are added.")
-    if len(alloc):
-        a.plotly_chart(px.pie(alloc, names="Fund", values="Value", hole=0.5, title="By fund")
-                       .update_layout(height=380, margin=dict(l=0, r=0, t=40, b=0), showlegend=False)
-                       .update_traces(textinfo="percent+label", textposition="inside"), width="stretch")
-        b.plotly_chart(px.pie(alloc, names="Category", values="Value", hole=0.5, title="By category")
-                       .update_layout(height=380, margin=dict(l=0, r=0, t=40, b=0))
-                       .update_traces(textinfo="percent"), width="stretch")
+                d = d[d["Date"] >= start]
+                if len(d) < 2:
+                    continue
+                d["v"] = d["NAV"] / d["NAV"].iloc[0] * 100
+                fig.add_scatter(x=d["Date"], y=d["v"], name=n, mode="lines", line=dict(width=2, color=SERIES[i]),
+                                hovertemplate=n + "<br>%{x}<br>₹100 → ₹%{y:.1f}<extra></extra>")
+                fig.add_annotation(x=d["Date"].iloc[-1], y=d["v"].iloc[-1], text=f"{d['v'].iloc[-1] - 100:+.1f}%",
+                                   showarrow=False, xanchor="left", xshift=6, font=dict(size=11))
+            fig.add_hline(y=100, line_width=1, line_dash="dot", line_color="rgba(128,128,128,.6)")
+            style(fig, 380, legend=True).update_layout(hovermode="x unified", margin=dict(r=50))
+            fig.update_yaxes(title=None, tickprefix="₹")
+            show(fig)
+            st.markdown("<div class='muted'>What ₹100 put in at the start would be worth now.</div>",
+                        unsafe_allow_html=True)
+
+    st.subheader("Month by month")
+    grid = pd.DataFrame({f["short"]: f["mret"] for f in live}).T
+    if len(grid.columns):
+        cols = sorted(grid.columns)[-12:]
+        grid = grid[cols]
+        if live:
+            grid = grid.loc[[f["short"] for f in sorted(live, key=lambda f: -(f["tr"].get("1Y") or -999))
+                             if f["short"] in grid.index]]
+        lim = max(5, min(15, float(grid.abs().max().max() or 5)))
+        xl = [datetime.strptime(c, "%Y-%m").strftime("%b %y") for c in cols]
+        text = [["" if pd.isna(v) else f"{v:+.1f}" for v in row] for row in grid.values]
+        fig = go.Figure(go.Heatmap(z=grid.values, x=xl, y=list(grid.index), text=text, texttemplate="%{text}",
+                                   textfont=dict(size=11), colorscale=DIVERGING, zmin=-lim, zmax=lim, xgap=2, ygap=2,
+                                   showscale=False, hovertemplate="%{y}<br>%{x}: %{z:+.2f}%<extra></extra>"))
+        style(fig, 60 + 30 * len(grid)).update_xaxes(side="top", showgrid=False).update_yaxes(
+            autorange="reversed", showgrid=False)
+        show(fig)
+        st.markdown("<div class='muted'>NAV change in each calendar month, %. Blue = up, red = down. "
+                    "The last column is month-to-date. Sorted by 1-year return.</div>", unsafe_allow_html=True)
+
+    st.subheader("By category")
+    cat = pd.DataFrame([{"Category": f["category"], "w": f["weight_value"]} for f in funds if f["weight_value"]])
+    if len(cat):
+        if HAS_UNITS:
+            cs = cat.groupby("Category")["w"].sum() / tot_val * 100
+            fig = bars(cs.index, cs.values, fmt="{:.1f}%", hover_name="Share")
+        else:
+            cs = cat.groupby("Category").size()
+            fig = bars(cs.index, cs.values.astype(float), fmt="{:.0f} funds", hover_name="Funds")
+            fig.update_xaxes(ticksuffix="", dtick=1)
+        fig.update_traces(marker_color=SERIES[0])
+        show(fig)
 
 # ---------------------------------------------------------------- My funds
 with tabs[1]:
     rows = []
-    for f in sorted(funds, key=lambda f: -(f["value"] or 0)):
+    for f in sorted(funds, key=lambda f: -(f["value"] or 0) if HAS_UNITS else -(f["tr"].get("1Y") or -999)):
         m, tr = f["metrics"], f["tr"]
-        r = {"Fund": f["fund"], "Category": f["category"], "NAV": f["nav"], "NAV date": f["nav_date"]}
+        r = {"Fund": f["short"], "Category": f["category"], "NAV": f["nav"], "As of": f["nav_date"]}
         if HAS_UNITS:
             r.update({"Units": f["units"], "Value": f["value"], "Invested": f["invested"], "Gain": f["gain"],
                       "Gain %": f["gain_pct"], "XIRR %": f["xirr"],
                       "Weight %": (f["value"] / tot_val * 100) if (f["value"] and tot_val) else None})
         r.update({"1D %": tr.get("1D"), "1M %": tr.get("1M"), "3M %": tr.get("3M"), "6M %": tr.get("6M"),
                   "1Y %": tr.get("1Y"), "3Y % pa": tr.get("3Y"), "5Y % pa": tr.get("5Y"),
-                  "Cat 1Y %": m.get("cat_return_1y"), "Expense % (Direct)": m.get("expense_ratio"),
+                  "Category 1Y %": m.get("cat_return_1y"), "Expense % (Direct)": m.get("expense_ratio"),
                   "AUM ₹Cr": m.get("aum_cr")})
         rows.append(r)
-    df = pd.DataFrame(rows)
-    st.caption("Returns are from your own plan's NAV. Category return and expense ratio come from Groww, "
-               "which shows Direct plans; a Regular plan's expense ratio is higher.")
-    st.dataframe(df, hide_index=True, width="stretch", column_config={
-        "Units": st.column_config.NumberColumn(format="%.3f"), "NAV": st.column_config.NumberColumn(format="%.2f"),
-        "Value": st.column_config.NumberColumn(format="₹%,.0f"), "Invested": st.column_config.NumberColumn(format="₹%,.0f"),
-        "Gain": st.column_config.NumberColumn(format="₹%,.0f"), "Gain %": st.column_config.NumberColumn(format="%.1f"),
-        "XIRR %": st.column_config.NumberColumn(format="%.1f"), "Weight %": st.column_config.NumberColumn(format="%.1f"),
-        **{k: st.column_config.NumberColumn(format="%.1f") for k in
-           ["1M %", "3M %", "6M %", "1Y %", "3Y % pa", "5Y % pa", "Cat 1Y %"]},
-        "1D %": st.column_config.NumberColumn(format="%.2f"),
-        "Expense % (Direct)": st.column_config.NumberColumn(format="%.2f"),
-        "AUM ₹Cr": st.column_config.NumberColumn(format="%,.0f")})
-    pick = st.selectbox("NAV chart", [f["fund"] for f in funds], key="navpick")
-    f = next(x for x in funds if x["fund"] == pick)
+    nc = st.column_config.NumberColumn
+    st.dataframe(table(rows), hide_index=True, width="stretch", height=38 + 35 * len(rows), column_config={
+        "Units": nc(format="%.3f"), "NAV": nc(format="%.2f"), "Value": nc(format="₹%,.0f"),
+        "Invested": nc(format="₹%,.0f"), "Gain": nc(format="₹%,.0f"),
+        **{k: nc(format="%.1f") for k in ["Gain %", "XIRR %", "Weight %", "1M %", "3M %", "6M %", "1Y %",
+                                          "3Y % pa", "5Y % pa", "Category 1Y %"]},
+        "1D %": nc(format="%.2f"), "Expense % (Direct)": nc(format="%.2f"), "AUM ₹Cr": nc(format="%,.0f")})
+    st.markdown("<div class='muted'>Returns are from your own plan's NAV. Category return and expense ratio come from "
+                "Groww's Direct-plan page; a Regular plan's expense ratio is higher.</div>", unsafe_allow_html=True)
+    st.subheader("NAV history")
+    pick = st.selectbox("Fund", [f["short"] for f in funds], key="navpick", label_visibility="collapsed")
+    f = next(x for x in funds if x["short"] == pick)
     if f["nav_hist"]:
         nd = pd.DataFrame(f["nav_hist"], columns=["Date", "NAV"])
-        fig = px.line(nd, x="Date", y="NAV", title=f"{pick} – NAV")
+        fig = go.Figure(go.Scatter(x=nd["Date"], y=nd["NAV"], mode="lines", line=dict(width=2, color=SERIES[0]),
+                                   hovertemplate="%{x}<br>NAV %{y:.2f}<extra></extra>"))
         if f["since"]:
-            fig.add_vline(x=f["since"], line_dash="dot", annotation_text="you started")
-        st.plotly_chart(fig.update_layout(height=340, margin=dict(l=0, r=0, t=40, b=0)), width="stretch")
+            fig.add_vline(x=f["since"], line_dash="dot", line_color="rgba(128,128,128,.7)")
+        show(style(fig, 340).update_layout(hovermode="x unified"))
 
 # ---------------------------------------------------------------- Monthly changes
 with tabs[2]:
-    st.write("What each fund bought and sold, from its monthly portfolio disclosure.")
+    st.markdown("<div class='muted'>What each fund bought and sold, from its monthly portfolio disclosure "
+                "(published around the 10th of the next month).</div>", unsafe_allow_html=True)
     summ = []
     for f in funds:
-        ks = list(f["snaps"])
-        if len(ks) >= 2 and f["snaps"][ks[-1]].get("holdings") and f["snaps"][ks[-2]].get("holdings"):
+        ks = [k for k, v in f["snaps"].items() if v.get("holdings")]
+        if len(ks) >= 2:
             d = A.diff_holdings(f["snaps"][ks[-2]]["holdings"], f["snaps"][ks[-1]]["holdings"])
             d = d[~d["cash"]]
-            summ.append({"Fund": f["fund"], "Compared": f"{ks[-2]} → {ks[-1]}",
+            top = d[d["Action"].isin(["New entry", "Increased"])].sort_values("Change (pp)", ascending=False)
+            summ.append({"Fund": f["short"], "Compared": f"{ks[-2]} → {ks[-1]}",
                          "New": int((d.Action == "New entry").sum()), "Exited": int((d.Action == "Exited").sum()),
-                         "Increased": int((d.Action == "Increased").sum()), "Reduced": int((d.Action == "Reduced").sum()),
-                         "Biggest buy": (d.sort_values("Change (pp)", ascending=False).iloc[0]["Stock"] if len(d) else "")})
+                         "Added": int((d.Action == "Increased").sum()), "Trimmed": int((d.Action == "Reduced").sum()),
+                         "Biggest buy": top.iloc[0]["Stock"] if len(top) else "–"})
         else:
-            summ.append({"Fund": f["fund"], "Compared": f"needs 2 months (have {len(ks)})"})
-    st.dataframe(pd.DataFrame(summ), hide_index=True, width="stretch")
+            summ.append({"Fund": f["short"], "Compared": f"waiting for 2nd month ({len(ks)} on record)"})
+    st.dataframe(pd.DataFrame(summ), hide_index=True, width="stretch", height=38 + 35 * len(summ))
 
-    pick = st.selectbox("Fund", [f["fund"] for f in funds], key="chgpick")
-    f = next(x for x in funds if x["fund"] == pick)
+    pick = st.selectbox("Fund", [f["short"] for f in funds], key="chgpick")
+    f = next(x for x in funds if x["short"] == pick)
     months = [k for k, v in f["snaps"].items() if v.get("holdings")]
     if len(months) < 2:
         st.info(f"Holdings on record for: {', '.join(months) or 'none yet'}. "
-                "Month-on-month changes appear once the next monthly disclosure is captured (around the 10th–15th).")
+                "Changes appear once the next monthly portfolio is captured.")
         if months:
-            h = pd.DataFrame(f["snaps"][months[-1]]["holdings"])
-            st.dataframe(h[["name", "sector", "instrument", "pct"]].rename(columns={"name": "Stock", "pct": "% of fund"}),
-                         hide_index=True, width="stretch")
+            h = pd.DataFrame(f["snaps"][months[-1]]["holdings"]).sort_values("pct", ascending=False)
+            st.dataframe(h[["name", "sector", "pct"]].rename(columns={"name": "Holding", "sector": "Sector",
+                                                                      "pct": "% of fund"}),
+                         hide_index=True, width="stretch",
+                         column_config={"% of fund": st.column_config.ProgressColumn(
+                             format="%.2f%%", min_value=0, max_value=float(h["pct"].max()))})
     else:
         c1, c2 = st.columns(2)
         m1 = c2.selectbox("Month", months[::-1], key="m1")
@@ -250,60 +413,117 @@ with tabs[2]:
         m0 = c1.selectbox("Compared with", older[::-1], key="m0")
         d = A.diff_holdings(f["snaps"][m0]["holdings"], f["snaps"][m1]["holdings"])
         d = d[~d["cash"]].drop(columns=["cash"])
-        k = st.columns(4)
-        for col, lab in zip(k, ["New entry", "Exited", "Increased", "Reduced"]):
-            col.metric(lab, int((d.Action == lab).sum()))
-        for lab in ["New entry", "Exited", "Increased", "Reduced"]:
-            sub = d[d.Action == lab]
-            if len(sub):
+        kpis([(lab, str(int((d.Action == key).sum())), None, None) for lab, key in
+              [("New buys", "New entry"), ("Fully sold", "Exited"), ("Added to", "Increased"), ("Trimmed", "Reduced")]])
+        a, b = st.columns(2, gap="large")
+        for col, (lab, keys) in zip([a, b, a, b], [("New buys", ["New entry"]), ("Fully sold", ["Exited"]),
+                                                   ("Added to", ["Increased"]), ("Trimmed", ["Reduced"])]):
+            sub = d[d.Action.isin(keys)]
+            with col:
                 st.markdown(f"**{lab}**")
-                st.dataframe(sub.drop(columns=["Action"]), hide_index=True, width="stretch")
+                if len(sub):
+                    st.dataframe(sub[["Stock", "Sector", "Prev %", "Now %", "Change (pp)"]], hide_index=True,
+                                 width="stretch")
+                else:
+                    st.markdown("<div class='muted'>None</div>", unsafe_allow_html=True)
+        s0, s1 = A.sector_weights(f["snaps"][m0]["holdings"]), A.sector_weights(f["snaps"][m1]["holdings"])
+        sd = {s: s1.get(s, 0) - s0.get(s, 0) for s in set(s0) | set(s1)}
+        sd = {k: v for k, v in sd.items() if abs(v) >= 0.05}
+        if sd:
+            st.subheader(f"Sector weight change, {m0} → {m1}")
+            show(bars(list(sd), list(sd.values()), fmt="{:+.1f} pp", hover_name="Change (pp)").update_xaxes(ticksuffix=""))
         with st.expander("Full portfolio with changes"):
             st.dataframe(d, hide_index=True, width="stretch")
-        s0 = A.sector_weights(f["snaps"][m0]["holdings"])
-        s1 = A.sector_weights(f["snaps"][m1]["holdings"])
-        sd = pd.DataFrame([{"Sector": s, "Change (pp)": s1.get(s, 0) - s0.get(s, 0), "Now %": s1.get(s, 0)}
-                           for s in set(s0) | set(s1)]).sort_values("Change (pp)")
-        sd = sd[sd["Change (pp)"].abs() >= 0.05]
-        if len(sd):
-            fig = px.bar(sd, x="Change (pp)", y="Sector", orientation="h", title=f"Sector weight change {m0} → {m1}",
-                         color=sd["Change (pp)"] > 0, color_discrete_map={True: "#2e7d32", False: "#c62828"})
-            st.plotly_chart(fig.update_layout(showlegend=False, height=max(300, 24 * len(sd)),
-                                              margin=dict(l=0, r=0, t=40, b=0)), width="stretch")
 
-# ---------------------------------------------------------------- Factsheet study
+# ---------------------------------------------------------------- Factsheet
 with tabs[3]:
-    st.write("Each fund's latest factsheet numbers read against the month before. Updated automatically.")
-    icon = {"watch": "🟠", "good": "🟢", "info": "🔹"}
-    for f in sorted(funds, key=lambda f: -(f["value"] or 0)):
+    rows = []
+    for f in funds:
+        m = f["metrics"]
+        sm = A.summary(f["holdings"])
         notes = A.study(f["snaps"], f["fund"])
-        n_watch = sum(n["level"] == "watch" for n in notes)
-        with st.expander(f"{f['fund']}  ·  {f['category']}" + (f"  ·  {n_watch} to watch" if n_watch else ""),
-                         expanded=n_watch > 0):
-            m = f["metrics"]
-            k = st.columns(6)
-            k[0].metric("AUM", f"₹{m['aum_cr']:,.0f} Cr" if m.get("aum_cr") else "–")
-            k[1].metric("Expense ratio (Direct)", pct(m.get("expense_ratio"), 2))
-            k[2].metric("P/E", f"{m['pe']:.1f}" if m.get("pe") else "–")
-            k[3].metric("1Y", pct(m.get("return_1y")), pct(m["return_1y"] - m["cat_return_1y"], 1, True) + " vs cat"
-                        if m.get("return_1y") is not None and m.get("cat_return_1y") is not None else None)
-            k[4].metric("3Y", pct(m.get("return_3y")), pct(m["return_3y"] - m["cat_return_3y"], 1, True) + " vs cat"
-                        if m.get("return_3y") is not None and m.get("cat_return_3y") is not None else None)
-            k[5].metric("Portfolio as of", f.get("portfolio_date") or "–")
-            st.caption(f"Manager: {m.get('fund_manager') or '–'} · Benchmark: {m.get('benchmark') or '–'} · "
-                       f"Exit load: {m.get('exit_load') or '–'} · Risk: {m.get('risk') or '–'}")
-            for n in notes:
-                st.markdown(f"{icon[n['level']]} {n['text']}")
-            hist = []
-            for mo, s in f["snaps"].items():
-                sm = A.summary(s.get("holdings", []))
-                mm = s.get("metrics", {})
-                hist.append({"Month": mo, "AUM ₹Cr": mm.get("aum_cr"), "Expense %": mm.get("expense_ratio"),
-                             "P/E": mm.get("pe"), "Stocks": sm.get("n_holdings"), "Top 10 %": sm.get("top10"),
-                             "Cash %": sm.get("cash"), "Top sector": sm.get("top_sector"),
-                             "Manager": mm.get("fund_manager")})
-            if len(hist) > 1:
-                st.dataframe(pd.DataFrame(hist[::-1]), hide_index=True, width="stretch")
+        f["notes"] = notes
+        r1, c1 = m.get("return_1y"), m.get("cat_return_1y")
+        rows.append({"Fund": f["short"], "Category": f["category"], "AUM ₹Cr": m.get("aum_cr"),
+                     "Expense %": m.get("expense_ratio"), "P/E": m.get("pe"), "Stocks": sm.get("n_holdings"),
+                     "Top 10 %": sm.get("top10"), "Cash %": sm.get("cash"),
+                     "1Y vs category": (r1 - c1) if (r1 is not None and c1 is not None) else None,
+                     "To watch": sum(n["level"] == "watch" for n in notes),
+                     "Portfolio as of": f["portfolio_date"]})
+    nc = st.column_config.NumberColumn
+    st.markdown("<div class='muted'>Latest factsheet numbers for every fund. Pick one below for the full read.</div>",
+                unsafe_allow_html=True)
+    st.dataframe(table(rows), hide_index=True, width="stretch", height=38 + 35 * len(rows), column_config={
+        "AUM ₹Cr": nc(format="%,.0f"), "Expense %": nc(format="%.2f", help="Direct plan"),
+        "P/E": nc(format="%.1f"), "Top 10 %": nc(format="%.1f"), "Cash %": nc(format="%.1f"),
+        "1Y vs category": nc(format="%+.1f pp"), "To watch": nc(format="%d")})
+
+    order = sorted(funds, key=lambda f: -sum(n["level"] == "watch" for n in f["notes"]))
+    pick = st.selectbox("Fund", [f["short"] for f in order], key="fspick")
+    f = next(x for x in funds if x["short"] == pick)
+    m, notes = f["metrics"], f["notes"]
+    st.markdown(f"<div class='fund-h'>{html.escape(f['fund'])}</div>", unsafe_allow_html=True)
+    chips = [f["category"], m.get("benchmark"), f"Manager: {m['fund_manager']}" if m.get("fund_manager") else None,
+             f"Exit load: {m['exit_load']}" if m.get("exit_load") else None,
+             f"Portfolio as of {f['portfolio_date']}" if f["portfolio_date"] else None]
+    st.markdown("<div class='chips'>" + "".join(f"<span class='chip'>{html.escape(str(c))}</span>" for c in chips if c)
+                + "</div>", unsafe_allow_html=True)
+    about = [n for n in notes if n["level"] == "about"]
+    if about:
+        st.markdown(f"<div style='margin:-4px 0 4px'>{html.escape(about[0]['text'])}</div>", unsafe_allow_html=True)
+
+    def vs(r, c):
+        if r is None or c is None:
+            return None, None
+        return f"{r - c:+.1f} pp vs category", direction(r - c)
+
+    s1, d1 = vs(m.get("return_1y"), m.get("cat_return_1y"))
+    s3, d3 = vs(m.get("return_3y"), m.get("cat_return_3y"))
+    kpis([("Fund size", f"₹{m['aum_cr']:,.0f} Cr" if m.get("aum_cr") else "–", None, None),
+          ("Expense ratio (Direct)", pct(m.get("expense_ratio"), 2), None, None),
+          ("P/E · P/B", f"{m['pe']:.1f} · {m['pb']:.1f}" if m.get("pe") and m.get("pb") else
+           (f"{m['pe']:.1f}" if m.get("pe") else "–"), None, None),
+          ("1Y return", pct(m.get("return_1y")), s1, d1),
+          ("3Y return (pa)", pct(m.get("return_3y")), s3, d3),
+          ("Your plan, 1Y", pct(f["tr"].get("1Y")), "from your NAV", None)])
+
+    left, right = st.columns([1.1, 1], gap="large")
+    with left:
+        groups = [("Worth a look", "watch"), ("What changed", "info"), ("Positives", "good")]
+        tags = {"watch": "Watch", "info": "Info", "good": "Good"}
+        for title, lvl in groups:
+            g = [n for n in notes if n["level"] == lvl]
+            if not g:
+                continue
+            st.markdown(f"<div class='notes-h'>{title}</div>", unsafe_allow_html=True)
+            st.markdown("".join(f"<div class='note' style='--c:{STATUS[lvl]}'><span class='tag'>{tags[lvl]}</span>"
+                                f"<span>{html.escape(n['text'])}</span></div>" for n in g), unsafe_allow_html=True)
+    with right:
+        hold = [x for x in f["holdings"] if not A.is_cash(x)]
+        if hold:
+            top = sorted(hold, key=lambda x: -x["pct"])[:10]
+            st.markdown("<div class='notes-h'>Top 10 holdings, % of fund</div>", unsafe_allow_html=True)
+            fig = bars([x["name"] for x in top], [x["pct"] for x in top], fmt="{:.1f}%", hover_name="% of fund")
+            show(fig.update_traces(marker_color=SERIES[0]))
+            sw = A.sector_weights(f["holdings"])
+            top_s = dict(list(sw.items())[:8])
+            st.markdown("<div class='notes-h'>Sectors, % of fund</div>", unsafe_allow_html=True)
+            show(bars(list(top_s), list(top_s.values()), fmt="{:.1f}%", hover_name="% of fund")
+                 .update_traces(marker_color=SERIES[0]))
+        else:
+            st.info("Stock-level holdings not available for this fund yet.")
+
+    hist = []
+    for mo, s in f["snaps"].items():
+        sm, mm = A.summary(s.get("holdings", [])), s.get("metrics", {})
+        hist.append({"Month": mo, "AUM ₹Cr": mm.get("aum_cr"), "Expense %": mm.get("expense_ratio"),
+                     "P/E": mm.get("pe"), "Stocks": sm.get("n_holdings"), "Top 10 %": sm.get("top10"),
+                     "Cash %": sm.get("cash"), "Top sector": sm.get("top_sector"), "Manager": mm.get("fund_manager")})
+    if hist:
+        with st.expander(f"Factsheet history ({len(hist)} month{'s' if len(hist) != 1 else ''})"):
+            st.dataframe(table(hist[::-1]), hide_index=True, width="stretch", column_config={
+                "AUM ₹Cr": nc(format="%,.0f"), "Expense %": nc(format="%.2f"), "P/E": nc(format="%.1f"),
+                "Top 10 %": nc(format="%.1f"), "Cash %": nc(format="%.1f")})
 
 # ---------------------------------------------------------------- Across my funds
 with tabs[4]:
@@ -312,51 +532,58 @@ with tabs[4]:
     if not len(lt):
         st.info("Appears once holdings data has been fetched.")
     else:
-        st.write("Your money in each stock, adding up every fund that holds it." if HAS_UNITS else
-                 "Your exposure to each stock across all your funds, counting each fund equally "
-                 "(add units to the Excel to weight by your ₹).")
-        a, b = st.columns([3, 2])
+        st.markdown("<div class='muted'>" + ("Your money in each stock, adding up every fund that holds it."
+                    if HAS_UNITS else "Your exposure to each stock across all your funds, counting each fund equally "
+                    "(add units to the Excel to weight by your ₹).") + "</div>", unsafe_allow_html=True)
+        a, b = st.columns([3, 2], gap="large")
         top = lt[lt["Sector"] != "Cash"].head(30).copy()
-        top["% of my MF money"] = top["₹"] / denom * 100
-        top = top[["Stock", "Sector", "₹", "% of my MF money", "In # funds", "Funds"]]
-        if not HAS_UNITS:
-            top = top.drop(columns=["₹"])
-        a.dataframe(top, hide_index=True, width="stretch", column_config={
+        top["% of portfolio"] = top["₹"] / denom * 100
+        top["Funds"] = top["Funds"].map(lambda s: ", ".join(short(x) for x in s.split(", ")))
+        cols = ["Stock", "Sector"] + (["₹"] if HAS_UNITS else []) + ["% of portfolio", "In # funds", "Funds"]
+        a.dataframe(top[cols], hide_index=True, width="stretch", height=38 + 35 * 15, column_config={
             "₹": st.column_config.NumberColumn(format="₹%,.0f"),
-            "% of my MF money": st.column_config.NumberColumn(format="%.2f")})
-        sec = (lt.groupby("Sector")["₹"].sum() / denom * 100).sort_values(ascending=True)
-        b.plotly_chart(px.bar(sec.tail(15), orientation="h", title="By sector (% of portfolio)",
-                              labels={"value": "%", "Sector": ""})
-                       .update_layout(showlegend=False, height=520, margin=dict(l=0, r=0, t=40, b=0)),
-                       width="stretch")
+            "% of portfolio": st.column_config.ProgressColumn(format="%.2f%%", min_value=0,
+                                                              max_value=float(top["% of portfolio"].max()))})
+        with b:
+            sec = (lt.groupby("Sector")["₹"].sum() / denom * 100).sort_values(ascending=False).head(12)
+            st.markdown("<div class='notes-h'>Sectors, % of portfolio</div>", unsafe_allow_html=True)
+            show(bars(list(sec.index), list(sec.values), fmt="{:.1f}%", hover_name="%")
+                 .update_traces(marker_color=SERIES[0]))
         multi = lt[(lt["In # funds"] >= 3) & (lt["Sector"] != "Cash")]
         if len(multi):
-            st.markdown(f"🟠 **{len(multi)} stocks sit in 3 or more of your funds**: "
-                        + ", ".join(multi["Stock"].head(10)) + ".")
+            st.markdown(f"<div class='note' style='--c:{STATUS['watch']}'><span class='tag'>Watch</span><span>"
+                        f"{len(multi)} stocks sit in 3 or more of your funds: {html.escape(', '.join(multi['Stock'].head(10)))}"
+                        f"{' …' if len(multi) > 10 else ''}.</span></div>", unsafe_allow_html=True)
         hf = [f for f in funds if f["holdings"]]
         if len(hf) >= 2:
-            names = [f["fund"] for f in hf]
-            mat = [[100.0 if i == j else A.overlap(hf[i]["holdings"], hf[j]["holdings"]) for j in range(len(hf))]
+            st.subheader("Overlap between your funds")
+            names = [f["short"] for f in hf]
+            mat = [[None if i == j else A.overlap(hf[i]["holdings"], hf[j]["holdings"]) for j in range(len(hf))]
                    for i in range(len(hf))]
-            short = [n[:28] for n in names]
-            fig = px.imshow(mat, x=short, y=short, text_auto=".0f", color_continuous_scale="Oranges",
-                            title="Portfolio overlap between your funds (%)", zmin=0, zmax=100)
-            st.plotly_chart(fig.update_layout(height=120 + 45 * len(hf), margin=dict(l=0, r=0, t=40, b=0)),
-                            width="stretch")
-            hi = [(names[i], names[j], mat[i][j]) for i in range(len(hf)) for j in range(i + 1, len(hf)) if mat[i][j] >= 40]
-            for x, y, v in hi:
-                st.markdown(f"🟠 {x} and {y} overlap {v:.0f}%; they behave much like the same fund.")
+            txt = [["" if v is None else f"{v:.0f}" for v in row] for row in mat]
+            fig = go.Figure(go.Heatmap(z=mat, x=names, y=names, text=txt, texttemplate="%{text}", textfont=dict(size=10),
+                                       colorscale=[[0, MID], [1, "#1757ac"]], zmin=0, zmax=80, xgap=2, ygap=2,
+                                       showscale=False, hovertemplate="%{y} & %{x}: %{z:.0f}% overlap<extra></extra>"))
+            show(style(fig, 120 + 32 * len(hf)).update_xaxes(tickangle=-40, showgrid=False)
+                 .update_yaxes(autorange="reversed", showgrid=False))
+            pairs = sorted([(names[i], names[j], mat[i][j]) for i in range(len(hf)) for j in range(i + 1, len(hf))
+                            if mat[i][j] and mat[i][j] >= 40], key=lambda p: -p[2])
+            for x, y, v in pairs[:6]:
+                st.markdown(f"<div class='note' style='--c:{STATUS['watch']}'><span class='tag'>Watch</span>"
+                            f"<span>{html.escape(x)} and {html.escape(y)} share {v:.0f}% of their portfolios.</span></div>",
+                            unsafe_allow_html=True)
 
 # ---------------------------------------------------------------- Data status
 with tabs[5]:
-    st.write("What the automatic run fetched. Nothing here needs you unless a row says *failed* or a match looks wrong.")
+    st.markdown("<div class='muted'>What the automatic run fetched. Nothing here needs you unless a row says "
+                "<b>failed</b> or a match looks wrong.</div>", unsafe_allow_html=True)
     rows = []
     for f in funds:
         stt = status.get("funds", {}).get(f["fund"], {})
         mp = f["map"]
-        rows.append({"Your name": f["fund"], "Matched to": mp.get("scheme_name"), "AMFI code": mp.get("code"),
-                     "Match": mp.get("method"), "Score": mp.get("score"), "Groww page": mp.get("groww_slug"),
+        rows.append({"Your name": f["fund"], "Matched to": mp.get("scheme_name"), "Code": f["code"],
+                     "How": mp.get("method"), "Groww page": mp.get("groww_slug"), "Latest NAV": f["nav_date"],
                      "NAV": stt.get("nav"), "Factsheet": stt.get("factsheet")})
-    st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
+    st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch", height=38 + 35 * len(rows))
     for line in status.get("log", []):
         st.markdown(f"- {line}")

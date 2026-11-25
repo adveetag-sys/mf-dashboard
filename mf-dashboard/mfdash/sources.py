@@ -60,6 +60,19 @@ def mfapi_nav(code: str) -> dict:
     return {"meta": j.get("meta", {}), "nav": rows}
 
 
+def nav_by_isin(isin: str) -> dict:
+    """Backup NAV source keyed by ISIN (mf.captnemo.in, built from AMFI data)."""
+    j = get_json(f"https://mf.captnemo.in/nav/{isin}", tries=2) or {}
+    rows = []
+    for d, v in j.get("historical_nav", []):
+        try:
+            rows.append((str(d)[:10], float(v)))
+        except (TypeError, ValueError):
+            continue
+    rows.sort()
+    return {"meta": {"scheme_name": j.get("name"), "isin_growth": j.get("ISIN")}, "nav": rows}
+
+
 # ---------------------------------------------------------------- Groww
 GROWW = "https://groww.in/v1/api/data/mf/web"
 

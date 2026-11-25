@@ -234,7 +234,7 @@ def study(snaps: dict, fund_name: str) -> list[dict]:
         notes.append({"level": level, "text": text})
 
     if cs:
-        add("info", f"Holds {cs['n_holdings']} positions; top 10 make up {cs['top10']:.1f}% of the fund. "
+        add("about", f"Holds {cs['n_holdings']} positions; top 10 make up {cs['top10']:.1f}% of the fund. "
                     f"Largest: {cs['top_stock']} ({cs['top_stock_pct']:.1f}%). "
                     f"Biggest sector: {cs['top_sector']} ({cs['top_sector_pct']:.1f}%). Cash and equivalents: {cs['cash']:.1f}%.")
     if prev and cur.get("holdings") and prev.get("holdings"):

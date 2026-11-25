@@ -31,6 +31,8 @@ def main():
         print(msg)
         log_lines.append(msg)
 
+    for d in (store.DATA, store.NAV_DIR, store.SNAP_DIR):
+        d.mkdir(parents=True, exist_ok=True)
     hf = store.find_holdings_file()
     if not hf:
         log("No holdings.xlsx found in the repo root.")
@@ -48,13 +50,22 @@ def main():
         code = m.get("code")
         st = {"code": code, "nav": "skipped", "factsheet": "skipped"}
         status["funds"][h.fund] = st
+        if not code and m.get("nav_by_isin") and m.get("isin"):
+            code = f"isin-{m['isin']}"          # files keyed by ISIN when there is no AMFI code
+            st["code"] = code
         if not code:
             st["nav"] = st["factsheet"] = "no AMFI code"
             continue
 
         # ---- NAV
         try:
-            nav = sources.mfapi_nav(code)
+            nav = sources.nav_by_isin(m["isin"]) if code.startswith("isin-") else sources.mfapi_nav(code)
+            stale = not nav["nav"] or nav["nav"][-1][0] < (today - timedelta(days=15)).isoformat()
+            if stale and m.get("isin") and not code.startswith("isin-"):
+                alt = sources.nav_by_isin(m["isin"])
+                if alt["nav"] and (not nav["nav"] or alt["nav"][-1][0] > nav["nav"][-1][0]):
+                    nav = alt
+                    log(f"{h.fund}: mfapi NAV was out of date, used the ISIN backup source.")
             cutoff = min([(today - timedelta(days=365 * NAV_YEARS_KEPT)).isoformat()] +
                          ([str(h.date)] if h.date else []))
             rows = [r for r in nav["nav"] if r[0] >= cutoff]
@@ -76,7 +87,7 @@ def main():
             j = sources.groww_scheme(m["groww_slug"])
             time.sleep(1.0)
             if j:
-                stats = sources.groww_portfolio_stats(code)
+                stats = None if code.startswith("isin-") else sources.groww_portfolio_stats(code)
                 snap = sources.normalise_groww(j, stats)
                 time.sleep(1.0)
         if m.get("isin"):

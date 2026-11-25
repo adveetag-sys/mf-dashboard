@@ -7,22 +7,31 @@ from __future__ import annotations
 
 import json
 import re
+from datetime import date, timedelta
 from pathlib import Path
 
 from rapidfuzz import fuzz, process
 
 from . import sources
 
-AMFI_NAV_ALL = "https://www.amfiindia.com/spages/NAVAll.txt"
+AMFI_NAV_ALL = ["https://portal.amfiindia.com/spages/NAVAll.txt",
+                "https://www.amfiindia.com/spages/NAVAll.txt"]
+MAP_VERSION = 2          # bump to re-check every saved match
 
 
 def amfi_universe() -> list[dict]:
     """Active schemes from AMFI's daily NAV file: code, isin_growth, isin_reinv, name."""
-    try:
-        r = sources._session.get(AMFI_NAV_ALL, timeout=60)
-        r.raise_for_status()
-        txt = r.text
-    except Exception:
+    txt = ""
+    for url in AMFI_NAV_ALL:
+        try:
+            r = sources._session.get(url, timeout=60)
+            r.raise_for_status()
+            if ";" in r.text[:5000]:
+                txt = r.text
+                break
+        except Exception:
+            continue
+    if not txt:
         return [{"code": str(s["schemeCode"]), "name": s["schemeName"], "isin": None, "isin2": None}
                 for s in sources.mfapi_all_schemes()]
     out = []
@@ -90,7 +99,10 @@ def resolve_groww(scheme_name: str, isin: str | None, code: str | None, hint: st
     for r in sources.groww_search(core)[:6]:
         cands.append(r["search_id"])
     base = sources.slugify(core)
-    cands += [f"{base}-fund-direct-growth", f"{base}-direct-growth", f"{base}-direct-plan-growth"]
+    for bb in dict.fromkeys([base, base.replace("-and-", "-"), base.replace("multi-cap", "multicap"),
+                             base.replace("multicap", "multi-cap"), base.replace("smallcap", "small-cap"),
+                             base.replace("midcap", "mid-cap")]):
+        cands += [f"{bb}-fund-direct-growth", f"{bb}-direct-growth", f"{bb}-direct-plan-growth"]
     seen = set()
     for slug in cands:
         if not slug or slug in seen:
@@ -111,11 +123,43 @@ def resolve_groww(scheme_name: str, isin: str | None, code: str | None, hint: st
     return None
 
 
+def _isin_ok(code: str, isin: str) -> bool:
+    """True if mfapi says this scheme code carries this ISIN and still has a recent NAV."""
+    try:
+        nav = sources.mfapi_nav(code)
+    except RuntimeError:
+        return False
+    meta = nav["meta"]
+    isins = {meta.get("isin_growth"), meta.get("isin_div_reinvestment"), meta.get("isin_div_payout")}
+    if isin not in isins:
+        return False
+    return bool(nav["nav"]) and nav["nav"][-1][0] >= (date.today() - timedelta(days=15)).isoformat()
+
+
+def _search_by_isin(isin: str, name: str) -> dict | None:
+    """When AMFI's list isn't reachable: search mfapi by name and keep the code whose ISIN matches."""
+    words = _core(name).split()
+    tried = set()
+    for q in (" ".join(words[:3]), " ".join(words[:2]), words[0] if words else ""):
+        if not q or q in tried:
+            continue
+        tried.add(q)
+        for s in sources.mfapi_search(q)[:40]:
+            code = str(s.get("schemeCode"))
+            if _isin_ok(code, isin):
+                return {"code": code, "name": s.get("schemeName")}
+    return None
+
+
 def resolve_all(portfolio, map_path: Path, log) -> dict:
     fmap = json.loads(map_path.read_text()) if map_path.exists() else {}
     universe = None
     for h in portfolio.holdings:
         cur = fmap.get(h.fund, {})
+        if cur.get("v") != MAP_VERSION or (h.isin and cur.get("isin_given") != h.isin):
+            cur = {}                      # re-check old or changed matches
+        cur["v"] = MAP_VERSION
+        cur["isin_given"] = h.isin
         # user-supplied identifiers always win
         if h.code:
             cur.update(code=h.code, method="from your Excel (AMFI code)", score=100)
@@ -123,8 +167,16 @@ def resolve_all(portfolio, map_path: Path, log) -> dict:
             universe = universe or amfi_universe()
             u = next((x for x in universe if h.isin in (x["isin"], x["isin2"])), None)
             if u:
-                cur.update(code=u["code"], scheme_name=u["name"], isin=h.isin, method="from your Excel (ISIN)", score=100)
-        if not cur.get("code"):
+                cur.update(code=u["code"], scheme_name=u["name"], isin=h.isin, method="ISIN (AMFI list)", score=100)
+            else:
+                u = _search_by_isin(h.isin, h.fund)
+                if u:
+                    cur.update(code=u["code"], scheme_name=u["name"], isin=h.isin, method="ISIN (mfapi check)", score=100)
+                else:
+                    cur.update(code=None, isin=h.isin, scheme_name=None, method="ISIN not found; using ISIN NAV backup",
+                               score=None, nav_by_isin=True)
+                    log(f"'{h.fund}': ISIN {h.isin} not found in AMFI's list; NAV taken from the ISIN backup source.")
+        if not cur.get("code") and not cur.get("nav_by_isin"):
             universe = universe or amfi_universe()
             u, s = match_name(h.fund, universe)
             if u:
@@ -137,7 +189,7 @@ def resolve_all(portfolio, map_path: Path, log) -> dict:
                 log(f"Couldn't match '{h.fund}' to any AMFI scheme.")
                 fmap[h.fund] = cur
                 continue
-        if not cur.get("scheme_name") or not cur.get("isin"):
+        if cur.get("code") and (not cur.get("scheme_name") or not cur.get("isin")):
             try:
                 meta = sources.mfapi_nav(cur["code"])["meta"]
                 cur.setdefault("scheme_name", meta.get("scheme_name"))
@@ -148,11 +200,14 @@ def resolve_all(portfolio, map_path: Path, log) -> dict:
             cur["groww_slug"] = None
         if not cur.get("groww_slug"):
             cur["groww_slug"] = resolve_groww(cur.get("scheme_name") or h.fund, cur.get("isin"), cur.get("code"), h.groww)
+            if not cur["groww_slug"] and cur.get("scheme_name") and _core(cur["scheme_name"]) != _core(h.fund):
+                cur["groww_slug"] = resolve_groww(h.fund, cur.get("isin"), cur.get("code"), None)  # old name
             if not cur["groww_slug"]:
                 log(f"No Groww page found for '{h.fund}'. Holdings for it will come from Kuvera/AMC only; "
                     f"paste its Groww link into your Excel to fix.")
         fmap[h.fund] = cur
     # drop funds you no longer hold from the map
     fmap = {k: v for k, v in fmap.items() if k in {h.fund for h in portfolio.holdings}}
+    map_path.parent.mkdir(parents=True, exist_ok=True)
     map_path.write_text(json.dumps(fmap, indent=2, default=str))
     return fmap
