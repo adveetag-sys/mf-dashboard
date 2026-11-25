@@ -120,6 +120,18 @@ def main():
         if snap["holdings"] == [] and snap["source"] == "groww":
             log(f"Groww answered for {h.fund} but no holdings were found. Keys seen: {snap.get('raw_keys')}")
 
+    # ---- Nifty 50 price index, for the Overview comparison
+    try:
+        rows = sources.nifty50()
+        cutoff = (today - timedelta(days=365 * NAV_YEARS_KEPT)).isoformat()
+        rows = [r for r in rows if r[0] >= cutoff]
+        store.write_json(store.NAV_DIR / "nifty50.json", {"meta": {"scheme_name": "Nifty 50 (price index)"},
+                                                         "nav": rows})
+        status["nifty50"] = f"ok, latest {rows[-1][0]}"
+    except Exception as e:
+        status["nifty50"] = f"failed: {e}"
+        log(f"Nifty 50 failed: {e}")
+
     import_amc_files(pf, fmap, today, log)
     store.write_json(store.STATUS, status)
     print("done")

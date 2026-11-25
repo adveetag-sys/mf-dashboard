@@ -114,12 +114,18 @@ def style(fig, h=380, legend=False):
     return fig
 
 
+BENCH = "Nifty 50"
+BENCH_COLOR = "#9e9e9e"     # neutral gray: the reference, not one of your funds
+
+
 def bars(labels, values, fmt="{:+.1f}%", h=None, hover_name="Return"):
-    """Horizontal ranked bar, blue for positive and red for negative, value labels at the end."""
+    """Horizontal ranked bar, blue for positive and red for negative, value labels at the end.
+    The Nifty 50 bar, if present, is gray so it reads as the yardstick."""
     d = pd.DataFrame({"l": labels, "v": values}).dropna().sort_values("v")
     fig = go.Figure(go.Bar(
-        x=d["v"], y=d["l"], orientation="h", marker=dict(color=[POS if v >= 0 else NEG for v in d["v"]],
-                                                         cornerradius=4),
+        x=d["v"], y=[f"<b>{l}</b>" if l == BENCH else l for l in d["l"]], orientation="h",
+        marker=dict(color=[BENCH_COLOR if l == BENCH else (POS if v >= 0 else NEG) for l, v in zip(d["l"], d["v"])],
+                    cornerradius=4),
         text=[fmt.format(v) for v in d["v"]], textposition="outside", cliponaxis=False,
         hovertemplate="%{y}<br>" + hover_name + ": %{x:.2f}<extra></extra>"))
     style(fig, h or max(160, 30 * len(d) + 40))
@@ -183,7 +189,10 @@ def load_all(stamp):
                       "metrics": met, "holdings": latest.get("holdings", []),
                       "portfolio_date": latest.get("portfolio_date"),
                       "category": met.get("sub_category") or met.get("category") or "Not fetched yet"})
-    return pf, funds, store.read_json(store.STATUS, {})
+    bnav = store.read_json(store.NAV_DIR / "nifty50.json", {}).get("nav", [])     # Nifty 50 price index
+    bench = {"short": BENCH, "nav_hist": bnav, "tr": A.trailing_returns(bnav), "mret": A.monthly_returns(bnav, 12),
+             "name": "Nifty 50"} if bnav else None
+    return pf, funds, store.read_json(store.STATUS, {}), bench
 
 
 _hf = store.find_holdings_file()
@@ -193,7 +202,7 @@ loaded = load_all(stamp)
 if loaded is None:
     st.error("Put your holdings Excel in the repo as `holdings.xlsx` and the dashboard will build itself.")
     st.stop()
-pf, funds, status = loaded
+pf, funds, status, bench = loaded
 
 # funds whose NAV stopped updating are shown but kept out of comparisons
 last_dates = [f["nav_date"] for f in funds if f["nav_date"]]
@@ -250,6 +259,11 @@ else:
            pct(dm, 2, True), None, direction(dm)),
           ("Average 1-year return", pct(y1), None, None),
           ("Beating category (1Y)", f"{nb} of {len(beat)}" if beat else "–", None, None),
+          ("Beating Nifty 50 (1Y)",
+           (f"{sum((f['tr'].get('1Y') or -999) > bench['tr']['1Y'] for f in live)} of "
+            f"{sum(f['tr'].get('1Y') is not None for f in live)}") if bench and bench["tr"].get("1Y") is not None else "–",
+           f"Nifty 50: {pct(bench['tr'].get('1Y'), 1, True)}" if bench else None,
+           direction(bench["tr"].get("1Y")) if bench else None),
           ("Best 1Y", best["short"] if best else "–", pct(best["tr"].get("1Y"), 1, True) if best else None,
            direction(best["tr"].get("1Y")) if best else None)])
     st.markdown("<div class='muted'>Add <b>Units</b> and <b>Invested</b> columns to holdings.xlsx to see your own ₹ value, gain and XIRR.</div>",
@@ -281,38 +295,50 @@ with tabs[0]:
         per = st.segmented_control("Period", ["1M", "3M", "6M", "1Y", "3Y", "5Y"], default="1Y",
                                    key="perrank", label_visibility="collapsed") or "1Y"
         vals = [(f["short"], f["tr"].get(per)) for f in live if f["tr"].get(per) is not None]
+        if bench and bench["tr"].get(per) is not None:
+            vals.append((BENCH, bench["tr"][per]))
         if vals:
             show(bars([v[0] for v in vals], [v[1] for v in vals]))
             if per in ("3Y", "5Y"):
                 st.markdown("<div class='muted'>Annualised. Funds younger than the period are left out.</div>",
                             unsafe_allow_html=True)
+            if bench and bench["tr"].get(per) is not None:
+                nb_ = sum(v > bench["tr"][per] for n, v in vals if n != BENCH)
+                st.markdown(f"<div class='muted'><b>{nb_} of {len(vals) - 1}</b> funds beat the Nifty 50 "
+                            f"(gray bar) over {per}.</div>", unsafe_allow_html=True)
         missing = [f["short"] for f in funds if f["stale"]]
         if missing:
             st.markdown(f"<div class='muted'>No current NAV for: {', '.join(missing)}.</div>",
                         unsafe_allow_html=True)
     with right:
         st.subheader("Compare funds")
-        names = [f["short"] for f in live]
+        names = ([BENCH] if bench else []) + [f["short"] for f in live]
         ranked = sorted(live, key=lambda f: f["tr"].get("1Y", -999), reverse=True)
-        default = [ranked[0]["short"], ranked[-1]["short"]] if len(ranked) > 1 else names[:1]
+        default = ([BENCH] if bench else []) + ([ranked[0]["short"], ranked[-1]["short"]] if len(ranked) > 1
+                                               else [f["short"] for f in live][:1])
         c1, c2 = st.columns([3, 1])
-        pick = c1.multiselect("Funds (up to 4)", names, default=default, max_selections=4, key="cmp")
+        pick = c1.multiselect("Funds (up to 4, incl. Nifty 50)", names, default=default, max_selections=4, key="cmp")
         span = c2.selectbox("Since", ["6M", "1Y", "3Y", "5Y"], index=1, key="cmpspan")
         if pick and latest_day:
             days = {"6M": 182, "1Y": 365, "3Y": 1095, "5Y": 1826}[span]
             start = (date.fromisoformat(latest_day) - timedelta(days=days)).isoformat()
             fig = go.Figure()
-            for i, n in enumerate(pick):
-                f = next(x for x in live if x["short"] == n)
+            ci = 0
+            for n in pick:
+                f = bench if (bench and n == BENCH) else next(x for x in live if x["short"] == n)
                 d = pd.DataFrame(f["nav_hist"], columns=["Date", "NAV"])
                 d = d[d["Date"] >= start]
                 if len(d) < 2:
                     continue
                 d["v"] = d["NAV"] / d["NAV"].iloc[0] * 100
-                fig.add_scatter(x=d["Date"], y=d["v"], name=n, mode="lines", line=dict(width=2, color=SERIES[i]),
+                is_b = n == BENCH
+                fig.add_scatter(x=d["Date"], y=d["v"], name=n, mode="lines",
+                                line=dict(width=2, color=BENCH_COLOR if is_b else SERIES[ci], dash="dash" if is_b else None),
                                 hovertemplate=n + "<br>%{x}<br>₹100 → ₹%{y:.1f}<extra></extra>")
                 fig.add_annotation(x=d["Date"].iloc[-1], y=d["v"].iloc[-1], text=f"{d['v'].iloc[-1] - 100:+.1f}%",
                                    showarrow=False, xanchor="left", xshift=6, font=dict(size=11))
+                if not is_b:
+                    ci += 1
             fig.add_hline(y=100, line_width=1, line_dash="dot", line_color="rgba(128,128,128,.6)")
             style(fig, 380, legend=True).update_layout(hovermode="x unified", margin=dict(r=50))
             fig.update_yaxes(title=None, tickprefix="₹")
@@ -328,22 +354,32 @@ with tabs[0]:
         grid = grid[cols]
         order = sorted(withnav, key=lambda f: (f["stale"], -(f["tr"].get("1Y") or -999)))
         grid = grid.loc[[f["short"] for f in order if f["short"] in grid.index]]
+        if bench and bench["mret"]:
+            brow = pd.DataFrame({BENCH: bench["mret"]}).T.reindex(columns=grid.columns)
+            grid = pd.concat([brow, grid])
         lim = max(5, min(15, float(grid.abs().max().max() or 5)))
         xl = [datetime.strptime(c, "%Y-%m").strftime("%b %y") for c in cols]
         text = [["" if pd.isna(v) else f"{v:+.1f}" for v in row] for row in grid.values]
-        fig = go.Figure(go.Heatmap(z=grid.values, x=xl, y=list(grid.index), text=text, texttemplate="%{text}",
+        fig = go.Figure(go.Heatmap(z=grid.values, x=xl, y=[f"<b>{r}</b>" if r == BENCH else r for r in grid.index],
+                                   text=text, texttemplate="%{text}",
                                    textfont=dict(size=11), colorscale=DIVERGING, zmin=-lim, zmax=lim, xgap=2, ygap=2,
                                    showscale=False, hovertemplate="%{y}<br>%{x}: %{z:+.2f}%<extra></extra>"))
         style(fig, 60 + 30 * len(grid)).update_xaxes(side="top", showgrid=False).update_yaxes(
             autorange="reversed", showgrid=False)
         show(fig)
         st.markdown("<div class='muted'>NAV change in each calendar month, %. Blue = up, red = down. "
-                    "The last column is month-to-date. Sorted by 1-year return.</div>", unsafe_allow_html=True)
+                    "The last column is month-to-date. Sorted by 1-year return; Nifty 50 on top for reference."
+                    "</div>", unsafe_allow_html=True)
     nonav = [f["short"] for f in funds if not f["mret"]]
     if nonav:
         st.markdown(f"<div class='muted'>No NAV yet for: {html.escape(', '.join(nonav))}.</div>",
                     unsafe_allow_html=True)
 
+    if bench:
+        st.markdown(f"<div class='muted'>Nifty 50 is the index level (price only, as of "
+                    f"{bench['nav_hist'][-1][0]}). It leaves out dividends of roughly 1–1.5% a year, which your "
+                    "funds' NAVs include, so funds look slightly better against it than they really are.</div>",
+                    unsafe_allow_html=True)
     st.subheader("By category")
     cat = pd.DataFrame([{"Category": f["category"], "w": f["weight_value"]} for f in funds if f["weight_value"]])
     if len(cat):
@@ -352,7 +388,7 @@ with tabs[0]:
             fig = bars(cs.index, cs.values, fmt="{:.1f}%", hover_name="Share")
         else:
             cs = cat.groupby("Category").size()
-            fig = bars(cs.index, cs.values.astype(float), fmt="{:.0f} funds", hover_name="Funds")
+            fig = bars(cs.index, cs.values.astype(float), fmt="{:.0f}", hover_name="Funds")
             fig.update_xaxes(ticksuffix="", dtick=1)
         fig.update_traces(marker_color=SERIES[0])
         show(fig)

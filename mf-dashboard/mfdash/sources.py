@@ -73,6 +73,31 @@ def nav_by_isin(isin: str) -> dict:
     return {"meta": {"scheme_name": j.get("name"), "isin_growth": j.get("ISIN")}, "nav": rows}
 
 
+# ---------------------------------------------------------------- Nifty 50 (price index)
+def nifty50() -> list:
+    """Daily Nifty 50 closes [(date, close)], oldest first. Yahoo Finance chart data; yfinance as backup."""
+    for host in ("query1", "query2"):
+        try:
+            j = get_json(f"https://{host}.finance.yahoo.com/v8/finance/chart/%5ENSEI",
+                         tries=2, params={"range": "10y", "interval": "1d"})
+            r = j["chart"]["result"][0]
+            ts, cl = r["timestamp"], r["indicators"]["quote"][0]["close"]
+            rows = {}
+            for t, c in zip(ts, cl):
+                if c:
+                    rows[datetime.utcfromtimestamp(t + 19800).date().isoformat()] = round(float(c), 2)  # IST date
+            if rows:
+                return sorted(rows.items())
+        except Exception:
+            continue
+    try:
+        import yfinance as yf
+        h = yf.Ticker("^NSEI").history(period="10y", interval="1d")
+        return [(d.date().isoformat(), round(float(c), 2)) for d, c in h["Close"].dropna().items()]
+    except Exception as e:
+        raise RuntimeError(f"Nifty 50 fetch failed: {e}")
+
+
 # ---------------------------------------------------------------- Groww
 GROWW = "https://groww.in/v1/api/data/mf/web"
 
