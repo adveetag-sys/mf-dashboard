@@ -1,93 +1,115 @@
 {
- "updated_at": "2026-11-25T06:24:23.592818+00:00",
+ "updated_at": "2026-11-25T07:06:54.089059+00:00",
  "holdings_file": "holdings.xlsx",
  "funds": {
   "Kotak Emerging Equity Scheme Growth": {
-   "code": "119779",
-   "nav": "ok, latest 2026-11-23",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 3 holdings"
+   "code": "isin-INF174K01DS9",
+   "nav": "failed: GET https://mf.captnemo.in/nav/INF174K01DS9 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF174K01DS9",
+   "factsheet": "failed: no source answered"
   },
   "ICICI Prudential Focused Equity Fund": {
-   "code": "120722",
+   "code": "111957",
    "nav": "ok, latest 2026-11-23",
    "factsheet": "ok (groww), portfolio as of 2026-10-30, 45 holdings"
   },
   "HDFC Flexi Cap Fund Growth": {
-   "code": "118955",
+   "code": "101762",
    "nav": "ok, latest 2026-11-23",
    "factsheet": "ok (groww), portfolio as of 2026-10-30, 90 holdings"
   },
   "DSP Equity Opportunities Fund": {
-   "code": "131338",
-   "nav": "ok, latest 2020-10-14",
+   "code": "isin-INF740K01094",
+   "nav": "failed: GET https://mf.captnemo.in/nav/INF740K01094 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF740K01094",
    "factsheet": "failed: no source answered"
   },
   "HDFC Small Cap Fund - Growth Option": {
-   "code": "130503",
+   "code": "130502",
    "nav": "ok, latest 2026-11-23",
    "factsheet": "ok (groww), portfolio as of 2026-10-30, 90 holdings"
   },
   "Invesco India Smallcap Fund - Regular Plan - Growth": {
-   "code": "145139",
-   "nav": "ok, latest 2026-11-23",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 76 holdings"
+   "code": "isin-INF205K011T7",
+   "nav": "failed: GET https://mf.captnemo.in/nav/INF205K011T7 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF205K011T7",
+   "factsheet": "failed: no source answered"
   },
   "Kotak Multicap Fund-Regular Plan-Growth": {
-   "code": "149886",
-   "nav": "ok, latest 2026-11-23",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 77 holdings"
+   "code": "isin-INF174KA1HS9",
+   "nav": "failed: GET https://mf.captnemo.in/nav/INF174KA1HS9 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF174KA1HS9",
+   "factsheet": "failed: no source answered"
   },
   "ICICI Prudential Dividend Yield Equity Fund Growth Option": {
-   "code": "129312",
-   "nav": "ok, latest 2026-11-23",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 77 holdings"
+   "code": "isin-INF109KA1TX4",
+   "nav": "failed: GET https://mf.captnemo.in/nav/INF109KA1TX4 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF109KA1TX4",
+   "factsheet": "failed: no source answered"
   },
   "SBI Large & Midcap Fund- Regular Plan -Growth": {
    "code": "103024",
    "nav": "ok, latest 2026-11-23",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 95 holdings"
+   "factsheet": "fresh (fetched 2026-11-25)"
   },
   "Quant Large Cap Fund - Regular Plan - Growth": {
    "code": "150441",
    "nav": "ok, latest 2026-11-23",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 30 holdings"
+   "factsheet": "fresh (fetched 2026-11-25)"
   },
   "Canara Robeco Multicap Fund Regular Growth": {
-   "code": "113101",
-   "nav": "empty",
+   "code": "isin-INF760K01KR2",
+   "nav": "failed: GET https://mf.captnemo.in/nav/INF760K01KR2 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF760K01KR2",
    "factsheet": "failed: no source answered"
   },
   "SBI Infratructure Fund - Regular Plan - Growth": {
-   "code": "106096",
-   "nav": "ok, latest 2026-11-23",
+   "code": "isin-INF200K01CT2",
+   "nav": "failed: GET https://mf.captnemo.in/nav/INF200K01CT2 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF200K01CT2",
    "factsheet": "ok (groww), portfolio as of 2026-10-30, 52 holdings"
   },
   "Bandhan Large & Mid Cap Fund - Regular Plan - Growth": {
    "code": "108596",
    "nav": "ok, latest 2026-11-23",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 136 holdings"
+   "factsheet": "fresh (fetched 2026-11-25)"
   },
   "Invesco India Focused Fund - Growth": {
-   "code": "148481",
+   "code": "148483",
    "nav": "ok, latest 2026-11-23",
    "factsheet": "ok (groww), portfolio as of 2026-10-30, 29 holdings"
   },
   "SBI Quality Fund - Regular Growth": {
    "code": "154175",
    "nav": "ok, latest 2026-11-23",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 53 holdings"
+   "factsheet": "fresh (fetched 2026-11-25)"
   },
   "Abakkus Flexi Cap Fund - Regular - Growth": {
    "code": "154041",
    "nav": "ok, latest 2026-11-23",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 50 holdings"
+   "factsheet": "fresh (fetched 2026-11-25)"
   }
  },
  "log": [
   "Read 16 funds from holdings.xlsx",
+  "'Kotak Emerging Equity Scheme Growth': ISIN INF174K01DS9 not found in AMFI's list; NAV taken from the ISIN backup source.",
+  "No Groww page found for 'Kotak Emerging Equity Scheme Growth'. Holdings for it will come from Kuvera/AMC only; paste its Groww link into your Excel to fix.",
+  "'DSP Equity Opportunities Fund': ISIN INF740K01094 not found in AMFI's list; NAV taken from the ISIN backup source.",
   "No Groww page found for 'DSP Equity Opportunities Fund'. Holdings for it will come from Kuvera/AMC only; paste its Groww link into your Excel to fix.",
+  "'Invesco India Smallcap Fund - Regular Plan - Growth': ISIN INF205K011T7 not found in AMFI's list; NAV taken from the ISIN backup source.",
+  "No Groww page found for 'Invesco India Smallcap Fund - Regular Plan - Growth'. Holdings for it will come from Kuvera/AMC only; paste its Groww link into your Excel to fix.",
+  "'Kotak Multicap Fund-Regular Plan-Growth': ISIN INF174KA1HS9 not found in AMFI's list; NAV taken from the ISIN backup source.",
+  "No Groww page found for 'Kotak Multicap Fund-Regular Plan-Growth'. Holdings for it will come from Kuvera/AMC only; paste its Groww link into your Excel to fix.",
+  "'ICICI Prudential Dividend Yield Equity Fund Growth Option': ISIN INF109KA1TX4 not found in AMFI's list; NAV taken from the ISIN backup source.",
+  "No Groww page found for 'ICICI Prudential Dividend Yield Equity Fund Growth Option'. Holdings for it will come from Kuvera/AMC only; paste its Groww link into your Excel to fix.",
+  "'Canara Robeco Multicap Fund Regular Growth': ISIN INF760K01KR2 not found in AMFI's list; NAV taken from the ISIN backup source.",
   "No Groww page found for 'Canara Robeco Multicap Fund Regular Growth'. Holdings for it will come from Kuvera/AMC only; paste its Groww link into your Excel to fix.",
+  "'SBI Infratructure Fund - Regular Plan - Growth': ISIN INF200K01CT2 not found in AMFI's list; NAV taken from the ISIN backup source.",
+  "NAV failed for Kotak Emerging Equity Scheme Growth: GET https://mf.captnemo.in/nav/INF174K01DS9 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF174K01DS9",
+  "Factsheet failed for Kotak Emerging Equity Scheme Growth",
+  "NAV failed for DSP Equity Opportunities Fund: GET https://mf.captnemo.in/nav/INF740K01094 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF740K01094",
   "Factsheet failed for DSP Equity Opportunities Fund",
-  "Factsheet failed for Canara Robeco Multicap Fund Regular Growth"
+  "NAV failed for Invesco India Smallcap Fund - Regular Plan - Growth: GET https://mf.captnemo.in/nav/INF205K011T7 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF205K011T7",
+  "Factsheet failed for Invesco India Smallcap Fund - Regular Plan - Growth",
+  "NAV failed for Kotak Multicap Fund-Regular Plan-Growth: GET https://mf.captnemo.in/nav/INF174KA1HS9 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF174KA1HS9",
+  "Factsheet failed for Kotak Multicap Fund-Regular Plan-Growth",
+  "NAV failed for ICICI Prudential Dividend Yield Equity Fund Growth Option: GET https://mf.captnemo.in/nav/INF109KA1TX4 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF109KA1TX4",
+  "Factsheet failed for ICICI Prudential Dividend Yield Equity Fund Growth Option",
+  "NAV failed for Canara Robeco Multicap Fund Regular Growth: GET https://mf.captnemo.in/nav/INF760K01KR2 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF760K01KR2",
+  "Factsheet failed for Canara Robeco Multicap Fund Regular Growth",
+  "NAV failed for SBI Infratructure Fund - Regular Plan - Growth: GET https://mf.captnemo.in/nav/INF200K01CT2 failed: 401 Client Error: Unauthorized for url: https://mf.captnemo.in/nav/INF200K01CT2"
  ]
 }
