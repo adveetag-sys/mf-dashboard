@@ -1,0 +1,93 @@
+{
+ "updated_at": "2026-11-25T06:24:23.592818+00:00",
+ "holdings_file": "holdings.xlsx",
+ "funds": {
+  "Kotak Emerging Equity Scheme Growth": {
+   "code": "119779",
+   "nav": "ok, latest 2026-11-23",
+   "factsheet": "ok (groww), portfolio as of 2026-10-30, 3 holdings"
+  },
+  "ICICI Prudential Focused Equity Fund": {
+   "code": "120722",
+   "nav": "ok, latest 2026-11-23",
+   "factsheet": "ok (groww), portfolio as of 2026-10-30, 45 holdings"
+  },
+  "HDFC Flexi Cap Fund Growth": {
+   "code": "118955",
+   "nav": "ok, latest 2026-11-23",
+   "factsheet": "ok (groww), portfolio as of 2026-10-30, 90 holdings"
+  },
+  "DSP Equity Opportunities Fund": {
+   "code": "131338",
+   "nav": "ok, latest 2020-10-14",
+   "factsheet": "failed: no source answered"
+  },
+  "HDFC Small Cap Fund - Growth Option": {
+   "code": "130503",
+   "nav": "ok, latest 2026-11-23",
+   "factsheet": "ok (groww), portfolio as of 2026-10-30, 90 holdings"
+  },
+  "Invesco India Smallcap Fund - Regular Plan - Growth": {
+   "code": "145139",
+   "nav": "ok, latest 2026-11-23",
+   "factsheet": "ok (groww), portfolio as of 2026-10-30, 76 holdings"
+  },
+  "Kotak Multicap Fund-Regular Plan-Growth": {
+   "code": "149886",
+   "nav": "ok, latest 2026-11-23",
+   "factsheet": "ok (groww), portfolio as of 2026-10-30, 77 holdings"
+  },
+  "ICICI Prudential Dividend Yield Equity Fund Growth Option": {
+   "code": "129312",
+   "nav": "ok, latest 2026-11-23",
+   "factsheet": "ok (groww), portfolio as of 2026-10-30, 77 holdings"
+  },
+  "SBI Large & Midcap Fund- Regular Plan -Growth": {
+   "code": "103024",
+   "nav": "ok, latest 2026-11-23",
+   "factsheet": "ok (groww), portfolio as of 2026-10-30, 95 holdings"
+  },
+  "Quant Large Cap Fund - Regular Plan - Growth": {
+   "code": "150441",
+   "nav": "ok, latest 2026-11-23",
+   "factsheet": "ok (groww), portfolio as of 2026-10-30, 30 holdings"
+  },
+  "Canara Robeco Multicap Fund Regular Growth": {
+   "code": "113101",
+   "nav": "empty",
+   "factsheet": "failed: no source answered"
+  },
+  "SBI Infratructure Fund - Regular Plan - Growth": {
+   "code": "106096",
+   "nav": "ok, latest 2026-11-23",
+   "factsheet": "ok (groww), portfolio as of 2026-10-30, 52 holdings"
+  },
+  "Bandhan Large & Mid Cap Fund - Regular Plan - Growth": {
+   "code": "108596",
+   "nav": "ok, latest 2026-11-23",
+   "factsheet": "ok (groww), portfolio as of 2026-10-30, 136 holdings"
+  },
+  "Invesco India Focused Fund - Growth": {
+   "code": "148481",
+   "nav": "ok, latest 2026-11-23",
+   "factsheet": "ok (groww), portfolio as of 2026-10-30, 29 holdings"
+  },
+  "SBI Quality Fund - Regular Growth": {
+   "code": "154175",
+   "nav": "ok, latest 2026-11-23",
+   "factsheet": "ok (groww), portfolio as of 2026-10-30, 53 holdings"
+  },
+  "Abakkus Flexi Cap Fund - Regular - Growth": {
+   "code": "154041",
+   "nav": "ok, latest 2026-11-23",
+   "factsheet": "ok (groww), portfolio as of 2026-10-30, 50 holdings"
+  }
+ },
+ "log": [
+  "Read 16 funds from holdings.xlsx",
+  "No Groww page found for 'DSP Equity Opportunities Fund'. Holdings for it will come from Kuvera/AMC only; paste its Groww link into your Excel to fix.",
+  "No Groww page found for 'Canara Robeco Multicap Fund Regular Growth'. Holdings for it will come from Kuvera/AMC only; paste its Groww link into your Excel to fix.",
+  "Factsheet failed for DSP Equity Opportunities Fund",
+  "Factsheet failed for Canara Robeco Multicap Fund Regular Growth"
+ ]
+}

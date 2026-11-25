@@ -1,0 +1,988 @@
+{
+ "months": {
+  "2026-10": {
+   "source": "groww",
+   "portfolio_date": "2026-10-30",
+   "metrics": {
+    "scheme_name": "SBI Large & Midcap Fund Direct Plan Growth",
+    "fund_house": "SBI Mutual Fund",
+    "category": "Equity",
+    "sub_category": "Large & MidCap",
+    "benchmark": "NIFTY Large Midcap 250 Total Return Index",
+    "risk": "Moderately High Riskometer",
+    "aum_cr": 39872.24,
+    "expense_ratio": 0.86,
+    "exit_load": "Exit load of 0.10% if redeemed within 30 days.",
+    "fund_manager": "Pradeep Kesavan; Saurabh Pant",
+    "launch_date": null,
+    "return_1y": 0.1,
+    "return_3y": 12.54,
+    "return_5y": 12.63,
+    "cat_return_1y": 2.39,
+    "cat_return_3y": 12.82,
+    "cat_return_5y": 12.22,
+    "pe": 29.07,
+    "pb": 3.95,
+    "turnover": 35.0,
+    "isin": "INF200K01UJ5",
+    "amfi_code": "119721"
+   },
+   "holdings": [
+    {
+     "name": "HDFC Bank Ltd",
+     "isin": null,
+     "sector": "Financial",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 6.6027,
+     "market_value": 2632.64
+    },
+    {
+     "name": "ICICI Bank Ltd",
+     "isin": null,
+     "sector": "Financial",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 4.0672,
+     "market_value": 1621.68
+    },
+    {
+     "name": "Axis Bank Ltd",
+     "isin": null,
+     "sector": "Financial",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 3.3575,
+     "market_value": 1338.7
+    },
+    {
+     "name": "Repo",
+     "isin": null,
+     "sector": "Unspecified",
+     "instrument": "Repo",
+     "rating": null,
+     "pct": 3.0024,
+     "market_value": 1197.1112
+    },
+    {
+     "name": "Gland Pharma Ltd",
+     "isin": null,
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 2.4742,
+     "market_value": 986.5355
+    },
+    {
+     "name": "Balkrishna Industries Ltd",
+     "isin": null,
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 2.4431,
+     "market_value": 974.122
+    },
+    {
+     "name": "Berger Paints India Ltd",
+     "isin": null,
+     "sector": "Materials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 2.333,
+     "market_value": 930.2
+    },
+    {
+     "name": "Asian Paints Ltd",
+     "isin": null,
+     "sector": "Materials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 2.2367,
+     "market_value": 891.808
+    },
+    {
+     "name": "Adani Enterprises Ltd",
+     "isin": null,
+     "sector": "Materials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 2.2169,
+     "market_value": 883.9245
+    },
+    {
+     "name": "Biocon Ltd",
+     "isin": null,
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 2.1264,
+     "market_value": 847.838
+    },
+    {
+     "name": "Tata Motors Ltd",
+     "isin": null,
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 2.1206,
+     "market_value": 845.5157
+    },
+    {
+     "name": "Divi's Laboratories Ltd",
+     "isin": null,
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 2.0359,
+     "market_value": 811.74
+    },
+    {
+     "name": "Ashok Leyland Ltd",
+     "isin": null,
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 2.034,
+     "market_value": 810.992
+    },
+    {
+     "name": "United Breweries Ltd",
+     "isin": null,
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 2.0189,
+     "market_value": 804.9646
+    },
+    {
+     "name": "Aurobindo Pharma Ltd",
+     "isin": null,
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.982,
+     "market_value": 790.258
+    },
+    {
+     "name": "Abbott India Ltd",
+     "isin": null,
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.9802,
+     "market_value": 789.558
+    },
+    {
+     "name": "Kotak Mahindra Bank Ltd",
+     "isin": null,
+     "sector": "Financial",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.9681,
+     "market_value": 784.72
+    },
+    {
+     "name": "Shree Cement Ltd",
+     "isin": null,
+     "sector": "Materials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.932,
+     "market_value": 770.3325
+    },
+    {
+     "name": "Torrent Power Ltd",
+     "isin": null,
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.9121,
+     "market_value": 762.385
+    },
+    {
+     "name": "Alkem Laboratories Ltd",
+     "isin": null,
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.8938,
+     "market_value": 755.1167
+    },
+    {
+     "name": "LTIMindtree Ltd",
+     "isin": null,
+     "sector": "Technology",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.8687,
+     "market_value": 745.096
+    },
+    {
+     "name": "Bharat Forge Ltd",
+     "isin": null,
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.8334,
+     "market_value": 731.0
+    },
+    {
+     "name": "HDFC Life Insurance Co Ltd",
+     "isin": null,
+     "sector": "Financial",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.8,
+     "market_value": 717.7065
+    },
+    {
+     "name": "Swiggy Ltd.",
+     "isin": null,
+     "sector": "Technology",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.6831,
+     "market_value": 671.08
+    },
+    {
+     "name": "Colgate-Palmolive (India) Ltd",
+     "isin": null,
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.666,
+     "market_value": 664.2625
+    },
+    {
+     "name": "FSN E-Commerce Ventures Ltd",
+     "isin": null,
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.5771,
+     "market_value": 628.83
+    },
+    {
+     "name": "HEXAWARE TECHNOLOGIES LIMITED EQ NEW FV RS.2/-",
+     "isin": null,
+     "sector": "Technology",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.5109,
+     "market_value": 602.4186
+    },
+    {
+     "name": "ICICI Prudential Asset Management Company Ltd.",
+     "isin": null,
+     "sector": "Financial",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.3578,
+     "market_value": 541.38
+    },
+    {
+     "name": "Hindustan Unilever Ltd",
+     "isin": null,
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.3562,
+     "market_value": 540.734
+    },
+    {
+     "name": "Indus Towers Ltd",
+     "isin": null,
+     "sector": "Technology",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.3392,
+     "market_value": 533.967
+    },
+    {
+     "name": "Sundram Fasteners Ltd",
+     "isin": null,
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.2197,
+     "market_value": 486.309
+    },
+    {
+     "name": "Jubilant FoodWorks Ltd",
+     "isin": null,
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.1639,
+     "market_value": 464.09
+    },
+    {
+     "name": "Page Industries Ltd",
+     "isin": null,
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.0508,
+     "market_value": 418.9784
+    },
+    {
+     "name": "Westlife Development Ltd",
+     "isin": null,
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.0425,
+     "market_value": 415.66
+    },
+    {
+     "name": "Infosys Ltd",
+     "isin": null,
+     "sector": "Technology",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 1.0379,
+     "market_value": 413.8416
+    },
+    {
+     "name": "EPAM Systems Inc (EPAM)",
+     "isin": null,
+     "sector": "Technology",
+     "instrument": "Foreign - Equity",
+     "rating": null,
+     "pct": 1.0036,
+     "market_value": 400.1656
+    },
+    {
+     "name": "Godrej Consumer Products Ltd",
+     "isin": null,
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.9642,
+     "market_value": 384.46
+    },
+    {
+     "name": "AIA Engineering Ltd",
+     "isin": null,
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.951,
+     "market_value": 379.1916
+    },
+    {
+     "name": "JSW Energy Ltd",
+     "isin": null,
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.9442,
+     "market_value": 376.4538
+    },
+    {
+     "name": "State Bank of India",
+     "isin": null,
+     "sector": "Financial",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.9227,
+     "market_value": 367.9076
+    },
+    {
+     "name": "Adani Transmission Ltd",
+     "isin": null,
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.9206,
+     "market_value": 367.064
+    },
+    {
+     "name": "ZF Commercial Vehicle Control Systems India Ltd",
+     "isin": null,
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.9141,
+     "market_value": 364.4758
+    },
+    {
+     "name": "ITC Ltd",
+     "isin": null,
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.9084,
+     "market_value": 362.1888
+    },
+    {
+     "name": "Delhivery Ltd",
+     "isin": null,
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.8906,
+     "market_value": 355.12
+    },
+    {
+     "name": "Bajaj Finserv Ltd",
+     "isin": null,
+     "sector": "Financial",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.8616,
+     "market_value": 343.5256
+    },
+    {
+     "name": "The Ramco Cements Ltd",
+     "isin": null,
+     "sector": "Materials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.8483,
+     "market_value": 338.2355
+    },
+    {
+     "name": "Samvardhana Motherson International Ltd",
+     "isin": null,
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.785,
+     "market_value": 313.0
+    },
+    {
+     "name": "HCL Technologies Ltd",
+     "isin": null,
+     "sector": "Technology",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.7826,
+     "market_value": 312.0399
+    },
+    {
+     "name": "Astral Ltd",
+     "isin": null,
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.6731,
+     "market_value": 268.38
+    },
+    {
+     "name": "Hero Motocorp Ltd",
+     "isin": null,
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.6466,
+     "market_value": 257.8333
+    },
+    {
+     "name": "Wipro Ltd",
+     "isin": null,
+     "sector": "Technology",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.6316,
+     "market_value": 251.8468
+    },
+    {
+     "name": "Endurance Technologies Ltd",
+     "isin": null,
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.6272,
+     "market_value": 250.074
+    },
+    {
+     "name": "Ingersoll Rand India Ltd",
+     "isin": null,
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.6231,
+     "market_value": 248.4261
+    },
+    {
+     "name": "Dr. Lal Pathlabs Ltd",
+     "isin": null,
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.6216,
+     "market_value": 247.832
+    },
+    {
+     "name": "Emami Ltd",
+     "isin": null,
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.5865,
+     "market_value": 233.8375
+    },
+    {
+     "name": "Tata Steel Ltd",
+     "isin": null,
+     "sector": "Materials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.5829,
+     "market_value": 232.4172
+    },
+    {
+     "name": "Kajaria Ceramics Ltd",
+     "isin": null,
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.5438,
+     "market_value": 216.8199
+    },
+    {
+     "name": "Tenneco Clean Air India Ltd.",
+     "isin": null,
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.5305,
+     "market_value": 211.533
+    },
+    {
+     "name": "Lupin Ltd",
+     "isin": null,
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.5269,
+     "market_value": 210.0719
+    },
+    {
+     "name": "Relaxo Footwears Ltd",
+     "isin": null,
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.526,
+     "market_value": 209.7433
+    },
+    {
+     "name": "SBI Cards & Payments Services Ltd",
+     "isin": null,
+     "sector": "Financial",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.524,
+     "market_value": 208.95
+    },
+    {
+     "name": "Cholamandalam Financial Holdings Ltd",
+     "isin": null,
+     "sector": "Financial",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.4855,
+     "market_value": 193.5785
+    },
+    {
+     "name": "Voltas Ltd",
+     "isin": null,
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.4834,
+     "market_value": 192.75
+    },
+    {
+     "name": "Hatsun Agro Products Ltd",
+     "isin": null,
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.4774,
+     "market_value": 190.3396
+    },
+    {
+     "name": "ACME Solar Holdings Ltd.",
+     "isin": null,
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.4772,
+     "market_value": 190.256
+    },
+    {
+     "name": "LG Electronics India Ltd.",
+     "isin": null,
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.4583,
+     "market_value": 182.754
+    },
+    {
+     "name": "JK Cement Ltd",
+     "isin": null,
+     "sector": "Materials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.4561,
+     "market_value": 181.849
+    },
+    {
+     "name": "Vedant Fashions Ltd",
+     "isin": null,
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.4561,
+     "market_value": 181.849
+    },
+    {
+     "name": "NUVOCO Vistas Corp Ltd",
+     "isin": null,
+     "sector": "Materials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.4504,
+     "market_value": 179.568
+    },
+    {
+     "name": "G R Infraprojects Ltd",
+     "isin": null,
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.4287,
+     "market_value": 170.9191
+    },
+    {
+     "name": "Honeywell Automation India Ltd",
+     "isin": null,
+     "sector": "Technology",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.425,
+     "market_value": 169.4495
+    },
+    {
+     "name": "Timken India Ltd",
+     "isin": null,
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.4006,
+     "market_value": 159.712
+    },
+    {
+     "name": "Coal India Ltd",
+     "isin": null,
+     "sector": "Materials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.3971,
+     "market_value": 158.323
+    },
+    {
+     "name": "ACC Ltd",
+     "isin": null,
+     "sector": "Materials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.385,
+     "market_value": 153.5037
+    },
+    {
+     "name": "Vedanta Aluminium Metal Ltd",
+     "isin": null,
+     "sector": "Materials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.3599,
+     "market_value": 143.5011
+    },
+    {
+     "name": "Persistent Systems Ltd",
+     "isin": null,
+     "sector": "Technology",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.2706,
+     "market_value": 107.883
+    },
+    {
+     "name": "Go Digit General Insurance Ltd.",
+     "isin": null,
+     "sector": "Financial",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.2559,
+     "market_value": 102.0396
+    },
+    {
+     "name": "Motherson Sumi Wiring India Ltd",
+     "isin": null,
+     "sector": "Industrials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.2526,
+     "market_value": 100.7369
+    },
+    {
+     "name": "Ganesha Ecosphere Ltd",
+     "isin": null,
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.2149,
+     "market_value": 85.7033
+    },
+    {
+     "name": "Deepak Nitrite Ltd",
+     "isin": null,
+     "sector": "Materials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.2134,
+     "market_value": 85.0864
+    },
+    {
+     "name": "Sheela Foam Ltd",
+     "isin": null,
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.196,
+     "market_value": 78.149
+    },
+    {
+     "name": "91 Days Treasury Bill 03-Dec-2026",
+     "isin": null,
+     "sector": "Financial",
+     "instrument": "Treasury Bills",
+     "rating": null,
+     "pct": 0.1747,
+     "market_value": 69.6578
+    },
+    {
+     "name": "Gujarat Gas Ltd",
+     "isin": null,
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.1526,
+     "market_value": 60.8292
+    },
+    {
+     "name": "Sun Pharmaceutical Industries Ltd",
+     "isin": null,
+     "sector": "Healthcare",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.1293,
+     "market_value": 51.5533
+    },
+    {
+     "name": "Lemon Tree Hotels Ltd",
+     "isin": null,
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.1154,
+     "market_value": 46.0058
+    },
+    {
+     "name": "GOVERNMENT OF INDIA 36714 364 DAYS TBILL 19NV26 FV RS 100",
+     "isin": null,
+     "sector": "Financial",
+     "instrument": "Treasury Bills",
+     "rating": null,
+     "pct": 0.0875,
+     "market_value": 34.904
+    },
+    {
+     "name": "Jindal Steel & Power Ltd",
+     "isin": null,
+     "sector": "Materials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.0756,
+     "market_value": 30.1551
+    },
+    {
+     "name": "HDFC Asset Management Company Ltd",
+     "isin": null,
+     "sector": "Financial",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.0651,
+     "market_value": 25.9729
+    },
+    {
+     "name": "Jio Platforms Ltd",
+     "isin": null,
+     "sector": "Technology",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.0325,
+     "market_value": 12.9616
+    },
+    {
+     "name": "GSPL Transmission Ltd",
+     "isin": null,
+     "sector": "Energy & Utilities",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.028,
+     "market_value": 11.1671
+    },
+    {
+     "name": "Cash Margin",
+     "isin": null,
+     "sector": "Unspecified",
+     "instrument": "Cash Margin",
+     "rating": null,
+     "pct": 0.0176,
+     "market_value": 7.0
+    },
+    {
+     "name": "Manpasand Beverages Ltd",
+     "isin": null,
+     "sector": "Consumer Staples",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.0,
+     "market_value": 0.0
+    },
+    {
+     "name": "Padmini Technologies Ltd",
+     "isin": null,
+     "sector": "Materials",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.0,
+     "market_value": 0.0
+    },
+    {
+     "name": "Numero Uno International Ltd Eq",
+     "isin": null,
+     "sector": "Consumer Discretionary",
+     "instrument": "Equity",
+     "rating": null,
+     "pct": 0.0,
+     "market_value": 0.0
+    },
+    {
+     "name": "Net Payables",
+     "isin": null,
+     "sector": "Unspecified",
+     "instrument": "Net Payables",
+     "rating": null,
+     "pct": -0.0075,
+     "market_value": -3.0053
+    }
+   ],
+   "raw_keys": [
+    "actions",
+    "additional_details",
+    "allotment_date",
+    "alternate_scheme_type",
+    "amc",
+    "amc_info",
+    "amc_page_url",
+    "analysis",
+    "aum",
+    "available_for_investment",
+    "base_expense_ratio",
+    "benchmark",
+    "benchmark_name",
+    "blocked_reason",
+    "brochure_link",
+    "category",
+    "category_info",
+    "closed_date",
+    "closed_scheme",
+    "conditional_maximum_purchase_amount_details",
+    "conditional_maximum_sip_amount_details",
+    "crisil_rating",
+    "description",
+    "direct_scheme_code",
+    "dividend",
+    "doc_required",
+    "exit_load",
+    "expense_ratio",
+    "face_value",
+    "fund_events",
+    "fund_house",
+    "fund_manager",
+    "fund_manager_details",
+    "fund_name",
+    "fund_news",
+    "groww_rating",
+    "groww_scheme_code",
+    "historic_exit_loads",
+    "historic_fund_expense",
+    "holdings",
+    "investment_date_configs",
+    "is_additional_check_req",
+    "is_prime_investment_allowed",
+    "isin",
+    "launch_date",
+    "lock_in",
+    "logo_url",
+    "lumpsum_allowed",
+    "max_sip_investment",
+    "meta_desc",
+    "meta_robots",
+    "meta_title",
+    "min_investment_amount",
+    "min_sip_investment",
+    "min_withdrawal",
+    "mini_additional_investment",
+    "nav",
+    "nav_date",
+    "nfo_image_url",
+    "nfo_risk",
+    "plan_type",
+    "portfolio_turnover",
+    "primary_action",
+    "prod_code",
+    "purchase_multiplier",
+    "redemption_amount_multiple",
+    "redemption_qty_multiplier",
+    "registrar_agent",
+    "regular_search_id",
+    "restricted_tax_statuses",
+    "return_stats",
+    "rta_details",
+    "rta_scheme_code",
+    "scheme_code",
+    "scheme_info_link",
+    "scheme_name",
+    "scheme_type",
+    "search_id",
+    "sid_url",
+    "simple_return",
+    "sip_allowed",
+    "sip_multiplier",
+    "sip_return",
+    "stamp_duty",
+    "stats",
+    "stp_details",
+    "stp_flag",
+    "sub_category",
+    "sub_sub_category",
+    "super_category",
+    "switch_flag",
+    "swp_details",
+    "swp_flag",
+    "swp_frequencies",
+    "unique_groww_scheme_code",
+    "video_url"
+   ],
+   "fetched_on": "2026-11-25"
+  }
+ }
+}

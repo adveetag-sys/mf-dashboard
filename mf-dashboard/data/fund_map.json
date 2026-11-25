@@ -1,1 +1,130 @@
-{}
+{
+  "Kotak Emerging Equity Scheme Growth": {
+    "code": "119779",
+    "scheme_name": "Kotak Global Emerging Market Overseas Equity Active FOF - Direct Plan - Growth",
+    "isin": "INF174K01LW4",
+    "method": "name match",
+    "score": 114.7,
+    "groww_slug": "kotak-global-emerging-market-overseas-equity-active-fof-direct-growth"
+  },
+  "ICICI Prudential Focused Equity Fund": {
+    "code": "120722",
+    "scheme_name": "ICICI Prudential Focused Fund - Direct Plan - Growth",
+    "isin": "INF109K018N2",
+    "method": "name match",
+    "score": 116.9,
+    "groww_slug": "icici-prudential-focused-fund-direct-growth"
+  },
+  "HDFC Flexi Cap Fund Growth": {
+    "code": "118955",
+    "scheme_name": "HDFC Flexi Cap Fund - Direct Plan - Growth Option",
+    "isin": "INF179K01UT0",
+    "method": "name match",
+    "score": 120,
+    "groww_slug": "hdfc-equity-fund-direct-growth"
+  },
+  "DSP Equity Opportunities Fund": {
+    "code": "131338",
+    "scheme_name": "SBI EQUITY OPPORTUNITIES FUND - SERIES I - DIRECT PLAN - GROWTH",
+    "isin": null,
+    "method": "name match",
+    "score": 119.0,
+    "groww_slug": null
+  },
+  "HDFC Small Cap Fund - Growth Option": {
+    "code": "130503",
+    "scheme_name": "HDFC Small Cap Fund - Direct Plan - Growth Option",
+    "isin": "INF179KA1RW5",
+    "method": "name match",
+    "score": 120,
+    "groww_slug": "hdfc-small-cap-fund-direct-growth"
+  },
+  "Invesco India Smallcap Fund - Regular Plan - Growth": {
+    "code": "145139",
+    "scheme_name": "Invesco India Small Cap Fund - Regular Plan - Growth",
+    "isin": "INF205K011T7",
+    "method": "name match",
+    "score": 120,
+    "groww_slug": "invesco-india-small-cap-fund-direct-growth"
+  },
+  "Kotak Multicap Fund-Regular Plan-Growth": {
+    "code": "149886",
+    "scheme_name": "SBI MultiCap Fund - Regular Plan - Growth",
+    "isin": "INF200KA15E8",
+    "method": "name match",
+    "score": 120,
+    "groww_slug": "sbi-multicap-fund-direct-growth"
+  },
+  "ICICI Prudential Dividend Yield Equity Fund Growth Option": {
+    "code": "129312",
+    "scheme_name": "ICICI Prudential Dividend Yield Fund - Direct Plan - Growth",
+    "isin": "INF109KA1UA0",
+    "method": "name match",
+    "score": 113.5,
+    "groww_slug": "icici-prudential-dividend-yield-fund-direct-growth"
+  },
+  "SBI Large & Midcap Fund- Regular Plan -Growth": {
+    "code": "103024",
+    "scheme_name": "SBI LARGE & MIDCAP FUND - Regular Plan - Growth",
+    "isin": "INF200K01305",
+    "method": "name match",
+    "score": 120,
+    "groww_slug": "sbi-magnum-multiplier-fund-direct-growth"
+  },
+  "Quant Large Cap Fund - Regular Plan - Growth": {
+    "code": "150441",
+    "scheme_name": "quant Large Cap Fund - Regular Plan - Growth Option",
+    "isin": "INF966L01AW4",
+    "method": "name match",
+    "score": 120,
+    "groww_slug": "quant-large-cap-fund-direct-growth"
+  },
+  "Canara Robeco Multicap Fund Regular Growth": {
+    "code": "113101",
+    "scheme_name": "Canara Robeco InDiGo Fund - Regular Plan - Growth",
+    "isin": null,
+    "method": "name match",
+    "score": 117.1,
+    "groww_slug": null
+  },
+  "SBI Infratructure Fund - Regular Plan - Growth": {
+    "code": "106096",
+    "scheme_name": "SBI INFRASTRUCTURE FUND - Regular Plan - Growth",
+    "isin": "INF200K01CT2",
+    "method": "name match",
+    "score": 120,
+    "groww_slug": "sbi-infrastructure-fund-direct-growth"
+  },
+  "Bandhan Large & Mid Cap Fund - Regular Plan - Growth": {
+    "code": "108596",
+    "scheme_name": "Bandhan Large & Mid Cap Fund - Regular Plan - Growth",
+    "isin": "INF194K01524",
+    "method": "name match",
+    "score": 120,
+    "groww_slug": "bandhan-large-mid-cap-fund-direct-growth"
+  },
+  "Invesco India Focused Fund - Growth": {
+    "code": "148481",
+    "scheme_name": "Invesco India Focused Fund - Direct Plan - Growth",
+    "isin": "INF205KA1213",
+    "method": "name match",
+    "score": 120,
+    "groww_slug": "invesco-india-focused-fund-direct-growth"
+  },
+  "SBI Quality Fund - Regular Growth": {
+    "code": "154175",
+    "scheme_name": "SBI Quality Fund - Regular Plan - Growth",
+    "isin": "INF200KB1AD3",
+    "method": "name match",
+    "score": 120,
+    "groww_slug": "sbi-quality-fund-direct-growth"
+  },
+  "Abakkus Flexi Cap Fund - Regular - Growth": {
+    "code": "154041",
+    "scheme_name": "Abakkus Flexi Cap Fund - Regular Plan - Growth",
+    "isin": "INF2JJD01169",
+    "method": "name match",
+    "score": 120,
+    "groww_slug": "abakkus-flexi-cap-fund-direct-growth"
+  }
+}
