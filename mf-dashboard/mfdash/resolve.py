@@ -16,7 +16,7 @@ from . import sources
 
 AMFI_NAV_ALL = ["https://portal.amfiindia.com/spages/NAVAll.txt",
                 "https://www.amfiindia.com/spages/NAVAll.txt"]
-MAP_VERSION = 3          # bump to re-check every saved match
+MAP_VERSION = 4          # bump to re-check every saved match
 
 
 def amfi_universe() -> list[dict]:
@@ -32,7 +32,8 @@ def amfi_universe() -> list[dict]:
         except Exception:
             continue
     if not txt:
-        return [{"code": str(s["schemeCode"]), "name": s["schemeName"], "isin": None, "isin2": None}
+        return [{"code": str(s["schemeCode"]), "name": s["schemeName"],
+                 "isin": s.get("isinGrowth") or None, "isin2": s.get("isinDivReinvestment") or None}
                 for s in sources.mfapi_all_schemes()]
     out = []
     for line in txt.splitlines():
@@ -183,6 +184,24 @@ def _find_by_isin(isin: str, fund_name: str, universe: list[dict]) -> tuple[dict
         close = max(fuzz.token_sort_ratio(_core(nm), _core(u["name"])) for nm in names)
         if fallback is None and _recent(nav) and close >= 92:
             fallback = u
+    # renamed funds (e.g. Kotak Emerging Equity -> Kotak Midcap): check every Regular growth scheme of the
+    # same fund house against the ISIN, most similar names first
+    words = _clean(fund_name).split()
+    prefix = " ".join(words[:2]) if words[:2] == ["icici", "prudential"] or words[:1] in (["aditya"], ["mirae"]) \
+        else words[0] if words else ""
+    want_direct = "direct" in _clean(fund_name)
+    same_house = [u for u in universe if _clean(u["name"]).startswith(prefix) and u["code"] not in seen
+                  and ("direct" in _clean(u["name"])) == want_direct
+                  and not re.search(r"idcw|dividend payout|bonus|segregated|unclaimed", _clean(u["name"]))]
+    same_house.sort(key=lambda u: -fuzz.token_set_ratio(_core(fund_name), _core(u["name"])))
+    for u in same_house[:160]:
+        try:
+            nav = sources.mfapi_nav(u["code"])
+        except RuntimeError:
+            continue
+        meta = nav["meta"]
+        if isin in {meta.get("isin_growth"), meta.get("isin_div_reinvestment"), meta.get("isin_div_payout")}:
+            return u, "ISIN (checked across the fund house)"
     if fallback:
         return fallback, "closest name with a current NAV (ISIN not matched)"
     return None, ""
@@ -193,8 +212,9 @@ def resolve_all(portfolio, map_path: Path, log) -> dict:
     universe = None
     for h in portfolio.holdings:
         cur = fmap.get(h.fund, {})
-        if cur.get("v") != MAP_VERSION or (h.isin and cur.get("isin_given") != h.isin):
-            cur = {}                      # re-check old or changed matches
+        ok_before = cur.get("v") == 3 and cur.get("code") and "ISIN (" in str(cur.get("method"))
+        if (cur.get("v") != MAP_VERSION and not ok_before) or (h.isin and cur.get("isin_given") != h.isin):
+            cur = {}                      # re-check failed, old or changed matches
         cur["v"] = MAP_VERSION
         cur["isin_given"] = h.isin
         # user-supplied identifiers always win
