@@ -16,7 +16,7 @@ from . import sources
 
 AMFI_NAV_ALL = ["https://portal.amfiindia.com/spages/NAVAll.txt",
                 "https://www.amfiindia.com/spages/NAVAll.txt"]
-MAP_VERSION = 2          # bump to re-check every saved match
+MAP_VERSION = 3          # bump to re-check every saved match
 
 
 def amfi_universe() -> list[dict]:
@@ -67,6 +67,14 @@ def _plan_bias(query: str, cand: str) -> float:
         if bad in c and bad not in q:
             score -= 10
     return score
+
+
+def rank_names(name: str, universe: list[dict], n: int = 10) -> list[tuple[dict, float]]:
+    names = [_clean(u["name"]) for u in universe]
+    top = process.extract(_clean(name), names, scorer=fuzz.token_set_ratio, limit=40)
+    scored = [(universe[idx], s + _plan_bias(name, universe[idx]["name"]) + 0.15 * fuzz.ratio(_clean(name), names[idx]))
+              for _, s, idx in top]
+    return sorted(scored, key=lambda t: -t[1])[:n]
 
 
 def match_name(name: str, universe: list[dict]) -> tuple[dict | None, float]:
@@ -136,19 +144,48 @@ def _isin_ok(code: str, isin: str) -> bool:
     return bool(nav["nav"]) and nav["nav"][-1][0] >= (date.today() - timedelta(days=15)).isoformat()
 
 
-def _search_by_isin(isin: str, name: str) -> dict | None:
-    """When AMFI's list isn't reachable: search mfapi by name and keep the code whose ISIN matches."""
-    words = _core(name).split()
-    tried = set()
-    for q in (" ".join(words[:3]), " ".join(words[:2]), words[0] if words else ""):
-        if not q or q in tried:
+def _recent(nav: dict) -> bool:
+    return bool(nav["nav"]) and nav["nav"][-1][0] >= (date.today() - timedelta(days=15)).isoformat()
+
+
+def _find_by_isin(isin: str, fund_name: str, universe: list[dict]) -> tuple[dict | None, str]:
+    """ISIN not in AMFI's list (or the list didn't load). Try, in order:
+    the scheme's current name from the ISIN backup source and your name -> closest AMFI/mfapi schemes ->
+    keep the one whose own ISIN matches; else the closest one that still has a current NAV."""
+    names = []
+    try:
+        b = sources.nav_by_isin(isin)
+        if b["meta"].get("scheme_name"):
+            names.append(b["meta"]["scheme_name"])      # current name, catches renamed funds
+    except RuntimeError:
+        pass
+    names.append(fund_name)
+    pool = universe
+    if not any(u.get("isin") for u in universe[:50]):
+        pool = universe                                  # mfapi list (no ISINs) - still fine for names
+    seen, cands = set(), []
+    for nm in names:
+        for u, sc in rank_names(nm, pool, 8):
+            if u["code"] not in seen:
+                seen.add(u["code"])
+                cands.append((u, sc))
+    fallback = None
+    for u, sc in cands[:14]:
+        try:
+            nav = sources.mfapi_nav(u["code"])
+        except RuntimeError:
             continue
-        tried.add(q)
-        for s in sources.mfapi_search(q)[:40]:
-            code = str(s.get("schemeCode"))
-            if _isin_ok(code, isin):
-                return {"code": code, "name": s.get("schemeName")}
-    return None
+        meta = nav["meta"]
+        isins = {meta.get("isin_growth"), meta.get("isin_div_reinvestment"), meta.get("isin_div_payout"),
+                 u.get("isin"), u.get("isin2")}
+        if isin in isins:
+            return u, "ISIN (checked against scheme)"
+        close = max(fuzz.token_sort_ratio(_core(nm), _core(u["name"])) for nm in names)
+        if fallback is None and _recent(nav) and close >= 92:
+            fallback = u
+    if fallback:
+        return fallback, "closest name with a current NAV (ISIN not matched)"
+    return None, ""
 
 
 def resolve_all(portfolio, map_path: Path, log) -> dict:
@@ -169,9 +206,12 @@ def resolve_all(portfolio, map_path: Path, log) -> dict:
             if u:
                 cur.update(code=u["code"], scheme_name=u["name"], isin=h.isin, method="ISIN (AMFI list)", score=100)
             else:
-                u = _search_by_isin(h.isin, h.fund)
+                u, how = _find_by_isin(h.isin, h.fund, universe)
                 if u:
-                    cur.update(code=u["code"], scheme_name=u["name"], isin=h.isin, method="ISIN (mfapi check)", score=100)
+                    cur.update(code=u["code"], scheme_name=u["name"], isin=h.isin, method=how, score=100)
+                    if "not matched" in how:
+                        log(f"'{h.fund}': ISIN {h.isin} not found; using closest scheme '{u['name']}'. "
+                            f"Check it's the right one.")
                 else:
                     cur.update(code=None, isin=h.isin, scheme_name=None, method="ISIN not found; using ISIN NAV backup",
                                score=None, nav_by_isin=True)

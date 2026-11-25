@@ -133,6 +133,20 @@ def bars(labels, values, fmt="{:+.1f}%", h=None, hover_name="Return"):
     return fig
 
 
+def styled(rows, fmt: dict):
+    """(DataFrame, column_config): numbers pre-formatted as right-aligned text, blanks shown as '–'."""
+    df = pd.DataFrame(rows)
+    cfg = {}
+    for c in df.columns:
+        if c in fmt:
+            df[c] = [("–" if v is None or (isinstance(v, float) and pd.isna(v)) else fmt[c].format(v))
+                     for v in df[c]]
+            cfg[c] = st.column_config.TextColumn(alignment="right")
+        else:
+            df[c] = ["–" if v is None or (isinstance(v, float) and pd.isna(v)) else v for v in df[c]]
+    return df, cfg
+
+
 def table(rows):
     """DataFrame with missing numbers shown blank instead of 'None'."""
     df = pd.DataFrame(rows)
@@ -307,13 +321,13 @@ with tabs[0]:
                         unsafe_allow_html=True)
 
     st.subheader("Month by month")
-    grid = pd.DataFrame({f["short"]: f["mret"] for f in live}).T
+    withnav = [f for f in funds if f["mret"]]
+    grid = pd.DataFrame({f["short"]: f["mret"] for f in withnav}).T
     if len(grid.columns):
         cols = sorted(grid.columns)[-12:]
         grid = grid[cols]
-        if live:
-            grid = grid.loc[[f["short"] for f in sorted(live, key=lambda f: -(f["tr"].get("1Y") or -999))
-                             if f["short"] in grid.index]]
+        order = sorted(withnav, key=lambda f: (f["stale"], -(f["tr"].get("1Y") or -999)))
+        grid = grid.loc[[f["short"] for f in order if f["short"] in grid.index]]
         lim = max(5, min(15, float(grid.abs().max().max() or 5)))
         xl = [datetime.strptime(c, "%Y-%m").strftime("%b %y") for c in cols]
         text = [["" if pd.isna(v) else f"{v:+.1f}" for v in row] for row in grid.values]
@@ -325,6 +339,10 @@ with tabs[0]:
         show(fig)
         st.markdown("<div class='muted'>NAV change in each calendar month, %. Blue = up, red = down. "
                     "The last column is month-to-date. Sorted by 1-year return.</div>", unsafe_allow_html=True)
+    nonav = [f["short"] for f in funds if not f["mret"]]
+    if nonav:
+        st.markdown(f"<div class='muted'>No NAV yet for: {html.escape(', '.join(nonav))}.</div>",
+                    unsafe_allow_html=True)
 
     st.subheader("By category")
     cat = pd.DataFrame([{"Category": f["category"], "w": f["weight_value"]} for f in funds if f["weight_value"]])
@@ -350,17 +368,17 @@ with tabs[1]:
         r1, c1 = m.get("return_1y"), m.get("cat_return_1y")
         rows.append({"Fund": f["short"], "Category": f["category"], "AUM ₹Cr": m.get("aum_cr"),
                      "Expense %": m.get("expense_ratio"), "P/E": m.get("pe"), "Stocks": sm.get("n_holdings"),
-                     "Top 10 %": sm.get("top10"), "Cash %": sm.get("cash"),
+                     "Top 10 %": sm.get("top10"), "Cash & other %": sm.get("cash"),
                      "1Y vs category": (r1 - c1) if (r1 is not None and c1 is not None) else None,
                      "To watch": sum(n["level"] == "watch" for n in notes),
                      "Portfolio as of": f["portfolio_date"]})
     nc = st.column_config.NumberColumn
     st.markdown("<div class='muted'>Latest factsheet numbers for every fund. Pick one below for the full read.</div>",
                 unsafe_allow_html=True)
-    st.dataframe(table(rows), hide_index=True, width="stretch", height=38 + 35 * len(rows), column_config={
-        "AUM ₹Cr": nc(format="%,.0f"), "Expense %": nc(format="%.2f", help="Direct plan"),
-        "P/E": nc(format="%.1f"), "Top 10 %": nc(format="%.1f"), "Cash %": nc(format="%.1f"),
-        "1Y vs category": nc(format="%+.1f pp"), "To watch": nc(format="%d")})
+    df, cfg = styled(rows, {"AUM ₹Cr": "{:,.0f}", "Expense %": "{:.2f}", "P/E": "{:.1f}", "Stocks": "{:.0f}",
+                            "Top 10 %": "{:.1f}", "Cash & other %": "{:.1f}", "1Y vs category": "{:+.1f} pp",
+                            "To watch": "{:.0f}"})
+    st.dataframe(df, column_config=cfg, hide_index=True, width="stretch", height=38 + 35 * len(rows))
 
     order = sorted(funds, key=lambda f: -sum(n["level"] == "watch" for n in f["notes"]))
     pick = st.selectbox("Fund", [f["short"] for f in order], key="fspick")
@@ -465,12 +483,12 @@ with tabs[1]:
         sm, mm = A.summary(s.get("holdings", [])), s.get("metrics", {})
         hist.append({"Month": mo, "AUM ₹Cr": mm.get("aum_cr"), "Expense %": mm.get("expense_ratio"),
                      "P/E": mm.get("pe"), "Stocks": sm.get("n_holdings"), "Top 10 %": sm.get("top10"),
-                     "Cash %": sm.get("cash"), "Top sector": sm.get("top_sector"), "Manager": mm.get("fund_manager")})
+                     "Cash & other %": sm.get("cash"), "Top sector": sm.get("top_sector"), "Manager": mm.get("fund_manager")})
     if hist:
         with st.expander(f"Factsheet history ({len(hist)} month{'s' if len(hist) != 1 else ''})"):
-            st.dataframe(table(hist[::-1]), hide_index=True, width="stretch", column_config={
-                "AUM ₹Cr": nc(format="%,.0f"), "Expense %": nc(format="%.2f"), "P/E": nc(format="%.1f"),
-                "Top 10 %": nc(format="%.1f"), "Cash %": nc(format="%.1f")})
+            df, cfg = styled(hist[::-1], {"AUM ₹Cr": "{:,.0f}", "Expense %": "{:.2f}", "P/E": "{:.1f}",
+                                          "Stocks": "{:.0f}", "Top 10 %": "{:.1f}", "Cash & other %": "{:.1f}"})
+            st.dataframe(df, column_config=cfg, hide_index=True, width="stretch")
 
 # ---------------------------------------------------------------- Across my funds
 with tabs[2]:

@@ -169,7 +169,8 @@ def summary(holdings: list[dict]) -> dict:
         "top10": round(sum(h["pct"] for h in eq[:10]), 2),
         "top_stock": eq[0]["name"] if eq else None,
         "top_stock_pct": eq[0]["pct"] if eq else None,
-        "cash": round(sum(h["pct"] for h in holdings if is_cash(h)), 2),
+        "cash": round(max(sum(h["pct"] for h in holdings if is_cash(h)),
+                          100 - sum(h["pct"] for h in holdings)), 2),   # unlisted remainder = cash & other
         "top_sector": max(sec, key=sec.get) if sec else None,
         "top_sector_pct": round(max(sec.values()), 2) if sec else None,
     }
