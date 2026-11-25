@@ -27,6 +27,7 @@ RENAMES = {
     "amara raja energy and mobility": "amara raja energy mob", "interglobe aviation": "inter globe aviation",
     "dhfl vysya housing finance": "aadhar housing finance", "akzo nobel": "jsw dulux",
     "schloss bangalore": "leela palaces hotels and resorts", "gujarat gas": "gujarat energy",
+    "glenmark life sciences": "alivus life sciences",
 }
 MOVE_PP = 0.25  # weight change (percentage points) that counts as a real add/trim
 
@@ -254,7 +255,9 @@ def sector_weights(holdings: list[dict]) -> dict:
     return dict(sorted(out.items(), key=lambda kv: -kv[1]))
 
 
-def diff_holdings(prev: list[dict], cur: list[dict]) -> pd.DataFrame:
+def diff_holdings(prev: list[dict], cur: list[dict], prev_floor: float | None = None) -> pd.DataFrame:
+    """prev_floor: when last month's file named only holdings above some weight (the rest lumped
+    together), a small holding missing from it isn't necessarily new."""
     pairs = match_names(prev, cur)
     matched_cur = set(pairs.values())
     items = [(prev[i], cur[pairs[i]] if i in pairs else None) for i in range(len(prev))]
@@ -263,7 +266,9 @@ def diff_holdings(prev: list[dict], cur: list[dict]) -> pd.DataFrame:
     for a, b in items:
         w0, w1 = (a["pct"] if a else 0.0), (b["pct"] if b else 0.0)
         ref = b or a
-        if a is None:
+        if a is None and prev_floor is not None and w1 <= prev_floor + 0.1:
+            action = "Below last month's listed size"
+        elif a is None:
             action = "New entry"
         elif b is None:
             action = "Exited"
@@ -279,7 +284,8 @@ def diff_holdings(prev: list[dict], cur: list[dict]) -> pd.DataFrame:
     df = pd.DataFrame(rows)
     if df.empty:
         return df
-    order = {"New entry": 0, "Exited": 1, "Increased": 2, "Reduced": 3, "Unchanged": 4}
+    order = {"New entry": 0, "Exited": 1, "Increased": 2, "Reduced": 3, "Unchanged": 4,
+             "Below last month's listed size": 5}
     df["o"] = df["Action"].map(order)
     df["a"] = df["Change (pp)"].abs()
     return df.sort_values(["o", "a"], ascending=[True, False]).drop(columns=["o", "a"]).reset_index(drop=True)
@@ -312,7 +318,7 @@ def study(snaps: dict, fund_name: str) -> list[dict]:
                     f"Largest: {cs['top_stock']} ({cs['top_stock_pct']:.1f}%). "
                     f"Biggest sector: {cs['top_sector']} ({cs['top_sector_pct']:.1f}%). Cash and equivalents: {cs['cash']:.1f}%.")
     if prev and cur.get("holdings") and prev.get("holdings"):
-        d = diff_holdings(prev["holdings"], cur["holdings"])
+        d = diff_holdings(prev["holdings"], cur["holdings"], prev.get("partial_floor"))
         d = d[~d["cash"]]
         new, ex = d[d.Action == "New entry"], d[d.Action == "Exited"]
         inc, red = d[d.Action == "Increased"], d[d.Action == "Reduced"]
@@ -328,7 +334,7 @@ def study(snaps: dict, fund_name: str) -> list[dict]:
             add("info", f"Trimmed most: {_fmt_list(f"{r['Stock']} ({r['Change (pp)']:.2f} pp)" for _, r in top.iterrows())}.")
         if not (len(new) or len(ex) or len(inc) or len(red)):
             add("good", "Portfolio barely changed from last month (low churn).")
-        churn = d["Change (pp)"].abs().sum() / 2
+        churn = d[d.Action != "Below last month's listed size"]["Change (pp)"].abs().sum() / 2
         if churn >= 15:
             add("watch", f"High activity: about {churn:.0f}% of the portfolio was reshuffled in one month.")
         if ps:
@@ -336,7 +342,7 @@ def study(snaps: dict, fund_name: str) -> list[dict]:
                 add("watch" if cs["top10"] > ps["top10"] else "info",
                     f"Top-10 concentration {'rose' if cs['top10'] > ps['top10'] else 'fell'} from "
                     f"{ps['top10']:.1f}% to {cs['top10']:.1f}%.")
-            if abs(cs["cash"] - ps["cash"]) >= 1:
+            if abs(cs["cash"] - ps["cash"]) >= 1 and not prev.get("partial"):
                 add("info", f"Cash moved from {ps['cash']:.1f}% to {cs['cash']:.1f}%"
                             f"{' (fund manager may be cautious)' if cs['cash'] > ps['cash'] + 2 else ''}.")
         same_src = (prev.get("source") == "amc file") == (cur.get("source") == "amc file")

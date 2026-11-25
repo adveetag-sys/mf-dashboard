@@ -429,6 +429,9 @@ with tabs[1]:
             was = back.get(i - 1) if prev_h is not None else None
             if prev_h is None:
                 move, chg = "–", None
+            elif was is None and f["snaps"][months_h[-2]].get("partial_floor") is not None \
+                    and x["pct"] <= f["snaps"][months_h[-2]]["partial_floor"] + 0.1:
+                move, chg = "Below last month's listed size", None
             elif was is None:
                 move, chg = "New this month", None
             else:
@@ -453,13 +456,19 @@ with tabs[1]:
             out = [f"{x['name']} ({x['pct']:.1f}% → {cur_h[in_all[i]]['pct'] if i in in_all else 0:.1f}%)"
                    for i, x in enumerate(prev_top) if i not in in_top]
             src = f["snaps"][months_h[-2]].get("source")
+            if f["snaps"][months_h[-2]].get("partial"):
+                src = "amc file"
+                st.markdown(f"<div class='muted'>Last month's file named holdings down to "
+                            f"{f['snaps'][months_h[-2]]['partial_floor']:.2f}%; the smallest "
+                            f"{f['snaps'][months_h[-2]].get('unnamed_pct', 0):.1f}% of the fund wasn't itemised.</div>",
+                            unsafe_allow_html=True)
             st.markdown(f"<div class='muted'>Compared {months_h[-2]} → {months_h[-1]}"
                         + (" (last month from the fund house's own portfolio file)" if src == "amc file" else "") + "."
                         + (f" Dropped out of the top 10: {html.escape(', '.join(out))}." if out else "") + "</div>",
                         unsafe_allow_html=True)
         if prev_h is not None:
             with st.expander("All holdings with monthly change"):
-                d = A.diff_holdings(prev_h, cur_h)
+                d = A.diff_holdings(prev_h, cur_h, f["snaps"][months_h[-2]].get("partial_floor"))
                 d = d[~d["cash"]].drop(columns=["cash"])
                 st.dataframe(d, hide_index=True, width="stretch")
 
