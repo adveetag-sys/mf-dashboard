@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-25T09:02:49.333775+00:00",
+ "updated_at": "2026-11-25T09:32:13.821335+00:00",
  "holdings_file": "holdings.xlsx",
  "funds": {
   "Kotak Emerging Equity Scheme Growth": {
@@ -35,7 +35,7 @@
   "Kotak Multicap Fund-Regular Plan-Growth": {
    "code": "149182",
    "nav": "ok, latest 2026-11-23",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 78 holdings"
+   "factsheet": "fresh (fetched 2026-11-25)"
   },
   "ICICI Prudential Dividend Yield Equity Fund Growth Option": {
    "code": "isin-INF109KA1TX4",
@@ -55,7 +55,7 @@
   "Canara Robeco Multicap Fund Regular Growth": {
    "code": "151821",
    "nav": "ok, latest 2026-11-23",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 113 holdings"
+   "factsheet": "fresh (fetched 2026-11-25)"
   },
   "SBI Infratructure Fund - Regular Plan - Growth": {
    "code": "106096",
