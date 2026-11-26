@@ -1,75 +1,75 @@
 {
- "updated_at": "2026-11-25T12:33:34.890652+00:00",
+ "updated_at": "2026-11-26T04:40:35.205113+00:00",
  "holdings_file": "holdings.xlsx",
  "funds": {
   "Kotak Emerging Equity Scheme Growth": {
    "code": "104908",
-   "nav": "ok, latest 2026-11-23",
+   "nav": "ok, latest 2026-11-25",
    "factsheet": "fresh (fetched 2026-11-25)"
   },
   "ICICI Prudential Focused Equity Fund": {
    "code": "111957",
-   "nav": "ok, latest 2026-11-23",
+   "nav": "ok, latest 2026-11-25",
    "factsheet": "fresh (fetched 2026-11-25)"
   },
   "HDFC Flexi Cap Fund Growth": {
    "code": "101762",
-   "nav": "ok, latest 2026-11-23",
+   "nav": "ok, latest 2026-11-25",
    "factsheet": "fresh (fetched 2026-11-25)"
   },
   "DSP Equity Opportunities Fund": {
    "code": "103819",
-   "nav": "ok, latest 2026-11-23",
+   "nav": "ok, latest 2026-11-25",
    "factsheet": "fresh (fetched 2026-11-25)"
   },
   "HDFC Small Cap Fund - Growth Option": {
    "code": "130502",
-   "nav": "ok, latest 2026-11-23",
+   "nav": "ok, latest 2026-11-25",
    "factsheet": "fresh (fetched 2026-11-25)"
   },
   "Invesco India Smallcap Fund - Regular Plan - Growth": {
    "code": "145139",
-   "nav": "ok, latest 2026-11-23",
+   "nav": "ok, latest 2026-11-25",
    "factsheet": "fresh (fetched 2026-11-25)"
   },
   "Kotak Multicap Fund-Regular Plan-Growth": {
    "code": "149182",
-   "nav": "ok, latest 2026-11-23",
+   "nav": "ok, latest 2026-11-25",
    "factsheet": "fresh (fetched 2026-11-25)"
   },
   "ICICI Prudential Dividend Yield Equity Fund Growth Option": {
    "code": "129310",
-   "nav": "ok, latest 2026-11-23",
+   "nav": "ok, latest 2026-11-25",
    "factsheet": "fresh (fetched 2026-11-25)"
   },
   "SBI Large & Midcap Fund- Regular Plan -Growth": {
    "code": "103024",
-   "nav": "ok, latest 2026-11-23",
+   "nav": "ok, latest 2026-11-25",
    "factsheet": "fresh (fetched 2026-11-25)"
   },
   "Quant Large Cap Fund - Regular Plan - Growth": {
    "code": "150441",
-   "nav": "ok, latest 2026-11-23",
+   "nav": "ok, latest 2026-11-25",
    "factsheet": "fresh (fetched 2026-11-25)"
   },
   "Canara Robeco Multicap Fund Regular Growth": {
    "code": "151821",
-   "nav": "ok, latest 2026-11-23",
+   "nav": "ok, latest 2026-11-25",
    "factsheet": "fresh (fetched 2026-11-25)"
   },
   "SBI Infratructure Fund - Regular Plan - Growth": {
    "code": "106096",
-   "nav": "ok, latest 2026-11-23",
+   "nav": "ok, latest 2026-11-25",
    "factsheet": "fresh (fetched 2026-11-25)"
   },
   "Bandhan Large & Mid Cap Fund - Regular Plan - Growth": {
    "code": "108596",
-   "nav": "ok, latest 2026-11-23",
+   "nav": "ok, latest 2026-11-25",
    "factsheet": "fresh (fetched 2026-11-25)"
   },
   "Invesco India Focused Fund - Growth": {
    "code": "148483",
-   "nav": "ok, latest 2026-11-23",
+   "nav": "ok, latest 2026-11-25",
    "factsheet": "fresh (fetched 2026-11-25)"
   },
   "SBI Quality Fund - Regular Growth": {
@@ -79,7 +79,7 @@
   },
   "Abakkus Flexi Cap Fund - Regular - Growth": {
    "code": "154041",
-   "nav": "ok, latest 2026-11-23",
+   "nav": "ok, latest 2026-11-25",
    "factsheet": "fresh (fetched 2026-11-25)"
   }
  },
@@ -90,5 +90,5 @@
   "2026-09: couldn't find 'ICICI Prudential Dividend Yield Equity Fund Growth Option' in the files in amc_portfolios/2026-09.",
   "2026-09: couldn't find 'Invesco India Focused Fund - Growth' in the files in amc_portfolios/2026-09."
  ],
- "nifty50": "ok, latest 2026-11-25"
+ "nifty50": "ok, latest 2026-11-26"
 }
