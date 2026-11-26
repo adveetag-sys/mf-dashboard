@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-26T04:40:35.205113+00:00",
+ "updated_at": "2026-11-26T10:02:34.150761+00:00",
  "holdings_file": "holdings.xlsx",
  "funds": {
   "Kotak Emerging Equity Scheme Growth": {
@@ -74,7 +74,7 @@
   },
   "SBI Quality Fund - Regular Growth": {
    "code": "154175",
-   "nav": "ok, latest 2026-11-23",
+   "nav": "ok, latest 2026-11-25",
    "factsheet": "fresh (fetched 2026-11-25)"
   },
   "Abakkus Flexi Cap Fund - Regular - Growth": {
