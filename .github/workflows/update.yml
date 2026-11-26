@@ -3,6 +3,7 @@ name: Update fund data
 on:
   schedule:
     - cron: "40 1 * * *"     # every day 07:10 IST
+    - cron: "17 4 * * *"     # backup run 09:47 IST, in case GitHub delays or skips the first
   push:
     paths:
       - "mf-dashboard/holdings.xlsx"

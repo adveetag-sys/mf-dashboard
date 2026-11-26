@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import json
 import re
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 from rapidfuzz import fuzz, process
@@ -39,10 +39,24 @@ def amfi_universe() -> list[dict]:
     for line in txt.splitlines():
         p = line.split(";")
         if len(p) >= 6 and p[0].strip().isdigit():
+            nav_date = None
+            try:
+                nav_date = datetime.strptime(p[5].strip(), "%d-%b-%Y").date().isoformat()
+            except ValueError:
+                pass
+            try:
+                nav = float(p[4].strip())
+            except ValueError:
+                nav = None
             out.append({"code": p[0].strip(), "isin": p[1].strip() if p[1].strip() not in ("-", "") else None,
                         "isin2": p[2].strip() if p[2].strip() not in ("-", "") else None,
-                        "name": p[3].strip()})
+                        "name": p[3].strip(), "nav": nav, "nav_date": nav_date})
     return out
+
+
+def amfi_latest_navs() -> dict:
+    """{scheme code: (date, nav)} from AMFI's daily file - the newest NAV, even when mfapi.in lags a day."""
+    return {u["code"]: (u["nav_date"], u["nav"]) for u in amfi_universe() if u.get("nav") and u.get("nav_date")}
 
 
 def _clean(n: str) -> str:

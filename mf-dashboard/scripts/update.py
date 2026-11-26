@@ -44,6 +44,12 @@ def main():
 
     status = {"updated_at": datetime.now(timezone.utc).isoformat(), "holdings_file": hf.name,
               "funds": {}, "log": log_lines}
+    try:
+        from mfdash.resolve import amfi_latest_navs
+        amfi_now = amfi_latest_navs()      # AMFI's own latest NAVs, to top up mfapi.in if it lags
+    except Exception as e:
+        amfi_now = {}
+        log(f"AMFI latest-NAV file not available this run: {e}")
     today = date.today()
     for h in pf.holdings:
         m = fmap.get(h.fund, {})
@@ -60,6 +66,9 @@ def main():
         # ---- NAV
         try:
             nav = sources.nav_by_isin(m["isin"]) if code.startswith("isin-") else sources.mfapi_nav(code)
+            top = amfi_now.get(code)
+            if top and nav["nav"] and top[0] > nav["nav"][-1][0]:
+                nav["nav"].append((top[0], top[1]))         # mfapi.in hasn't caught up yet
             stale = not nav["nav"] or nav["nav"][-1][0] < (today - timedelta(days=15)).isoformat()
             if stale and m.get("isin") and not code.startswith("isin-"):
                 alt = sources.nav_by_isin(m["isin"])
