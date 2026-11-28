@@ -1,86 +1,86 @@
 {
- "updated_at": "2026-11-28T09:27:05.678189+00:00",
+ "updated_at": "2026-11-28T13:04:39.016186+00:00",
  "holdings_file": "holdings.xlsx",
  "funds": {
   "Kotak Emerging Equity Scheme Growth": {
    "code": "104908",
    "nav": "ok, latest 2026-11-27",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 78 holdings"
+   "factsheet": "fresh (fetched 2026-11-28)"
   },
   "ICICI Prudential Focused Equity Fund": {
    "code": "111957",
    "nav": "ok, latest 2026-11-27",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 45 holdings"
+   "factsheet": "fresh (fetched 2026-11-28)"
   },
   "HDFC Flexi Cap Fund Growth": {
    "code": "101762",
    "nav": "ok, latest 2026-11-27",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 90 holdings"
+   "factsheet": "fresh (fetched 2026-11-28)"
   },
   "DSP Equity Opportunities Fund": {
    "code": "103819",
    "nav": "ok, latest 2026-11-27",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 75 holdings"
+   "factsheet": "fresh (fetched 2026-11-28)"
   },
   "HDFC Small Cap Fund - Growth Option": {
    "code": "130502",
    "nav": "ok, latest 2026-11-27",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 90 holdings"
+   "factsheet": "fresh (fetched 2026-11-28)"
   },
   "Invesco India Smallcap Fund - Regular Plan - Growth": {
    "code": "145139",
    "nav": "ok, latest 2026-11-27",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 76 holdings"
+   "factsheet": "fresh (fetched 2026-11-28)"
   },
   "Kotak Multicap Fund-Regular Plan-Growth": {
    "code": "149182",
    "nav": "ok, latest 2026-11-27",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 78 holdings"
+   "factsheet": "fresh (fetched 2026-11-28)"
   },
   "ICICI Prudential Dividend Yield Equity Fund Growth Option": {
    "code": "129310",
    "nav": "ok, latest 2026-11-27",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 77 holdings"
+   "factsheet": "fresh (fetched 2026-11-28)"
   },
   "SBI Large & Midcap Fund- Regular Plan -Growth": {
    "code": "103024",
    "nav": "ok, latest 2026-11-26",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 95 holdings"
+   "factsheet": "fresh (fetched 2026-11-28)"
   },
   "Quant Large Cap Fund - Regular Plan - Growth": {
    "code": "150441",
    "nav": "ok, latest 2026-11-27",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 30 holdings"
+   "factsheet": "fresh (fetched 2026-11-28)"
   },
   "Canara Robeco Multicap Fund Regular Growth": {
    "code": "151821",
    "nav": "ok, latest 2026-11-27",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 113 holdings"
+   "factsheet": "fresh (fetched 2026-11-28)"
   },
   "SBI Infratructure Fund - Regular Plan - Growth": {
    "code": "106096",
    "nav": "ok, latest 2026-11-26",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 52 holdings"
+   "factsheet": "fresh (fetched 2026-11-28)"
   },
   "Bandhan Large & Mid Cap Fund - Regular Plan - Growth": {
    "code": "108596",
    "nav": "ok, latest 2026-11-27",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 136 holdings"
+   "factsheet": "fresh (fetched 2026-11-28)"
   },
   "Invesco India Focused Fund - Growth": {
    "code": "148483",
    "nav": "ok, latest 2026-11-27",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 29 holdings"
+   "factsheet": "fresh (fetched 2026-11-28)"
   },
   "SBI Quality Fund - Regular Growth": {
    "code": "154175",
    "nav": "ok, latest 2026-11-26",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 53 holdings"
+   "factsheet": "fresh (fetched 2026-11-28)"
   },
   "Abakkus Flexi Cap Fund - Regular - Growth": {
    "code": "154041",
    "nav": "ok, latest 2026-11-27",
-   "factsheet": "ok (groww), portfolio as of 2026-10-30, 50 holdings"
+   "factsheet": "fresh (fetched 2026-11-28)"
   }
  },
  "log": [
