@@ -363,16 +363,16 @@
     "benchmark": "NIFTY 200 Quality 30 Total Return Index",
     "risk": "Very High",
     "aum_cr": 2621.15,
-    "expense_ratio": 1.34,
+    "expense_ratio": 1.33,
     "exit_load": "Exit load of 1%, if redeemed within 6 months.",
     "fund_manager": "Anup Upadhyay",
     "launch_date": null,
     "return_1y": null,
     "return_3y": null,
     "return_5y": null,
-    "cat_return_1y": -0.47,
-    "cat_return_3y": 9.56,
-    "cat_return_5y": 10.18,
+    "cat_return_1y": -0.01,
+    "cat_return_3y": 10.03,
+    "cat_return_5y": 11.02,
     "pe": 35.53,
     "pb": 6.34,
     "turnover": 99.0,
@@ -956,7 +956,7 @@
     "unique_groww_scheme_code",
     "video_url"
    ],
-   "fetched_on": "2026-11-25"
+   "fetched_on": "2026-11-28"
   }
  }
 }

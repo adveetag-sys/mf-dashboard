@@ -640,12 +640,12 @@
     "exit_load": "Exit load of 0.10% if redeemed within 30 days.",
     "fund_manager": "Pradeep Kesavan; Saurabh Pant",
     "launch_date": null,
-    "return_1y": 0.1,
-    "return_3y": 12.54,
-    "return_5y": 12.63,
-    "cat_return_1y": 2.39,
-    "cat_return_3y": 12.82,
-    "cat_return_5y": 12.22,
+    "return_1y": 0.55,
+    "return_3y": 12.93,
+    "return_5y": 13.47,
+    "cat_return_1y": 2.49,
+    "cat_return_3y": 13.11,
+    "cat_return_5y": 13.04,
     "pe": 29.07,
     "pb": 3.95,
     "turnover": 35.0,
@@ -1607,7 +1607,7 @@
     "unique_groww_scheme_code",
     "video_url"
    ],
-   "fetched_on": "2026-11-25"
+   "fetched_on": "2026-11-28"
   }
  }
 }

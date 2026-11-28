@@ -535,12 +535,12 @@
     "exit_load": "Exit load for units in excess of 10% of the investment,1% will be charged for redemption within 365 days",
     "fund_manager": "Atul Bhole",
     "launch_date": null,
-    "return_1y": 4.36,
-    "return_3y": 15.49,
-    "return_5y": 15.52,
-    "cat_return_1y": 4.21,
-    "cat_return_3y": 14.44,
-    "cat_return_5y": 14.9,
+    "return_1y": 3.52,
+    "return_3y": 15.55,
+    "return_5y": 16.19,
+    "cat_return_1y": 3.56,
+    "cat_return_3y": 14.54,
+    "cat_return_5y": 15.65,
     "pe": 30.66,
     "pb": 4.41,
     "turnover": 29.49,
@@ -1349,7 +1349,7 @@
     "unique_groww_scheme_code",
     "video_url"
    ],
-   "fetched_on": "2026-11-25"
+   "fetched_on": "2026-11-28"
   }
  }
 }

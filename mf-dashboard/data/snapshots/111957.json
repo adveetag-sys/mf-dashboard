@@ -15,12 +15,12 @@
     "exit_load": "Exit load of 1% if redeemed within 1 year",
     "fund_manager": "Vaibhav Dusad; Sharmila D'Silva",
     "launch_date": null,
-    "return_1y": 3.34,
-    "return_3y": 18.02,
-    "return_5y": 16.11,
-    "cat_return_1y": 5.55,
-    "cat_return_3y": 13.68,
-    "cat_return_5y": 11.94,
+    "return_1y": 4.31,
+    "return_3y": 18.63,
+    "return_5y": 17.11,
+    "cat_return_1y": 5.82,
+    "cat_return_3y": 13.99,
+    "cat_return_5y": 12.77,
     "pe": 27.61,
     "pb": 3.79,
     "turnover": 235.0,
@@ -532,7 +532,7 @@
     "unique_groww_scheme_code",
     "video_url"
    ],
-   "fetched_on": "2026-11-25"
+   "fetched_on": "2026-11-28"
   }
  }
 }

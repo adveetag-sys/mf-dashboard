@@ -626,15 +626,15 @@
     "exit_load": "Exit load of 1% if redeemed within 1 year\r\n",
     "fund_manager": "Dhruv Muchhal; Amit Ganatra",
     "launch_date": null,
-    "return_1y": 5.21,
-    "return_3y": 17.49,
-    "return_5y": 17.83,
-    "cat_return_1y": 3.69,
-    "cat_return_3y": 12.6,
-    "cat_return_5y": 11.46,
+    "return_1y": 6.34,
+    "return_3y": 17.88,
+    "return_5y": 18.8,
+    "cat_return_1y": 3.97,
+    "cat_return_3y": 12.95,
+    "cat_return_5y": 12.26,
     "pe": 25.95,
     "pb": 3.72,
-    "turnover": 11.74,
+    "turnover": 13.24,
     "isin": "INF179K01UT0",
     "amfi_code": "118955"
    },
@@ -1548,7 +1548,7 @@
     "unique_groww_scheme_code",
     "video_url"
    ],
-   "fetched_on": "2026-11-25"
+   "fetched_on": "2026-11-28"
   }
  }
 }

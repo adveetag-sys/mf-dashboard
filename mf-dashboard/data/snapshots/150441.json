@@ -227,12 +227,12 @@
     "exit_load": "Exit load of 1%, if redeemed within 15 days.",
     "fund_manager": "Varun Pattani; Sameer Kate; Sanjeev Sharma; Sandeep Tandon; Ayusha Kumbhat; Ankit A Pande; Yug Tibrewal; Jignesh Shah",
     "launch_date": null,
-    "return_1y": 5.65,
-    "return_3y": 13.75,
+    "return_1y": 5.62,
+    "return_3y": 13.71,
     "return_5y": null,
-    "cat_return_1y": 1.16,
-    "cat_return_3y": 12.02,
-    "cat_return_5y": 10.41,
+    "cat_return_1y": 2.21,
+    "cat_return_3y": 12.63,
+    "cat_return_5y": 11.39,
     "pe": 38.7,
     "pb": 5.65,
     "turnover": 470.0,
@@ -609,7 +609,7 @@
     "unique_groww_scheme_code",
     "video_url"
    ],
-   "fetched_on": "2026-11-25"
+   "fetched_on": "2026-11-28"
   }
  }
 }

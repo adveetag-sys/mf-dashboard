@@ -342,16 +342,16 @@
     "benchmark": "NIFTY Infrastructure Total Return Index",
     "risk": "High Riskometer",
     "aum_cr": 4614.42,
-    "expense_ratio": 1.18,
+    "expense_ratio": 1.16,
     "exit_load": "Exit load of 0.50% if redeemed within 30 days.",
     "fund_manager": "Bhavin Vithlani; Pradeep Kesavan",
     "launch_date": null,
-    "return_1y": 1.82,
-    "return_3y": 11.03,
-    "return_5y": 15.4,
-    "cat_return_1y": 3.43,
-    "cat_return_3y": 14.73,
-    "cat_return_5y": 17.0,
+    "return_1y": 1.29,
+    "return_3y": 11.05,
+    "return_5y": 16.01,
+    "cat_return_1y": 3.29,
+    "cat_return_3y": 14.84,
+    "cat_return_5y": 17.73,
     "pe": 21.36,
     "pb": 2.89,
     "turnover": 59.0,
@@ -926,7 +926,7 @@
     "unique_groww_scheme_code",
     "video_url"
    ],
-   "fetched_on": "2026-11-25"
+   "fetched_on": "2026-11-28"
   }
  }
 }

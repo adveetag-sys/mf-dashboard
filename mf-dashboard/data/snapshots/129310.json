@@ -15,12 +15,12 @@
     "exit_load": "Exit load of 1%, if redeemed within 1 month.",
     "fund_manager": "Mittul Kalawadia; Sharmila D'Silva",
     "launch_date": null,
-    "return_1y": -1.75,
-    "return_3y": 14.64,
-    "return_5y": 16.61,
-    "cat_return_1y": 1.15,
-    "cat_return_3y": 12.53,
-    "cat_return_5y": 13.04,
+    "return_1y": -0.76,
+    "return_3y": 15.21,
+    "return_5y": 17.53,
+    "cat_return_1y": 1.61,
+    "cat_return_3y": 12.96,
+    "cat_return_5y": 13.86,
     "pe": 19.08,
     "pb": 2.79,
     "turnover": 40.0,
@@ -820,7 +820,7 @@
     "unique_groww_scheme_code",
     "video_url"
    ],
-   "fetched_on": "2026-11-25"
+   "fetched_on": "2026-11-28"
   }
  }
 }

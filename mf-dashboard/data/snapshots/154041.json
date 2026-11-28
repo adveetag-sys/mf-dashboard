@@ -370,9 +370,9 @@
     "return_1y": null,
     "return_3y": null,
     "return_5y": null,
-    "cat_return_1y": 3.69,
-    "cat_return_3y": 12.6,
-    "cat_return_5y": 11.46,
+    "cat_return_1y": 3.97,
+    "cat_return_3y": 12.95,
+    "cat_return_5y": 12.26,
     "pe": 25.06,
     "pb": 3.62,
     "turnover": null,
@@ -929,7 +929,7 @@
     "unique_groww_scheme_code",
     "video_url"
    ],
-   "fetched_on": "2026-11-25"
+   "fetched_on": "2026-11-28"
   }
  }
 }

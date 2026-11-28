@@ -633,15 +633,15 @@
     "exit_load": "Exit load of 1% if redeemed within 1 year",
     "fund_manager": "Dhruv Muchhal; Chirag Setalvad",
     "launch_date": null,
-    "return_1y": -3.11,
-    "return_3y": 8.35,
-    "return_5y": 14.01,
-    "cat_return_1y": 9.91,
-    "cat_return_3y": 13.24,
-    "cat_return_5y": 15.26,
+    "return_1y": -4.0,
+    "return_3y": 8.3,
+    "return_5y": 14.28,
+    "cat_return_1y": 9.37,
+    "cat_return_3y": 13.31,
+    "cat_return_5y": 15.71,
     "pe": 21.54,
     "pb": 2.86,
-    "turnover": 6.17,
+    "turnover": 6.02,
     "isin": "INF179KA1RW5",
     "amfi_code": "130503"
    },
@@ -1555,7 +1555,7 @@
     "unique_groww_scheme_code",
     "video_url"
    ],
-   "fetched_on": "2026-11-25"
+   "fetched_on": "2026-11-28"
   }
  }
 }

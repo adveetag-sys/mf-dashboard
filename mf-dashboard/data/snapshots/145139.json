@@ -15,12 +15,12 @@
     "exit_load": "Exit load for units in excess of 10% of the investment, 1% will be charged for redemption within 1 year.",
     "fund_manager": "Taher Badshah; Aditya Khemani",
     "launch_date": null,
-    "return_1y": 20.54,
-    "return_3y": 21.04,
-    "return_5y": 20.53,
-    "cat_return_1y": 9.91,
-    "cat_return_3y": 13.24,
-    "cat_return_5y": 15.26,
+    "return_1y": 20.65,
+    "return_3y": 21.46,
+    "return_5y": 21.06,
+    "cat_return_1y": 9.37,
+    "cat_return_3y": 13.31,
+    "cat_return_5y": 15.71,
     "pe": 42.85,
     "pb": 4.66,
     "turnover": 22.0,
@@ -811,7 +811,7 @@
     "unique_groww_scheme_code",
     "video_url"
    ],
-   "fetched_on": "2026-11-25"
+   "fetched_on": "2026-11-28"
   }
  }
 }

@@ -850,12 +850,12 @@
     "exit_load": "Exit load of 1%, if redeemed within 365 days.",
     "fund_manager": "Vishal Mishra; Shridatta Bhandwaldar",
     "launch_date": null,
-    "return_1y": 4.01,
-    "return_3y": 13.69,
+    "return_1y": 4.13,
+    "return_3y": 14.0,
     "return_5y": null,
-    "cat_return_1y": 6.33,
-    "cat_return_3y": 14.6,
-    "cat_return_5y": 14.37,
+    "cat_return_1y": 6.4,
+    "cat_return_3y": 14.9,
+    "cat_return_5y": 15.17,
     "pe": 32.08,
     "pb": 4.48,
     "turnover": 32.0,
@@ -1979,7 +1979,7 @@
     "unique_groww_scheme_code",
     "video_url"
    ],
-   "fetched_on": "2026-11-25"
+   "fetched_on": "2026-11-28"
   }
  }
 }
